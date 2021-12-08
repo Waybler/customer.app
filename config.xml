@@ -1,8 +1,8 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget android-versionCode="500011" id="com.customer.app" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:android="http://schemas.android.com/apk/res/android" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>CaCharge</name>
-    <description>Controls EVSEs connected to the CaCharge system</description>
-    <author email="hi@vendor.com" href="https://www.vendor.com/">CaCharge AB</author>
+    <description>Controls EVSEs connected to the Vendor-Inc system</description>
+    <author email="hi@vendor.com" href="https://www.vendor.com/">Vendor-Inc</author>
     <content src="index.html" />
     <access origin="*" />
     <allow-navigation allows-arbitrary-loads-for-media="true" allows-arbitrary-loads-in-web-content="true" href="*" />
