@@ -1,0 +1,38 @@
+<ion-content>
+    <app-code-push></app-code-push>
+
+    <ion-card>
+        <ion-card-header>
+            <ion-card-title>
+                {{t('title')}}
+            </ion-card-title>
+        </ion-card-header>
+
+        <img src="/assets/imgs/garage.png" />
+
+        <ion-card-content>
+            <form #form="ngForm" (ngSubmit)="login(form)">
+                <ion-item>
+                    <ion-label position="stacked">{{t('email.label')}}</ion-label>
+                    <ion-input [placeholder]="t('email.placeholder')" type="email" name="email" ngModel required></ion-input>
+                </ion-item>
+
+                <ion-item>
+                    <ion-label position="stacked">{{t('password.label')}}</ion-label>
+                    <ion-input [placeholder]="t('password.placeholder')" type="password" name="password" ngModel required></ion-input>
+                </ion-item>
+
+                <ion-button expand="full" [disabled]="form.invalid" type="submit">{{t('login')}}</ion-button>
+
+                <ion-row>
+                    <ion-col>
+                        <ion-button expand="block" fill="clear" (click)="register(form)">{{t('register')}}</ion-button>
+                    </ion-col>
+                    <ion-col>
+                        <ion-button expand="block" fill="clear" (click)="reset(form)">{{t('reset-password')}}</ion-button>
+                    </ion-col>
+                </ion-row>
+            </form>
+        </ion-card-content>
+    </ion-card>
+</ion-content>

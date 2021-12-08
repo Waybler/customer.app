@@ -1,0 +1,16 @@
+ion-spinner {
+  position: relative;
+  right: 10px;
+}
+
+ion-content, ion-card {
+  display: flex;
+  flex: 1 0 auto;
+  flex-direction: column;
+}
+ion-card {
+  flex: 1 1 auto;
+  height: calc(90% - 20px); /* For some inexplicable reason, ion-card does not respond to the flex sizing properties,
+   despite other flex properties affecting it,  so the height calculation has to be done 'manually'.
+   This is a more than adequate solution. */
+}

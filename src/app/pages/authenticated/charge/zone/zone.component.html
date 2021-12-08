@@ -1,0 +1,99 @@
+<ion-card>
+  <ion-card-header>
+    <ion-card-title>
+      {{chargeZone.name}}
+    </ion-card-title>
+    <ion-card-subtitle>
+      {{t('zone-code', chargeZone)}}
+    </ion-card-subtitle>
+  </ion-card-header>
+
+  <ion-button card-option fill="clear" size="large" color="medium" (click)="toggleShowOptions()"
+              *ngIf="chargeZone.terms"
+  class="chargeZone-terms showOptions">
+    <ion-icon *ngIf="!showOptions" name="ellipsis-vertical"></ion-icon>
+    <ion-icon *ngIf="showOptions" name="ellipsis-vertical-outline"></ion-icon>
+  </ion-button>
+
+  <ion-item *ngIf="chargeZone.cancellationDate != null" cancelled class="chargeZone-cancellationDate">
+    <ion-icon name="warning" color="light"></ion-icon>
+    {{t('cancellation-date')}}&nbsp;<strong>{{chargeZone.cancellationDate | date:'yyyy-MM-dd'}}</strong>
+  </ion-item>
+
+  <app-zone-options *ngIf="showOptions" (cancelled)="showOptions = false" [chargeZone]="chargeZone">
+  </app-zone-options>
+
+  <app-zone-status [chargeZone]="chargeZone"></app-zone-status>
+
+  <ion-card-content stations #compactView="var" [var]="shouldUseCompactviewObject">
+    <ion-text *ngIf="chargeZone.stationGroups.length == 0">
+      {{t('empty')}}
+    </ion-text>
+
+    <ng-container *ngFor="let stationGroup of chargeZone.stationGroups">
+      <ion-card-subtitle *ngIf="showStationGroupName()">
+        {{stationGroup.name}}
+      </ion-card-subtitle>
+      <div stations class="stations">
+        <ng-container #unfilteredStations="var" [var]="allStations(stationGroup, false)">
+          <ng-container #filteredStations="var"
+                        [var]="allStations(stationGroup, shouldUseCompactviewObject.shouldUseCompactView)">
+            <ion-text *ngIf="filteredStations.var.length == 0">
+              <ng-container #free="var" [var]="freeStations(stationGroup)">
+                {{t('all-filtered.help')}}
+                <br/>
+                <br/>
+                {{t('all-filtered.overview.' + (free.var.length == 1 ? "one" : "many"), {count: free.var})}}
+              </ng-container>
+            </ion-text>
+
+            <ng-container *ngFor="let station of filteredStations.var">
+
+              <ion-button [attr.data-zone]="chargeZone.zoneId" [attr.data-station]="station.stationId"
+                          [disabled]="chargeZone.status != 'ok'" (click)="toast(t('not-connected-to-evse'))"
+                          *ngIf="station.state == 'free'">{{station.name}}</ion-button>
+
+              <ion-button [attr.data-zone]="chargeZone.zoneId" [attr.data-station]="station.stationId"
+                          [disabled]="chargeZone.status != 'ok'" (click)="toast(t('not-connected-to-ev'))"
+                          *ngIf="station.state == 'cable-connected'">
+                <div station-name>{{station.name}}</div>
+                <ion-icon name="car-sport" slot="end" *ngIf="chargeZone.contractType === ContractType.Charging"></ion-icon>
+                <ion-icon name="thermometer" slot="end" *ngIf="chargeZone.contractType == ContractType.Heater"></ion-icon>
+              </ion-button>
+
+              <ion-button [attr.data-zone]="chargeZone.zoneId" [attr.data-station]="station.stationId"
+                          [disabled]="chargeZone.status != 'ok'" (click)="startCharge(chargeZone, station)"
+                          *ngIf="chargeZone.contractType === ContractType.Charging && (station.state == 'ready' || station.state == 'possibly-ready')">
+                <div station-name>{{station.name}}</div>
+                <ion-icon name="car-sport" slot="end" color="warning"></ion-icon>
+              </ion-button>
+
+              <ion-button [attr.data-zone]="chargeZone.zoneId" [attr.data-station]="station.stationId"
+                          [disabled]="chargeZone.status != 'ok'" (click)="showHeaterOptions(chargeZone, station)"
+                          *ngIf="chargeZone.contractType === ContractType.Heater && (station.state == 'ready' || station.state == 'possibly-ready')">
+                <div station-name>{{station.name}}</div>
+                <ion-icon name="thermometer" slot="end" *ngIf="station.state == 'ready'" color="warning"></ion-icon>
+              </ion-button>
+
+              <ng-container *ngIf="station.state == 'busy'">
+                <ion-button [attr.data-zone]="chargeZone.zoneId" [attr.data-station]="station.stationId"
+                            [disabled]="!isSessionOwner(station)" [attr.charging]="isSessionOwner(station)"
+                            (click)="showStation(station)">
+                  <div station-name>{{station.name}}</div>
+                  <ion-icon name="thermometer" *ngIf="station.session == 'heat'" slot="end" color="warning"></ion-icon>
+                  <ion-icon name="battery-charging" *ngIf="station.session != 'heat'" slot="end"
+                            color="warning"></ion-icon>
+                </ion-button>
+              </ng-container>
+
+              <ion-button [attr.data-zone]="chargeZone.zoneId" [attr.data-station]="station.stationId" color="danger"
+                          *ngIf="station.state == 'failure'">
+                <div station-name>{{station.name}}</div>
+              </ion-button>
+            </ng-container>
+          </ng-container>
+        </ng-container>
+      </div>
+    </ng-container>
+  </ion-card-content>
+</ion-card>

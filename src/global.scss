@@ -1,0 +1,104 @@
+/*
+ * App Global CSS
+ * ----------------------------------------------------------------------------
+ * Put style rules here that you want to apply globally. These styles are for
+ * the entire app and not just one component. Additionally, this file can be
+ * used as an entry point to import other CSS/Sass files to be included in the
+ * output CSS.
+ * For more information on global stylesheets, visit the documentation:
+ * https://ionicframework.com/docs/layout/global-stylesheets
+ */
+
+/* Core CSS required for Ionic components to work properly */
+@import "~@ionic/angular/css/core.css";
+
+/* Basic CSS for apps built with Ionic */
+@import "~@ionic/angular/css/normalize.css";
+@import "~@ionic/angular/css/structure.css";
+@import "~@ionic/angular/css/typography.css";
+@import '~@ionic/angular/css/display.css';
+
+/* Optional CSS utils that can be commented out */
+@import "~@ionic/angular/css/padding.css";
+@import "~@ionic/angular/css/float-elements.css";
+@import "~@ionic/angular/css/text-alignment.css";
+@import "~@ionic/angular/css/text-transformation.css";
+@import "~@ionic/angular/css/flex-utils.css";
+
+///////////////////////////////////////////////////
+// CaCharge
+
+:root {
+  --ion-font-family: Eina, system-ui, sans-serif;
+
+  body {
+    margin-top: constant(safe-area-inset-top);
+    margin-top: env(safe-area-inset-top);
+    //background: #363c3c url('/assets/imgs/background.png') center center / cover;
+  }
+
+  ion-content {
+    --background: transparent;
+  }
+}
+
+ion-modal { //
+  //--background: #363c3c url('/assets/imgs/background.png') center center / cover !important;
+}
+
+ion-toast.danger {
+  --background: #f04141;
+}
+
+ion-button[card-option] {
+  position: absolute;
+  right: 0;
+  top: 5px;
+  --padding-start: 10px;
+  --padding-end: 10px;
+  font-size: 14px;
+}
+
+ion-item[stacked].item-label-stacked.ios {
+  --min-height: auto;
+
+  div {
+    display: block;
+    width: 100%;
+    position: relative;
+    top: -6px;
+  }
+}
+
+ion-card-subtitle {
+  margin-top: 2px;
+}
+
+app-settings.ion-page {
+  ion-item.compactViewLimit {
+    display: flex;
+    justify-content: space-between;
+
+    ion-input {
+
+      input.native-input {
+
+      }
+    }
+
+    .item-native {
+      display: flex;
+      background: #FF0;
+
+      .input-wrapper {
+        slot {
+          display: flex;
+          flex: 1 0 auto;
+          justify-content: space-between;
+          background: blue;
+        }
+      }
+    }
+
+  }
+}

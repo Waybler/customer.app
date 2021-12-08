@@ -1,0 +1,32 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  flex: 1 0 auto;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+}
+
+ion-list, ion-item, .item-native, .item-inner {
+  display: flex;
+  flex-direction: column;
+  flex: 0 1 auto;
+}
+
+ion-list {
+  flex: 1 1 auto;
+}
+
+ion-input {
+  height: 37px;
+  flex: 0 1 auto;
+}
+
+ion-item {
+  ion-label {
+    margin-bottom: 10px;
+  }
+}

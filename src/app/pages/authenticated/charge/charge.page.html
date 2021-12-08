@@ -1,0 +1,83 @@
+<ion-content [attr.center]="chargeZones == null || user == null || !isConnected"
+             [attr.show-charging]="activeSession != null">
+  <app-code-push></app-code-push>
+  <!--
+  <ion-button (click)="internalIonViewDidLeave()">LEAVE</ion-button>
+  <ion-button (click)="ionViewDidEnterx()">ENTER</ion-button>
+  <ion-button (click)="toggleDebug()">DEBUG</ion-button>
+  <ion-card *ngIf="showDebug">
+      <ion-card-header>
+          <ion-card-title>
+              Meddelanden
+          </ion-card-title>
+      </ion-card-header>
+
+      <ion-item class="compact" *ngFor="let m of message">
+          {{m}}
+      </ion-item>
+      <ion-item>
+          {{x[counter] | json}}
+      </ion-item>
+      <ion-item>
+          {{counter}}
+          {{x | json}}
+      </ion-item>
+  </ion-card>
+-->
+
+  <div spinner *ngIf="chargeZones == null || user == null || !isConnected">
+    <ion-spinner color="light"></ion-spinner>
+    <br/>
+    <span>{{t('connecting')}}</span>
+  </div>
+
+  <ng-container *ngIf="chargeZones != null && user != null && isConnected">
+    <ion-card *ngIf="!user.termsAccepted">
+      <ion-card-header>
+        <ion-card-title>
+          {{ t('user-terms.title') }}
+        </ion-card-title>
+      </ion-card-header>
+
+      <ion-item>
+        <app-user-terms></app-user-terms>
+      </ion-item>
+
+      <ion-button expand="full" (click)="acceptTerms()">{{t('user-terms.accept')}}</ion-button>
+    </ion-card>
+
+    <ng-container *ngIf="user.termsAccepted">
+      <ng-container *ngIf="userAppSettings">
+        <div zones>
+          <app-zone-search *ngIf="chargeZones.length == 0 || showAdd" [showClose]="chargeZones.length > 0"
+                           (closed)="showAdd = false"></app-zone-search>
+          <ng-container *ngFor="let chargeZone of chargeZones">
+            <app-zone [chargeZone]="chargeZone" (start)="startCharge($event.chargeZone, $event.station, $event.params)"
+                      (selected)="selected($event.chargeZone, $event.station)" [sessions]="sessions"
+                      [userAppSettings]="userAppSettings"
+                      [shouldUseCompactviewObject]="shouldUseCompactViewObject"
+            ></app-zone>
+          </ng-container>
+        </div>
+      </ng-container>
+      <app-charging *ngIf="activeSession != null" [chargeZone]="activeZone" [session]="activeSession"
+                    [station]="activeStation" (stop)="stopCharge()" [showBack]="showBack"
+                    (back)="hideCharging()"></app-charging>
+    </ng-container>
+
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed"
+             *ngIf="user.termsAccepted && chargeZones.length > 0 && activeSession == null">
+      <ion-fab-button (click)="showAdd = true">
+        <ion-icon name="add"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+    <app-toast
+      *ngIf="showCompactViewDialog"
+      [message]="t('compact-view-toast.message')"
+      [actionOnAccept]="onShowCompactStationsAccept"
+      [actionOnDecline]="onShowCompactStationsDecline"
+      [acceptButtonText]="t('compact-view-toast.yes')"
+      [declineButtonText]="t('compact-view-toast.no')"
+    ></app-toast>
+  </ng-container>
+</ion-content>

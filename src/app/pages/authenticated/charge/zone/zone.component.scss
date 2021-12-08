@@ -1,0 +1,56 @@
+ion-item[cancelled] {
+  --background: var(--ion-color-warning);
+
+  ion-icon {
+    min-width: 25px;
+    margin-right: 10px;
+  }
+}
+ion-card-content[stations] {
+  div.stations {
+    ion-button {
+      margin-left: 0;
+      margin-right: 0;
+      width: 49.5%;
+      max-width: 100%;
+
+      &:last-of-type:not(:first-of-type){
+        max-width: 49.5%;
+      }
+
+      ion-icon {
+        margin-left: 4px;
+      }
+    }
+
+    ion-button:nth-child(even) {
+      margin-left: 1%;
+    }
+
+    ion-button:last-child:nth-child(odd) {
+      width: 100%;
+    }
+
+    ion-button {
+      div[station-name] {
+        text-overflow: ellipsis;
+        display: inline-block;
+        width: 100%;
+        overflow: hidden;
+      }
+
+      &[charging="true"] {
+        --background: repeating-linear-gradient(
+          45deg,
+          var(--ion-color-primary),
+          var(--ion-color-primary) 10px,
+          var(--ion-color-primary-tint) 10px,
+          var(--ion-color-primary-tint) 20px
+        );
+        --border-width: 2px;
+        --border-color: var(--ion-color-warning);
+        --border-style: dashed;
+      }
+    }
+  }
+}

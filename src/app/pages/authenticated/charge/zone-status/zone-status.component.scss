@@ -1,0 +1,44 @@
+ion-item[warning=true] {
+    --background: var(--ion-color-warning);
+}
+
+ion-item[error=true] {
+    --background: var(--ion-color-danger);
+    color: #fff;
+}
+
+ion-item[info=true] {
+    --background: var(--ion-color-medium);
+    color: #fff;
+}
+
+ion-item[technical-error] {
+    --inner-border-width: 0;
+    --padding-top: 5px;
+    --padding-bottom: 5px;
+
+    ion-icon {
+        min-width: 25px;
+        margin-right: 10px;
+        margin-left: 16px;
+    }
+}
+
+ion-item[stacked] div {
+    top: 0px;
+}
+
+ion-label {
+    flex: none;
+    margin-bottom: 10px;
+    font-size: 13.6px;
+}
+
+.card-content p {
+    font-size: 17px;
+}
+
+ion-item {
+    --padding-start: 0px;
+}
+

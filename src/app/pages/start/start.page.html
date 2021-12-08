@@ -1,0 +1,7 @@
+<ion-content>
+  <div *ngIf="!selectingLanguage" style="text-align: center;">
+      <ion-spinner style="position: absolute; top: 50%;" color="light"></ion-spinner>
+  </div>
+
+  <app-locale-selector *ngIf="selectingLanguage" (selected)="localeSelected()"></app-locale-selector>
+</ion-content>

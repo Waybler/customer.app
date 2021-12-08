@@ -1,0 +1,50 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-button color="dark" (click)="closeModal()">
+                <ion-icon name="arrow-back"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title>{{t('title')}}</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-card>
+        <ion-radio-group [(ngModel)]="dateOffset" (ionChange)="dateSelected()">
+            <ion-list-header>
+                {{t('select-day.label')}}
+            </ion-list-header>
+
+            <ion-item *ngIf="showToday">
+                <ion-label>{{t('select-day.today')}}</ion-label>
+                <ion-radio [value]="0"></ion-radio>
+            </ion-item>
+
+            <ion-item>
+                <ion-label>{{t('select-day.tomorrow')}}</ion-label>
+                <ion-radio [value]="1"></ion-radio>
+            </ion-item>
+
+            <ion-item>
+                <ion-label>{{t('select-day.day-after-tomorrow')}}</ion-label>
+                <ion-radio [value]="2"></ion-radio>
+            </ion-item>
+
+            <ion-item>
+                <ion-label>{{t('select-day.asap')}}</ion-label>
+                <ion-radio [value]="-2"></ion-radio>
+            </ion-item>
+
+        </ion-radio-group>
+
+        <ion-item *ngIf="dateOffset != -2">
+            <ion-label>{{t('time.label')}}</ion-label>
+            <ion-datetime #time [placeholder]="t('time.placeholder')" [cancelText]="t('cancel')" [doneText]="t('done')"
+                display-format="HH:mm" picker-format="HH:mm" minuteValues="0,15,30,45" (ionChange)="timeSelected()">
+            </ion-datetime>
+        </ion-item>
+
+        <ion-button expand="full" (click)="start()" [disabled]="!(dateOffset == -2 || (timePicker != null && timePicker.value !== undefined))">{{t('start')}}</ion-button>
+    </ion-card>
+</ion-content>

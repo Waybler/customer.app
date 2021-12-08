@@ -1,0 +1,140 @@
+<ion-content>
+    <app-code-push></app-code-push>
+
+    <ion-card>
+        <ion-card-header>
+            <ion-card-title>
+                {{t("account.title")}}
+            </ion-card-title>
+        </ion-card-header>
+
+        <ion-list>
+            <ion-item>
+                <ion-label position="stacked">{{t('account.username')}}</ion-label>
+                <div *ngIf="userService.userUpdated$ | async as user">{{user.email}}</div>
+            </ion-item>
+        </ion-list>
+
+        <ion-button expand="full" (click)="logout()">
+            {{t('account.logout')}}
+        </ion-button>
+    </ion-card>
+
+    <ion-card *ngIf="(localeService.locale$ | async) as locale">
+        <ion-card-header>
+            <ion-card-title (click)="enableAdvancedView()">
+                {{t("settings.title")}}
+            </ion-card-title>
+        </ion-card-header>
+        <ion-list *ngIf="userService.userAppSettings$  | async as appSettings" class="userAppSettings">
+            <ion-item>
+                <ion-label>{{t('settings.compact-view.label')}}</ion-label>
+                <ion-toggle [(ngModel)]="appSettings.showCompactView" (ionChange)="setShowCompactView($event)"></ion-toggle>
+            </ion-item>
+            <ion-item help>
+                {{t('settings.compact-view.description')}}
+            </ion-item>
+            <ng-container *ngIf="appSettings.showCompactView">
+                <ion-item class="compactViewLimit">
+                    <ion-label position="stacked">{{t('settings.compact-view-limit.label')}}</ion-label>
+                    <ion-input [(ngModel)]="appSettings.compactViewLimit" (ionChange)="setCompactViewLimit($event)" ></ion-input>
+                </ion-item>
+                <ion-item help>
+                    {{t('settings.compact-view-limit.description')}}
+                </ion-item>
+            </ng-container>
+            <ng-container *ngIf="locale.language != 'fr'">
+                <ion-item>
+                    <ion-label>{{t('settings.charge-options-view.label')}}</ion-label>
+                    <ion-toggle [(ngModel)]="appSettings.showCarHeating" (ionChange)="setShowCarHeatingView($event)"></ion-toggle>
+                </ion-item>
+                <ion-item help>
+                    {{t('settings.charge-options-view.description')}}
+                </ion-item>
+            </ng-container>
+        </ion-list>
+    </ion-card>
+
+    <ion-card *ngIf="userService.advancedView$ | async">
+        <ion-card-header>
+            <ion-card-title>
+                {{t("advanced.title")}}
+            </ion-card-title>
+        </ion-card-header>
+        <ion-list>
+            <ion-item help>
+                {{t('advanced.beta.description')}}
+            </ion-item>
+            <ion-item>
+                <ion-label>{{t('advanced.beta.label')}}</ion-label>
+                <ion-toggle [(ngModel)]="beta" (ionChange)="setBeta($event)"></ion-toggle>
+            </ion-item>
+        </ion-list>
+    </ion-card>
+
+    <ion-card>
+        <form #form="ngForm" (ngSubmit)="setPassword(form)">
+            <ion-card-header>
+                <ion-card-title>
+                    {{t("password.title")}}
+                </ion-card-title>
+            </ion-card-header>
+            <ion-list>
+                <ion-item>
+                    <ion-label position="stacked">{{t('password.current-password.label')}}</ion-label>
+                    <ion-input [placeholder]="t('password.current-password.label')" type="password"
+                        name="currentPassword" ngModel required></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-label position="stacked">{{t('password.new-password.label')}}</ion-label>
+                    <ion-input [placeholder]="t('password.new-password.label')" type="password" name="newPassword"
+                        ngModel required></ion-input>
+                </ion-item>
+            </ion-list>
+            <ion-button expand="full" [disabled]="form.invalid" type="submit">{{t('password.set-password')}}
+            </ion-button>
+        </form>
+    </ion-card>
+
+    <app-locale-selector></app-locale-selector>
+
+    <ion-card>
+        <ion-card-header>
+            <ion-card-title>
+                {{t("terms.title")}}
+            </ion-card-title>
+        </ion-card-header>
+
+        <ion-card-content>
+            <app-user-terms></app-user-terms>
+        </ion-card-content>
+    </ion-card>
+
+    <ion-card *ngIf="binaryVersion != null">
+        <ion-card-header>
+            <ion-card-title>
+                {{t("version.title")}}
+            </ion-card-title>
+        </ion-card-header>
+        <ion-item>
+            {{t('version.app-version')}}
+            <ion-note slot="end">
+                {{binaryVersion}}
+            </ion-note>
+        </ion-item>
+        <ng-container *ngIf="localPackage != null">
+            <ion-item>
+                {{t('version.code-push-version')}}
+                <ion-note slot="end">
+                    {{localPackage.label}}
+                </ion-note>
+            </ion-item>
+            <ion-item>
+                {{t('version.beta.label')}}
+                <ion-note slot="end">
+                    {{localPackage.beta ? t('version.beta.yes'): t('version.beta.no') }}
+                </ion-note>
+            </ion-item>
+        </ng-container>
+    </ion-card>
+</ion-content>

@@ -1,0 +1,15 @@
+<ng-container *ngIf="(userService.currentUserTerms$ | async) as userTerms; else loading">
+    <div terms [innerHtml]="userTerms.html"  [attr.expanded]="expanded"></div>
+    <ion-button fill="clear" expand="block" size="small" (click)="expanded = true" *ngIf="!expanded">
+        <ion-icon name="add-circle" slot="start"></ion-icon>
+        {{t('expand')}}
+    </ion-button>
+    <ion-button fill="clear" expand="block" size="small" (click)="expanded = false" *ngIf="expanded">
+        <ion-icon name="remove-circle" slot="start"></ion-icon>
+        {{t('collapse')}}
+    </ion-button>
+</ng-container>
+
+<ng-template #loading>
+    <ion-spinner></ion-spinner>
+</ng-template>

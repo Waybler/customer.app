@@ -1,0 +1,18 @@
+:host ::ng-deep ion-toast.app-toast {
+  background: #F00;
+
+}
+
+
+ion-toast.app-toast .toast-container {
+  background: #F00;
+
+  .toast-wrapper {
+    background: blue;
+  }
+
+  div.toast-container {
+    flex-direction: column;
+  }
+}
+

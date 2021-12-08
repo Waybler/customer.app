@@ -1,0 +1,20 @@
+div[terms] {
+    max-height: 30vh;
+    overflow: scroll;
+    transition: max-height 0.75s ease-in;
+    h3 {
+        font-weight: bold;
+        font-size: 1em;
+        line-height: normal;
+        margin-bottom: auto;
+    }
+    
+    p {
+        margin-top: 0;
+        margin-bottom: 1em; 
+    }
+}
+
+div[terms][expanded=true] {
+    max-height: 10000px;
+}

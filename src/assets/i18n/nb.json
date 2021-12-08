@@ -1,0 +1,468 @@
+{
+  "http-error-interceptor": {
+    "communication-error": "Kunne ikke kontakte {{vendorName}}s servere.",
+    "server-error": "Det oppstod en feil på {{vendorName}}s server.",
+    "client-error": "Det oppstod en feil"
+  },
+  "services": {
+    "code-push": {
+      "restarting": "Starter på nytt!",
+      "downloading": "Laster ned oppdatering...",
+      "installing": "Installerer"
+    }
+  },
+  "components": {
+    "user-terms": {
+      "expand": "Brette ut",
+      "collapse": "Brette opp"
+    }
+  },
+  "pages": {
+    "start": {
+      "exit-app": "Avslutt appen",
+      "try-again": "Prøv igjen",
+      "ok": "OK",
+      "error": {
+        "title": "Det oppstod en feil...",
+        "message": "Kunne ikke kontakte {{vendorName}}s servere!"
+      }
+    },
+    "unauthenticated": {
+      "tabs": {
+        "login": "Logg inn"
+      },
+      "login": {
+        "title": "Logg inn",
+        "email": {
+          "label": "E-postadresse",
+          "placeholder": "Din e-postadresse"
+        },
+        "password": {
+          "label": "Passord",
+          "placeholder": "Ditt passord"
+        },
+        "login": "Logg inn",
+        "register": "Opprett konto",
+        "reset-password": "Glemt passord",
+        "logging-in": "Logger inn...",
+        "login-failed": "Feil brukernavn eller passord",
+        "components": {
+          "register": {
+            "title": "Opprett konto",
+            "firstname": {
+              "label": "Fornavn",
+              "placeholder": "Ditt fornavn"
+            },
+            "lastname": {
+              "label": "Etternavn",
+              "placeholder": "Ditt etternavn"
+            },
+            "email": {
+              "label": "E-postadresse",
+              "placeholder": "Din e-postadresse"
+            },
+            "country": {
+              "label": "Land",
+              "ok": "OK",
+              "cancel": "Avbryt",
+              "SE": "Sverige",
+              "NO": "Norge",
+              "LU": "Luxembourg"
+            },
+            "terms": "Brukervilkår",
+            "register": "Registrere",
+            "registrating": "Registrerer...",
+            "success": {
+              "title": "Registrering vellykket!",
+              "message": "Vi har sendt ditt passord til <strong>{{email}}</strong>.",
+              "ok": "OK"
+            },
+            "existing": "Din konto finnes allerede!",
+            "unknown-error": "Det oppstod en uventet feil!"
+          },
+          "reset-password": {
+            "title": "Send et nytt passord",
+            "email": {
+              "label": "E-postadresse",
+              "placeholder": "Din e-postadresse"
+            },
+            "reset": "Send et nytt passord",
+            "resetting": "Tilbakestiller passord",
+            "success": {
+              "title": "Tilbakestilling vellykket!",
+              "message": "Vi har sendt et nytt passord til <strong>{{email}}</strong>.",
+              "ok": "OK"
+            },
+            "not-found": "Vi kunne ikke finne din konto."
+          }
+        }
+      }
+    },
+    "authenticated": {
+      "tabs": {
+        "charge": "Lading",
+        "economy": "Økonomi",
+        "settings": "Innstillinger",
+        "history": "Historikk",
+        "help": "Hjelp"
+      },
+      "charge": {
+        "components": {
+          "zone-status": {
+            "errors": {
+              "no-payment-method": {
+                "owner": "Du må koble en betalingsmåte til kontoen din.",
+                "user": "Din administrator må koble en betalingsmåte til kontoen din."
+              },
+              "max-parallel-sessions": "Kontraktsgrensen for antall samtidige ladinger er nådd.",
+              "new-terms": {
+                "admin": "Du må godkjenne nye vilkår",
+                "user": "Din administrator må godkjenne vilkårsendringer."
+              },
+              "no-user-payment-method": "Du må koble en betalingsmåte til kontoen din.",
+              "user-terms-not-accepted": "Du må godkjenne en vilkårsendring.",
+              "time-restricted": "Din avtale gjelder ikke for denne tiden.",
+              "unknown-error": "Allmenn feil, vennligst kontakt kundetjenesten [{{status}}]"
+            },
+            "terms": {
+              "affects-all": "Påvirker alle dine brukere",
+              "subscriptions": "Abonnement/bruker",
+              "subscription": "Abonnement",
+              "subscription-fee": "{{amount}} {{currency}}/måned",
+              "max-subscription-fee": "Maks {{amount}} {{currency}}/måned",
+              "consumption-fee": "Forbrukskostnad",
+              "cancellation": "Oppsigelsestid",
+              "cancellation-time": "{{ time }} måned",
+              "max-sessions": "Høyeste antall samtidige ladinger",
+              "autostart": {
+                "title": "Automatisk start",
+                "description": "Når automatisk start er aktivert, kommer ladingen til å starte så snart noen kobler inn en ladeledning i uttaket ditt. Dette innebærer at du vil belastes for all strøm som forbrukes.",
+                "enabled": "Ja"
+              },
+              "accept": "Godkjenn vilkårene"
+            },
+            "technical-problem": "Vi undersøker for øyeblikket et teknisk problem med de rødmarkerte stasjonene."
+          },
+          "heater-options": {
+            "title": "Når skal bilen være varm?",
+            "select-day": {
+              "label": "Hvilken dag?",
+              "today": "I dag",
+              "tomorrow": "I morgen",
+              "day-after-tomorrow": "I overmorgen",
+              "asap": "Så fort som mulig"
+            },
+            "time": {
+              "label": "Tidspunkt",
+              "placeholder": "Velg tid"
+            },
+            "cancel": "Avbryt",
+            "done": "OK",
+            "start": "Start"
+          },
+          "zone-add": {
+            "zone-info": {
+              "title": "Områdeinformasjon",
+              "contract-type": {
+                "label": "Områdetype",
+                "Mixed": "ladeområde",
+                "Charging": "ladeområde",
+                "Heating": "Motorvärmarområde"
+              },
+              "subscription-fee": {
+                "label": "Abonnementsavgift",
+                "value": "{{value}} {{currency}}/måned"
+              },
+              "consumption-fee": {
+                "label": "Forbrukskostnad",
+                "value": "{{value}} {{currency}}/kWh"
+              },
+              "cancellation": {
+                "label": "Oppsigelsestid",
+                "value": "{{value}} måneder"
+              }
+            },
+            "payment-method": {
+              "title": "Legg til betalingskort"
+            },
+            "add": "Godkjenn vilkårene og legg til",
+            "adding": "Legger til området...",
+            "failed-to-add": "Kunne ikke legge til området. Vennligst kontroller opplysningene."
+          },
+          "zone-search": {
+            "title": "Legg til nytt område",
+            "text": "Velkommen, slik kommer du i gang.<br /><br />Hvis det finnes et område-ID ved ladeplassen, angi det.<br /><br />Hvis det ikke finnes noe område-ID, kontakt eieren av anlegget eller ring oss på 08-22 33 77.",
+            "zone-code": {
+              "label": "Område-ID",
+              "placeholder": "F.eks. 1234"
+            },
+            "add": "Legg til",
+            "error": {
+              "1": "Du har allerede en avtale på dette området.",
+              "2": "Vi kunne ikke finne noe område med dette område-ID.",
+              "3": "Dette området er privat og håndteres av din eiendomseier."
+            }
+          },
+          "zone-options": {
+            "subscription-fee": {
+              "label": "Abonnementsavgift",
+              "value": "{{value}} {{currency}}/måned"
+            },
+            "consumption-fee": {
+              "label": "Forbrukskostnad",
+              "value": "{{value}} {{currency}}/kWh"
+            },
+            "cancellation": {
+              "label": "Oppsigelsestid",
+              "value": "{{value}} måneder"
+            },
+            "cancel": {
+              "button": "Avslutte avtalen",
+              "title": "Er du sikker?",
+              "message": "Vil du kansellere kontrakten?",
+              "cancel": "Nei, avbryt",
+              "confirm": "Ja, si opp avtalen",
+              "cancelling": "Sier opp avtalen..."
+            }
+          },
+          "zone": {
+            "zone-code": "Område-ID: {{code}}",
+            "cancellation-date": "Avtalen vil ikke lenger være gyldig",
+            "all-filtered": {
+              "help": "Du har skrudd på kompaktoversikt, og derfor vises bare de stasjoner hvor en kabel er tilkoblet men ladingen ikke er påbegynt.",
+              "overview": {
+                "one": "Akkurat nå finnes det 1 ledig ladestasjon.",
+                "many": "Akkurat nå finnes det {{count}} ledige ladestasjoner."
+              }
+            },
+            "empty": "Det er for øyeblikket ingen stasjoner i dette området.",
+            "not-connected-to-evse": "Ingen kabel er koblet til ladestasjonen.",
+            "not-connected-to-ev": "Ikke tilkoblet en bil",
+            "charge-options": {
+              "header": "Motorvarmer / lading?",
+              "message": "Vil du starte motoroppvarming eller lading av bil?",
+              "heater": "Motorvärmare",
+              "charging": "Motorvarmer",
+              "cancel": "Avbryt"
+            }
+          },
+          "charging": {
+            "title": {
+              "charging": "Lader på {{name}}",
+              "heating": "Varmer på {{name}}"
+            },
+            "status": {
+              "label": "Ladestatus",
+              "0": "Koblet til ladestasjon",
+              "1": "Koblet til ladestasjon",
+              "2": {
+                "charging": "Lader ({{power}}W)",
+                "heating": "Varmer"
+              },
+              "3": "Ferdigladet"
+            },
+            "departure-time": "Avreisetid",
+            "energy": "Energi",
+            "started-at": "Ankomsttid",
+            "stop": "Avbryt lading"
+          }
+        },
+        "user-terms": {
+          "title": "Nye brukervilkår",
+          "accept": "Godkjenn vilkårene"
+        },
+        "failed-to-start": "Kunne ikke starte lading...",
+        "failed-to-stop": "Kunne ikke avslutte lading...",
+        "connecting": "Kobler til...",
+        "compact-view-toast": {
+          "no": "Nei",
+          "yes": "Ja",
+          "message": "Vill du slå på kompaktvyn? Denna gömmer alla upptagna laddstationer från vyn. Inställningen kan ändras senare från inställningssidan."
+        }
+      },
+      "economy": {
+        "payment-methods": {
+          "title": "Mine betalingsmåter",
+          "remove": "Fjern",
+          "empty": "Ingen lagrede betalingsmåter",
+          "add": "Legg til betalingsmåte",
+          "sort": "Sortere betalingsmåter",
+          "save": "Lagre",
+          "cancel": "Avbryt sortering",
+          "removing": "Fjern betalingsmåter...",
+          "saving": "Lagrer sortering..."
+        },
+        "next-invoice": {
+          "title": "Neste faktura",
+          "description": "Vi lager en faktura en gang i måneden og prøver å trekke beløpet fra ditt kredittkort.",
+          "total": "Totalt",
+          "empty": "Ingen oppsamlede kostnader",
+          "group": {
+            "0": "Abonnement",
+            "1": "Tilbakebetaling av abonnementsavgift",
+            "2": "Forbruk",
+            "3": "Tilbakebetaling forbruk",
+            "4": "Abonnement",
+            "5": "Tilbakebetaling av abonnementsavgift",
+            "6": "Systemavgift"
+          }
+        },
+        "invoices": {
+          "title": "Tidligere fakturaer",
+          "paid": "Betalt",
+          "unpaid": "Ubetalt",
+          "empty": "Ingen tidligere fakturaer",
+          "downloading": "Laster inn faktura...",
+          "unknown-error": "Det oppstod en feil",
+          "could-not-open": "Kunne ikke åpne filen!"
+        },
+        "add-payment-method": {
+          "title": "Legg til betalingsmåte"
+        },
+        "components": {
+          "add-payment-method": {
+            "title": "Legg til betalingsmåte"
+          },
+          "braintree-form": {
+            "init": "Oppretter en sikker tilkobling...",
+            "adding": "Venter på svar...",
+            "failed-to-add": "Kunne ikke legge til betalingsmåten.",
+            "add": "Legg til betalingskort",
+            "number": {
+              "label": "Kredittkortnummer",
+              "placeholder": "Kredittkortnummer"
+            },
+            "cvv": {
+              "label": "Sikkerhetskode (CVV)",
+              "placeholder": "F.eks. 123"
+            },
+            "expiration-date": {
+              "label": "Utløpsdato",
+              "placeholder": "MM / YYYY"
+            },
+            "postal-code": {
+              "label": "Postnummer",
+              "placeholder": "Postnummer"
+            },
+            "3d-secure": {
+              "title": "3D secure",
+              "cancel": "Avbryt"
+            }
+          }
+        }
+      },
+      "history": {
+        "title": "Historikk",
+        "period": "Periode",
+        "date": "Dato",
+        "cancel": "Avbryt",
+        "done": "OK",
+        "totals": {
+          "title": "Totalt",
+          "energy": "Energi",
+          "sessions": {
+            "labels": "Ladeanledninger",
+            "one": "lading",
+            "many": "ladinger"
+          }
+        },
+        "per-day": {
+          "title": "Per dag",
+          "one": "lading",
+          "many": "ladinger"
+        }
+      },
+      "settings": {
+        "account": {
+          "title": "Innlogging",
+          "username": "Innlogget som",
+          "logout": "Logg ut"
+        },
+        "settings": {
+          "title": "App-innstillinger",
+          "compact-view": {
+            "label": "Kompakt",
+            "description": "Når kompaktoversikt er aktivert, vises bare de stedene hvor en kabel er tilkoblet men lading ikke er aktivert."
+          },
+          "compact-view-limit": {
+            "label": "Gräns",
+            "description": "Gräns för antal aktiva laddningar"
+          },
+          "charge-options-view": {
+            "label": "Vis alltid innstillinger for motorvarmeren",
+            "description": "Når dette alternativet er slått på, får du muligheten til å starte boksen som motorvarmer selv om du har en bilavtale."
+          }
+        },
+        "advanced": {
+          "title": "Avansert",
+          "enabled": "Du har nå aktivert avanserte innstillinger.",
+          "clicks": "Du er nå {{left}} klikk fra for å vise avanserte innstillinger.",
+          "beta": {
+            "label": "Beta",
+            "description": "Ved å aktivere beta-modusen, vil du motta prøveversjoner av appen før den publiseres offentlig."
+          }
+        },
+        "password": {
+          "title": "Endre passord",
+          "current-password": {
+            "label": "Ditt nåværende passord",
+            "placeholder": "Fyll ut ditt nåværende passord"
+          },
+          "new-password": {
+            "label": "Ditt nye passord",
+            "placeholder": "Fyll ut det nye passordet ditt"
+          },
+          "set-password": "Endre passordet",
+          "setting": "Endre passordet ditt...",
+          "setted": "Ditt passord er endret",
+          "invalid": {
+            "header": "Passord for enkelt",
+            "message": "Ditt nye passord må være minst 6 tegn."
+          },
+          "not-matching": {
+            "header": "Passordet stemmer ikke overens",
+            "message": "Ditt nåværende passord stemmer ikke overens med det du angav."
+          },
+          "unknown-error": {
+            "header": "Det oppsto en uventet feil",
+            "message": "Prøv igjen, eller kontakt support."
+          },
+          "ok": "OK"
+        },
+        "language": {
+          "title": "Velg språk"
+        },
+        "version": {
+          "title": "Versjon",
+          "app-version": "Binær versjon",
+          "code-push-version": "Oppdater versjon",
+          "beta": {
+            "label": "Beta-versjon",
+            "yes": "Ja",
+            "no": "Nei"
+          }
+        },
+        "terms": {
+          "title": "Brukervilkår"
+        }
+      },
+      "help": {
+        "contact": {
+          "title": "Kontakt oss",
+          "text": "Hvis det er noe du lurer på, er du velkommen til å kontakte vår kundetjeneste.",
+          "email": {
+            "label": "E-post",
+            "text": "{{vendorSupportEmail}}"
+          },
+          "telephone": {
+            "label": "Telefon",
+            "text": "08-22 33 77"
+          }
+        },
+        "faq": {
+          "title": "Vanlige spørsmål"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,67 @@
+<ion-content>
+    <app-code-push></app-code-push>
+
+    <ion-card>
+        <ion-card-header>
+            <ion-card-title>
+                {{t('title')}}
+            </ion-card-title>
+        </ion-card-header>
+
+        <ion-item>
+            <ion-label>{{t('period')}}</ion-label>
+            <ion-datetime display-format="YYYY-MM" [cancelText]="t('cancel')" [doneText]="t('done')" [value]="selectedDate" [max]="maxDate" picker-format="YYYY-MM" (ionChange)="dateSelected($event)">
+            </ion-datetime>
+        </ion-item>
+
+        <ion-list *ngIf="(userService.history$ | async); let history">
+            <div style="display: grid; padding-left: 10px;">
+                <ngx-charts-bar-vertical [results]="history.chartData" [gradient]="false" [xAxis]="true" [yAxis]="true" [legend]="false" [showXAxisLabel]="true" [showYAxisLabel]="false" [xAxisLabel]="t('date')" [xAxisTickFormatting]="formatX" [yAxisTickFormatting]="formatY" [barPadding]="1" [scheme]="colorScheme" [gradient]="false">
+                    <ng-template #tooltipTemplate let-model="model">
+                        {{model.value}} kWh
+                    </ng-template>
+
+                    <ng-template #seriesTooltipTemplate let-model="model">
+                        {{model[0].value}} kWh
+                    </ng-template>
+                </ngx-charts-bar-vertical>
+            </div>
+
+            <ng-container>
+                <ion-item-group>
+                    <ion-item-divider>
+                        <ion-label>{{t('totals.title')}}</ion-label>
+                    </ion-item-divider>
+                    <ion-item>
+                        {{t('totals.energy')}}
+                        <ion-note slot="end">
+                            {{(history.totals.energy / 1000).toFixed(0)}} kWh
+                        </ion-note>
+                    </ion-item>
+                    <ion-item>
+                        {{t('totals.sessions.labels')}}
+                        <ion-note slot="end">
+                            {{(history.totals.sessions)}}
+                            {{history.totals.sessions === 1 ? t('totals.sessions.one') : t('totals.sessions.many')}}
+                        </ion-note>
+                    </ion-item>
+                </ion-item-group>
+
+                <ion-item-group *ngIf="history.totals.sessions > 0">
+                    <ion-item-divider>
+                        <ion-label>{{t('per-day.title')}}</ion-label>
+                    </ion-item-divider>
+                    <ng-container *ngFor="let group of sortHistory(history.perDay)">
+                        <ion-item *ngIf="group.sessions > 0">
+                            {{group.date | date:'yyyy-MM-dd'}}
+                            <ion-note slot="end">
+                                {{(group.energy / 1000).toFixed(2)}} kWh / {{group.sessions}}
+                                {{group.sessions == 1 ? t('per-day.one') : t('per-day.many')}}
+                            </ion-note>
+                        </ion-item>
+                    </ng-container>
+                </ion-item-group>
+            </ng-container>
+        </ion-list>
+    </ion-card>
+</ion-content>

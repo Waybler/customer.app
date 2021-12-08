@@ -1,0 +1,67 @@
+ion-item[question] {
+    font-weight: bold;
+
+    ion-icon[slot='end'] {
+        animation: spin-right 0.2s linear forwards;
+        transition: color 0.4s linear;
+    }
+
+    &[expanded] {
+        ion-icon[slot='end'] {
+            animation: spin-down 0.2s linear forwards;
+            color: green;
+        }
+    }
+}
+
+@keyframes spin-down {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(90deg);
+        transform: rotate(90deg);
+    }
+}
+@keyframes spin-right {
+    0% {
+        -webkit-transform: rotate(90deg);
+        transform: rotate(90deg);
+    }
+    100% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+}
+
+ion-item[answer] {
+    max-height: 0vh;
+    overflow: scroll;
+    transition: max-height 0.2s ease-in-out;
+
+    &[show] {
+        height: auto;
+        max-height: 60vh;
+    }
+
+    article {
+        padding-top: 20px;
+        padding-bottom: 20px;
+
+        header {
+            font-weight: bold;
+        }
+
+        section {
+            margin-top: 1em;
+        }
+    }
+}
+
+ion-list[faq] {
+    ion-label {
+        font-weight: bold;
+        color: black;
+    }
+}

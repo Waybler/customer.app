@@ -1,0 +1,468 @@
+{
+  "http-error-interceptor": {
+    "communication-error": "Kunde inte kontakta {{vendorName}} servrar.",
+    "server-error": "Ett fel inträffade på {{vendorName}} servrar.",
+    "client-error": "Ett fel inträffade"
+  },
+  "services": {
+    "code-push": {
+      "restarting": "Startar om!",
+      "downloading": "Hämtar uppdatering...",
+      "installing": "Installerar"
+    }
+  },
+  "components": {
+    "user-terms": {
+      "expand": "Expandera",
+      "collapse": "Minimera"
+    }
+  },
+  "pages": {
+    "start": {
+      "exit-app": "Avsluta appen",
+      "try-again": "Försök igen",
+      "ok": "OK",
+      "error": {
+        "title": "Ett fel inträffade...",
+        "message": "Kunde inte kontakta {{vendorName}} servrar!"
+      }
+    },
+    "unauthenticated": {
+      "tabs": {
+        "login": "Logga in"
+      },
+      "login": {
+        "title": "Logga in",
+        "email": {
+          "label": "E-postadress",
+          "placeholder": "Din e-postadress"
+        },
+        "password": {
+          "label": "Lösenord",
+          "placeholder": "Ditt lösenord"
+        },
+        "login": "Logga in",
+        "register": "Skapa konto",
+        "reset-password": "Glömt lösenord",
+        "logging-in": "Loggar in...",
+        "login-failed": "Fel användarnamn eller lösenord",
+        "components": {
+          "register": {
+            "title": "Skapa konto",
+            "firstname": {
+              "label": "Förnamn",
+              "placeholder": "Ditt förnamn"
+            },
+            "lastname": {
+              "label": "Efternamn",
+              "placeholder": "Ditt efternamn"
+            },
+            "email": {
+              "label": "E-postadress",
+              "placeholder": "Din e-postadress"
+            },
+            "country": {
+              "label": "Land",
+              "ok": "OK",
+              "cancel": "Avbryt",
+              "SE": "Sverige",
+              "NO": "Norge",
+              "LU": "Luxemburg"
+            },
+            "terms": "Användarvillkor",
+            "register": "Registrera",
+            "registrating": "Registrerar...",
+            "success": {
+              "title": "Registrering lyckades!",
+              "message": "Vi har skickat ditt lösenord till <strong>{{email}}</strong>.",
+              "ok": "OK"
+            },
+            "existing": "Ditt konto finns redan!",
+            "unknown-error": "Ett oväntat fel inträffade!"
+          },
+          "reset-password": {
+            "title": "Skicka nytt lösenord",
+            "email": {
+              "label": "E-postadress",
+              "placeholder": "Din e-postadress"
+            },
+            "reset": "Skicka nytt lösenord",
+            "resetting": "Nollställer lösenord",
+            "success": {
+              "title": "Nollställning lyckades!",
+              "message": "Vi har skickat ett nytt lösenord till <strong>{{email}}</strong>.",
+              "ok": "OK"
+            },
+            "not-found": "Vi kunde inte hitta ditt konto."
+          }
+        }
+      }
+    },
+    "authenticated": {
+      "tabs": {
+        "charge": "Laddning",
+        "economy": "Ekonomi",
+        "settings": "Inställningar",
+        "history": "Historik",
+        "help": "Hjälp"
+      },
+      "charge": {
+        "components": {
+          "zone-status": {
+            "errors": {
+              "no-payment-method": {
+                "owner": "Du måste koppla ett betalsätt till ditt konto.",
+                "user": "Er administratör måste koppla ett betalsätt till ert konto."
+              },
+              "max-parallel-sessions": "Kontraktets gräns för antal samtidiga laddningar är uppnådd",
+              "new-terms": {
+                "admin": "Du måste godkänna nya villkor",
+                "user": "Din administratör måste godkänna villkorsförändringar."
+              },
+              "no-user-payment-method": "Du måste koppla ett betalsätt till ditt konto.",
+              "user-terms-not-accepted": "Du måste godkänna en villkorförändring.",
+              "time-restricted": "Ditt avtal gäller inte denna tid.",
+              "unknown-error": "Allmänt fel, var god kontakta kundtjänst [{{status}}]"
+            },
+            "terms": {
+              "affects-all": "Påverkar alla dina användare",
+              "subscriptions": "Abonnemang/användare",
+              "subscription": "Abonnemang",
+              "subscription-fee": "{{amount}} {{currency}}/månad",
+              "max-subscription-fee": "Max {{amount}} {{currency}}/månad",
+              "consumption-fee": "Förbrukningskostnad",
+              "cancellation": "Uppsägningstid",
+              "cancellation-time": "{{ time }} månad",
+              "max-sessions": "Max. samtidiga laddningar",
+              "autostart": {
+                "title": "Automatisk start",
+                "description": "När automatisk start är aktiverad kommer laddningen startas så fort någon kopplar in en laddsladd i ditt uttag. Detta innebär att du kommer att bli debiterad för all el som förbrukas.",
+                "enabled": "Ja"
+              },
+              "accept": "Godkänn villkoren"
+            },
+            "technical-problem": "Vi undersöker för närvarande ett tekniskt problem med de stationer som är rödmarkerade."
+          },
+          "heater-options": {
+            "title": "När ska bilen vara varm?",
+            "select-day": {
+              "label": "Vilken dag?",
+              "today": "Idag",
+              "tomorrow": "Imorgon",
+              "day-after-tomorrow": "I övermorgon",
+              "asap": "Snarast"
+            },
+            "time": {
+              "label": "Tidpunkt",
+              "placeholder": "Välj tid"
+            },
+            "cancel": "Avbryt",
+            "done": "OK",
+            "start": "Starta"
+          },
+          "zone-add": {
+            "zone-info": {
+              "title": "Områdesinformation",
+              "contract-type": {
+                "label": "Områdestyp",
+                "Mixed": "Laddområde",
+                "Charging": "Laddområde",
+                "Heating": "Motorvärmarområde"
+              },
+              "subscription-fee": {
+                "label": "Abonnemangsavgift",
+                "value": "{{value}} {{currency}}/månad"
+              },
+              "consumption-fee": {
+                "label": "Förbrukningskostnad",
+                "value": "{{value}} {{currency}}/kWh"
+              },
+              "cancellation": {
+                "label": "Uppsägningstid",
+                "value": "{{value}} månader"
+              }
+            },
+            "payment-method": {
+              "title": "Lägg till betalkort"
+            },
+            "add": "Godkänn villkoren & lägg till",
+            "adding": "Lägger till området...",
+            "failed-to-add": "Kunde inte lägga till området. Vänligen kontrollera uppgifterna."
+          },
+          "zone-search": {
+            "title": "Lägg till nytt område",
+            "text": "Välkommen, så här kommer du igång.<br /><br />Om det finns ett områdes-ID vid laddplatsen, ange det.<br /><br />Om det inte finns ett områdes-ID, kontakta anläggningsägaren eller ring oss på 08-22 33 77.",
+            "zone-code": {
+              "label": "Områdes-ID",
+              "placeholder": "T.ex. 1234"
+            },
+            "add": "Lägg till",
+            "error": {
+              "1": "Du har redan ett avtal på detta område.",
+              "2": "Vi kunde inte hitta något område med detta områdes-ID.",
+              "3": "Detta området är privat och hanteras av din fastighetsägare."
+            }
+          },
+          "zone-options": {
+            "subscription-fee": {
+              "label": "Abonnemangsavgift",
+              "value": "{{value}} {{currency}}/månad"
+            },
+            "consumption-fee": {
+              "label": "Förbrukningskostnad",
+              "value": "{{value}} {{currency}}/kWh"
+            },
+            "cancellation": {
+              "label": "Uppsägningstid",
+              "value": "{{value}} månader"
+            },
+            "cancel": {
+              "button": "Avsluta avtalet",
+              "title": "Är du säkert?",
+              "message": "Vill du säga upp avtalet?",
+              "cancel": "Nej, avbryt",
+              "confirm": "Ja, säg upp avtalet",
+              "cancelling": "Säger upp avtalet..."
+            }
+          },
+          "zone": {
+            "zone-code": "Områdes-ID: {{code}}",
+            "cancellation-date": "Avtalet slutar gälla",
+            "all-filtered": {
+              "help": "Du har slagit på kompaktvy och därför visas bara de stationer där en kabel är ansluten men laddning inte startad.",
+              "overview": {
+                "one": "Just nu finns det 1 ledig laddstation.",
+                "many": "Just nu finns det {{count}} lediga laddstationer."
+              }
+            },
+            "empty": "Det finns för närvarande inga stationer på detta området.",
+            "not-connected-to-evse": "Ingen kabel ansluten till laddstationen.",
+            "not-connected-to-ev": "Inte ansluten till en bil",
+            "charge-options": {
+              "header": "Motorvärmare/Laddning?",
+              "message": "Vill du starta motorvärmning eller billaddning?",
+              "heater": "Motorvärmare",
+              "charging": "Billaddning",
+              "cancel": "Avbryt"
+            }
+          },
+          "charging": {
+            "title": {
+              "charging": "Laddar på {{name}}",
+              "heating": "Värmer på {{name}}"
+            },
+            "status": {
+              "label": "Laddstatus",
+              "0": "Ansluten till laddpool",
+              "1": "Ansluten till laddpool",
+              "2": {
+                "charging": "Laddar ({{power}}W)",
+                "heating": "Värmer"
+              },
+              "3": "Färdigladdad"
+            },
+            "departure-time": "Avresetid",
+            "energy": "Energi",
+            "started-at": "Ankomsttid",
+            "stop": "Avbryt laddning"
+          }
+        },
+        "user-terms": {
+          "title": "Nya användarvillkor",
+          "accept": "Godkänn villkoren"
+        },
+        "failed-to-start": "Kunde inte starta laddning...",
+        "failed-to-stop": "Kunde inte avsluta laddning...",
+        "connecting": "Ansluter...",
+        "compact-view-toast": {
+          "no": "Nej",
+          "yes": "Ja",
+          "message": "Vill du slå på kompaktvyn? Denna gömmer alla upptagna laddstationer från vyn. Inställningen kan ändras senare från inställningssidan."
+        }
+      },
+      "economy": {
+        "payment-methods": {
+          "title": "Mina betalsätt",
+          "remove": "Ta bort",
+          "empty": "Inga sparade betalsätt",
+          "add": "Lägg till betalsätt",
+          "sort": "Sortera betalsätt",
+          "save": "Spara",
+          "cancel": "Avbryt sortering",
+          "removing": "Tar bort betalsätt...",
+          "saving": "Sparar sortering..."
+        },
+        "next-invoice": {
+          "title": "Nästa faktura",
+          "description": "Vi skapar en faktura en gång per månad och försöker dra beloppet från ditt kreditkort.",
+          "total": "Totalt",
+          "empty": "Inga upplupna kostnader",
+          "group": {
+            "0": "Abonnemang",
+            "1": "Återbetalning abonnemangsavgift",
+            "2": "Förbrukning",
+            "3": "Återbetalning förbrukning",
+            "4": "Abonnemang",
+            "5": "Återbetalning abonnemangsavgift",
+            "6": "Systemavgift"
+          }
+        },
+        "invoices": {
+          "title": "Tidigare fakturor",
+          "paid": "Betald",
+          "unpaid": "Obetald",
+          "empty": "Inga tidigare fakturor",
+          "downloading": "Laddar hem faktura...",
+          "unknown-error": "Ett fel inträffade",
+          "could-not-open": "Kunde inte öppna filen!"
+        },
+        "add-payment-method": {
+          "title": "Lägg till betalsätt"
+        },
+        "components": {
+          "add-payment-method": {
+            "title": "Lägg till betalsätt"
+          },
+          "braintree-form": {
+            "init": "Skapar en säker anslutning...",
+            "adding": "Väntar på svar...",
+            "failed-to-add": "Kunde inte lägga till betalsättet.",
+            "add": "Lägg till betalkort",
+            "number": {
+              "label": "Kreditkortsnummer",
+              "placeholder": "Kreditkortsnummer"
+            },
+            "cvv": {
+              "label": "Säkerhetskod (CVV)",
+              "placeholder": "T.ex. 123"
+            },
+            "expiration-date": {
+              "label": "Utgångsdatum",
+              "placeholder": "MM / YYYY"
+            },
+            "postal-code": {
+              "label": "Postnummer",
+              "placeholder": "Postnummer"
+            },
+            "3d-secure": {
+              "title": "3D secure",
+              "cancel": "Avbryt"
+            }
+          }
+        }
+      },
+      "history": {
+        "title": "Historik",
+        "period": "Period",
+        "date": "Datum",
+        "cancel": "Avbryt",
+        "done": "OK",
+        "totals": {
+          "title": "Totaler",
+          "energy": "Energi",
+          "sessions": {
+            "labels": "Laddtillfällen",
+            "one": "laddning",
+            "many": "laddningar"
+          }
+        },
+        "per-day": {
+          "title": "Per dag",
+          "one": "laddning",
+          "many": "laddningar"
+        }
+      },
+      "settings": {
+        "account": {
+          "title": "Inloggning",
+          "username": "Inloggad som",
+          "logout": "Logga ut"
+        },
+        "settings": {
+          "title": "Appinställningar",
+          "compact-view": {
+            "label": "Kompaktvy",
+            "description": "När kompaktvy är aktiverat så visas bara de platser där en kabel är ansluten, men laddning inte är aktiverad."
+          },
+          "compact-view-limit": {
+            "label": "Kompaktvygräns",
+            "description": "Max antal laddplatser innan kompaktvyn aktiveras."
+          },
+          "charge-options-view": {
+            "label": "Visa alltid motorvärmarinställningar",
+            "description": "När detta val är påslaget så får du möjlighet att starta boxen som motorvärmare även om du har ett billaddningsavtal."
+          }
+        },
+        "advanced": {
+          "title": "Avancerat",
+          "enabled": "Du har nu aktiverat avancerade inställningar",
+          "clicks": "Du är nu {{left}} click ifrån att visa avancerade inställlningar.",
+          "beta": {
+            "label": "Beta",
+            "description": "Genom att aktivera beta-läget så kommer du få testversioner av appen innan den släpps publikt."
+          }
+        },
+        "password": {
+          "title": "Byt lösenord",
+          "current-password": {
+            "label": "Ditt nuvarande lösenord",
+            "placeholder": "Fyll i ditt nuvarande lösenord"
+          },
+          "new-password": {
+            "label": "Ditt nya lösenord",
+            "placeholder": "Fyll i ditt nya lösenord"
+          },
+          "set-password": "Ändra lösenordet",
+          "setting": "Ändrar ditt lösenord...",
+          "setted": "Ditt lösenord är ändrat",
+          "invalid": {
+            "header": "Lösenordet för enkelt",
+            "message": "Ditt nya lösenord måste vara minst 6 tecken."
+          },
+          "not-matching": {
+            "header": "Lösenordet stämmer inte",
+            "message": "Ditt nuvarande lösenord stämmer inte med det som du angav."
+          },
+          "unknown-error": {
+            "header": "Ett oväntat fel inträffade",
+            "message": "Prova igen, eller kontakta support."
+          },
+          "ok": "OK"
+        },
+        "language": {
+          "title": "Välj språk"
+        },
+        "version": {
+          "title": "Version",
+          "app-version": "Binärversion",
+          "code-push-version": "Uppdateringsversion",
+          "beta": {
+            "label": "Beta-version",
+            "yes": "Ja",
+            "no": "Nej"
+          }
+        },
+        "terms": {
+          "title": "Användarvillkor"
+        }
+      },
+      "help": {
+        "contact": {
+          "title": "Kontakta oss",
+          "text": "Om det är något du undrar över är du välkommen att kontakta vår kundtjänst.",
+          "email": {
+            "label": "E-mail",
+            "text": "{{vendorSupportEmail}}"
+          },
+          "telephone": {
+            "label": "Telefon",
+            "text": "08-22 33 77"
+          }
+        },
+        "faq": {
+          "title": "Vanliga frågor"
+        }
+      }
+    }
+  }
+}

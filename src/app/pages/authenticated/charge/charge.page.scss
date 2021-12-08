@@ -1,0 +1,33 @@
+ion-content[center=true] {
+    text-align: center;
+}
+
+ion-content {
+    --padding-bottom: 60px;
+}
+
+ion-content[show-charging=true] {
+    div[zones] {
+        display: none;
+    }
+}
+
+div[spinner] {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    color: #fff
+}
+
+ion-toast.app-toast {
+  background: #F00;
+
+  .toast-wrapper {
+    background: blue;
+  }
+
+  div.toast-container {
+    flex-direction: column;
+  }
+}
+

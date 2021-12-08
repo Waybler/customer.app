@@ -1,0 +1,56 @@
+<ion-card>
+    <ion-card-header>
+        <ion-card-title [attr.back]="showBack">
+            <ion-button fill="clear" (click)="back.emit()" *ngIf="showBack">
+                <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+            </ion-button>
+            {{t(isHeaterSession() ? 'title.heating' : 'title.charging', station)}}
+        </ion-card-title>
+        <ion-card-subtitle>
+            {{chargeZone.name}} ({{chargeZone.code}})
+        </ion-card-subtitle>
+    </ion-card-header>
+
+    <ion-list>
+        <ion-item stacked>
+            <ion-label position="stacked">{{t('status.label')}}</ion-label>
+            <div *ngIf="session.status === 'Unknown'">
+                {{t('status.0')}}
+            </div>
+            <div *ngIf="session.status === 'Waiting'">
+                {{t('status.1')}}
+            </div>
+            <div *ngIf="session.status === 'Charging' && isHeaterSession()">
+                {{t('status.2.heating', session)}}
+            </div>
+            <div *ngIf="session.status === 'Charging' && !isHeaterSession()">
+                {{t('status.2.charging', session)}}
+            </div>
+            <div *ngIf="session.status === 'Completed'">
+                {{t('status.3')}}
+            </div>
+        </ion-item>
+
+        <ion-item *ngIf="isHeaterSession()" stacked>
+            <ion-label position="stacked">{{t('departure-time')}}</ion-label>
+            <div>
+                {{ session.settings.departureTime | date:'yyy-MM-dd HH:mm' }}
+            </div>
+        </ion-item>
+
+        <ion-item stacked>
+            <ion-label position="stacked">{{t('energy')}}</ion-label>
+            <div>
+                {{(session.chargedEnergy / 1000).toFixed(2)}}kWh
+            </div>
+        </ion-item>
+
+        <ion-item *ngIf="session.startedAt != null" stacked>
+            <ion-label position="stacked">{{t('started-at')}}</ion-label>
+            <div>
+                {{startedAt()}}
+            </div>
+        </ion-item>
+    </ion-list>
+    <ion-button expand="full" (click)="stop.emit()">{{t('stop')}}</ion-button>
+</ion-card>

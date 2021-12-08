@@ -1,0 +1,122 @@
+<ng-container *ngIf="activatedRoute.queryParams | async as qp">
+    <ion-content *ngIf="qp.add === 'true'">
+        <app-add-payment-method></app-add-payment-method>
+    </ion-content>
+    <ion-content *ngIf="qp.add !== 'true'">
+        <app-code-push></app-code-push>
+
+        <ion-card>
+            <ion-card-header>
+                <ion-card-title>
+                    {{t('payment-methods.title')}}
+                </ion-card-title>
+            </ion-card-header>
+            <ng-container *ngIf="userService.paymentMethods$ | async as paymentMethods; else loading">
+                <ion-list>
+                    <ion-reorder-group [disabled]="!sorting" (ionItemReorder)="reorderItems(paymentMethods, $event)">
+                        <ng-container *ngFor="let paymentMethod of paymentMethods">
+                            <ion-item [disabled]="sorting"
+                                (click)="show[paymentMethod.paymentMethodId] = (show[paymentMethod.paymentMethodId] == null ? true : null)">
+                                <ion-icon name="card" slot="start"></ion-icon>
+                                <ion-label>{{paymentMethod.maskedNumber}}</ion-label>
+                                <ion-note slot="end">{{paymentMethod.expirationDate | date:'yyyy/MM'}}</ion-note>
+                                <ion-reorder slot="end"></ion-reorder>
+                                <ion-icon *ngIf="!sorting && !show[paymentMethod.paymentMethodId]" name="arrow-forward-circle"
+                                    slot="end">
+                                </ion-icon>
+                                <ion-icon *ngIf="!sorting && show[paymentMethod.paymentMethodId]" name="arrow-down-circle"
+                                    slot="end">
+                                </ion-icon>
+                            </ion-item>
+                            <ion-item *ngIf="!sorting && show[paymentMethod.paymentMethodId]">
+                                <ion-button expand="block" (click)="removePaymentMethod(paymentMethod)" color="danger">
+                                    <ion-icon name="trash" slot="start"></ion-icon>
+                                    {{t('payment-methods.remove')}}
+                                </ion-button>
+                            </ion-item>
+                        </ng-container>
+                    </ion-reorder-group>
+                    <ion-item *ngIf="paymentMethods.length == 0">
+                        {{t('payment-methods.empty')}}
+                    </ion-item>
+                </ion-list>
+
+                <ion-button expand="full" *ngIf="!sorting" (click)="addPaymentMethod()">{{t('payment-methods.add')}}
+                </ion-button>
+                <ion-button expand="full" *ngIf="!sorting && paymentMethods.length > 1" (click)="sorting = true">
+                    {{t('payment-methods.sort')}}</ion-button>
+                <ion-button expand="full" *ngIf="sorting" (click)="saveSorting()">{{t('payment-methods.save')}}
+                </ion-button>
+                <ion-button expand="full" color="danger" *ngIf="sorting" (click)="sorting = false">
+                    {{t('payment-methods.cancel')}}</ion-button>
+            </ng-container>
+        </ion-card>
+
+        <ion-card>
+            <ion-card-header>
+                <ion-card-title>
+                    {{t('next-invoice.title')}}
+                </ion-card-title>
+            </ion-card-header>
+
+            <ion-card-content>
+                {{t('next-invoice.description')}}
+            </ion-card-content>
+
+            <ion-list *ngIf="userService.uninvoiced$ | async as uninvoiced; else loading">
+                <ion-item stacked>
+                    <ion-label position="stacked">
+                        {{t('next-invoice.total')}}
+                    </ion-label>
+                    <div *ngIf="uninvoiced.total.value > 0">
+                        {{(uninvoiced.total.value + uninvoiced.total.vat).toFixed(2)}} {{uninvoiced.total.currency}}
+                    </div>
+                    <div *ngIf="uninvoiced.total.value == 0">
+                        {{t('next-invoice.empty')}}
+                    </div>
+                </ion-item>
+                <ion-item *ngFor="let group of uninvoiced.groups" stacked>
+                    <ion-label position="stacked">
+                        {{t('next-invoice.group.' + group.type)}}
+                    </ion-label>
+                    <div>{{(group.amount.value + group.amount.vat).toFixed(2)}} {{group.amount.currency}}</div>
+                </ion-item>
+            </ion-list>
+        </ion-card>
+
+        <ion-card>
+            <ion-card-header>
+                <ion-card-title>
+                    {{t('invoices.title')}}
+                </ion-card-title>
+            </ion-card-header>
+
+            <ng-container *ngIf="userService.invoices$ | async as invoices; else loading">
+                <ion-card-content legend>
+                    <ion-icon name="document" color="primary"></ion-icon> <span>{{t('invoices.paid')}}</span>
+                    <ion-icon name="document" color="danger"></ion-icon> <span>{{t('invoices.unpaid')}}</span>
+                </ion-card-content>
+
+                <ion-list>
+                    <ion-item *ngFor="let invoice of invoices" (click)="downloadInvoice(invoice)">
+                        <ion-icon name="document" slot="start" [color]="invoice.paid ? 'primary' : 'danger'"></ion-icon>
+                        {{invoice.label}} ({{invoice.createdAt | date:'yyyy-MM'}})
+                        <ion-note slot="end">{{(invoice.amount.value + invoice.amount.vat).toFixed(2)}}
+                            {{invoice.amount.currency}}</ion-note>
+                    </ion-item>
+                    <ion-item *ngIf="invoices.length == 0">
+                        {{t('invoices.empty')}}
+                    </ion-item>
+                </ion-list>
+            </ng-container>
+        </ion-card>
+    </ion-content>
+
+    <ng-template #loading>
+        <ion-list>
+            <ion-item>
+                <ion-spinner></ion-spinner>
+            </ion-item>
+        </ion-list>
+    </ng-template>
+</ng-container>

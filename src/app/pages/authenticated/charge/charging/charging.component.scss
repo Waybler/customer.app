@@ -1,0 +1,15 @@
+ion-card-title[back=true] {
+    padding-left: 35px;
+
+    ion-button {
+        --padding-start: 0;
+        --padding-end: 0;
+        --padding-top: 0;
+        --padding-bottom: 0px;
+        position: absolute;
+        margin-left: 0px;
+        left: 0;
+        margin: 0;
+        top: -3px;
+    }
+}

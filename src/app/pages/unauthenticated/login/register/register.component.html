@@ -1,0 +1,45 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-button color="dark" (click)="closeModal()">
+                <ion-icon name="arrow-back"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title>{{t('title')}}</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-card>
+        <form #form="ngForm" (ngSubmit)="register(form)">
+            <ion-item>
+                <ion-label position="stacked">{{t('firstname.label')}}</ion-label>
+                <ion-input [placeholder]="t('firstname.label')" type="text" name="firstname" [disabled]="termsId == null" ngModel required></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label position="stacked">{{t('lastname.label')}}</ion-label>
+                <ion-input [placeholder]="t('lastname.label')" type="text" name="lastname" [disabled]="termsId == null" ngModel required></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label position="stacked">{{t('email.label')}}</ion-label>
+                <ion-input [placeholder]="t('email.label')" type="email" name="email" [disabled]="termsId == null" ngModel required></ion-input>
+            </ion-item>
+
+            <ion-item>
+                <ion-label position="stacked">{{t('country.label')}}</ion-label>
+                <ion-select [okText]="t('country.ok')" [cancelText]="t('country.cancel')" name="countryCode" ngModel>
+                    <ion-select-option value="SE">{{t('country.SE')}}</ion-select-option>
+                    <ion-select-option value="NO">{{t('country.NO')}}</ion-select-option>
+                    <ion-select-option value="LU">{{t('country.LU')}}</ion-select-option>
+                </ion-select>
+            </ion-item>
+
+            <ion-item>
+                <ion-label position="stacked">{{t('terms')}}</ion-label>
+                <app-user-terms></app-user-terms>
+            </ion-item>
+
+            <ion-button expand="full" [disabled]="form.invalid || termsId == null" type="submit">{{t('register')}}</ion-button>
+        </form>
+    </ion-card>
+</ion-content>

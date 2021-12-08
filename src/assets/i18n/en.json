@@ -1,0 +1,472 @@
+{
+  "global": {
+    "no": "No",
+    "yes": "Yes"
+  },
+  "http-error-interceptor": {
+    "communication-error": "Could not reach {{vendorName}} servers.",
+    "server-error": "An error occurred on {{vendorName}} servers.",
+    "client-error": "An error occurred"
+  },
+  "services": {
+    "code-push": {
+      "restarting": "Restarting!",
+      "downloading": "Downloading update...",
+      "installing": "Installing"
+    }
+  },
+  "components": {
+    "user-terms": {
+      "expand": "Expand",
+      "collapse": "Collapse"
+    }
+  },
+  "pages": {
+    "start": {
+      "exit-app": "Exit",
+      "try-again": "Try again",
+      "ok": "OK",
+      "error": {
+        "title": "An error occurred",
+        "message": "Could not reach {{vendorName}} servers."
+      }
+    },
+    "unauthenticated": {
+      "tabs": {
+        "login": "Login"
+      },
+      "login": {
+        "title": "Login",
+        "email": {
+          "label": "E-mail",
+          "placeholder": "Your e-mail"
+        },
+        "password": {
+          "label": "Password",
+          "placeholder": "Your password"
+        },
+        "login": "Login",
+        "register": "Sign up",
+        "reset-password": "Reset password",
+        "logging-in": "Signing in...",
+        "login-failed": "Wrong username or password!",
+        "components": {
+          "register": {
+            "title": "Sign up",
+            "firstname": {
+              "label": "Firstname",
+              "placeholder": "Your firstname"
+            },
+            "lastname": {
+              "label": "Lastname",
+              "placeholder": "Your lastname"
+            },
+            "email": {
+              "label": "E-mail",
+              "placeholder": "Your e-mail"
+            },
+            "country": {
+              "label": "Country",
+              "ok": "OK",
+              "cancel": "Cancel",
+              "SE": "Sweden",
+              "NO": "Norway",
+              "LU": "Luxembourg"
+            },
+            "terms": "User terms and conditions",
+            "register": "Sign up",
+            "registrating": "Signing up...",
+            "success": {
+              "title": "Sign up successful!",
+              "message": "We have sent your password to <strong>{{email}}</strong>.",
+              "ok": "OK"
+            },
+            "existing": "You already have an account!",
+            "unknown-error": "An unexpected error occurred!"
+          },
+          "reset-password": {
+            "title": "Reset password",
+            "email": {
+              "label": "E-mail",
+              "placeholder": "Your e-mail"
+            },
+            "reset": "Send new password",
+            "resetting": "Resetting password...",
+            "success": {
+              "title": "Reset successful!",
+              "message": "We have sent a new password to <strong>{{email}}</strong>.",
+              "ok": "OK"
+            },
+            "not-found": "Account not found!"
+          }
+        }
+      }
+    },
+    "authenticated": {
+      "tabs": {
+        "charge": "Charging",
+        "economy": "Economy",
+        "settings": "Settings",
+        "history": "History",
+        "help": "Help"
+      },
+      "charge": {
+        "components": {
+          "zone-status": {
+            "errors": {
+              "no-payment-method": {
+                "owner": "You have to add a payment method to your account.",
+                "user": "Your administrator have to add a payment method to your account."
+              },
+              "max-parallel-sessions": "The maximum parallel charges for your contract is reached.",
+              "new-terms": {
+                "admin": "You have to approve new terms.",
+                "user": "Your administrator has to approve new terms."
+              },
+              "no-user-payment-method": "You have to add a payment method to your account.",
+              "user-terms-not-accepted": "You have to approve new terms.",
+              "time-restricted": "Your agreement does not apply to this time.",
+              "unknown-error": "General error, please contact customer service [{{status}}]."
+            },
+            "terms": {
+              "affects-all": "Affects all your users",
+              "subscriptions": "Subscriptions/user",
+              "subscription": "Subscription",
+              "subscription-fee": "{{amount}} {{currency}}/month",
+              "max-subscription-fee": "Max {{amount}} {{currency}}/month",
+              "consumption-fee": "Consumption",
+              "cancellation": "Cancellation period",
+              "cancellation-time": "{{ time }} month",
+              "max-sessions": "Max. simultaneous sessions",
+              "autostart": {
+                "title": "Automatic start",
+                "description": "When automatic start is activated, charging will start as soon as someone connects a charging charger to your outlet. This means that you will be charged for all electricity consumed.",
+                "enabled": "Yes"
+              },
+              "accept": "Approve terms"
+            },
+            "technical-problem": "We are currently investigating a technical issue with those stations that are red marked."
+          },
+          "heater-options": {
+            "title": "When should the car be warm?",
+            "select-day": {
+              "label": "What day?",
+              "today": "Today",
+              "tomorrow": "Tomorrow",
+              "day-after-tomorrow": "Day after tomorrow",
+              "asap": "Asap"
+            },
+            "time": {
+              "label": "Time",
+              "placeholder": "Select time"
+            },
+            "cancel": "Cancel",
+            "done": "OK",
+            "start": "Start"
+          },
+          "zone-add": {
+            "zone-info": {
+              "title": "Zone information",
+              "contract-type": {
+                "label": "Zone type",
+                "Mixed": "Mixed zone",
+                "Charging": "Charging zone",
+                "Heating": "Heater zone"
+              },
+              "subscription-fee": {
+                "label": "Subscription",
+                "value": "{{value}} {{currency}}/month"
+              },
+              "consumption-fee": {
+                "label": "Consumption",
+                "value": "{{value}} {{currency}}/kWh"
+              },
+              "cancellation": {
+                "label": "Cancellation period",
+                "value": "{{value}} months"
+              }
+            },
+            "payment-method": {
+              "title": "Add payment method"
+            },
+            "add": "Accept the terms & add",
+            "adding": "Adding zone...",
+            "failed-to-add": "Couldn't add to the zone. Please check the information."
+          },
+          "zone-search": {
+            "title": "Add new zone",
+            "text": "Welcome, here's how you get started. <br /> <br /> If there is an zone code at the charging point, enter it. <br /> <br /> If there is no zone code, contact the facility owner or call us at +46 8-22 33 77.",
+            "zone-code": {
+              "label": "Zone code",
+              "placeholder": "E.g. 1234"
+            },
+            "add": "Add",
+            "error": {
+              "1": "You already have an agreement for this zone.",
+              "2": "Vi could not find any zone with this zone code.",
+              "3": "This zone is private and is administrated by your facility owner."
+            }
+          },
+          "zone-options": {
+            "subscription-fee": {
+              "label": "Subscription",
+              "value": "{{value}} {{currency}}/month"
+            },
+            "consumption-fee": {
+              "label": "Consumption",
+              "value": "{{value}} {{currency}}/kWh"
+            },
+            "cancellation": {
+              "label": "Cancellation period",
+              "value": "{{value}} months"
+            },
+            "cancel": {
+              "button": "Cancel agreement",
+              "title": "Are you sure?",
+              "message": "Do you want to cancel the agreement for this zone?",
+              "cancel": "No, cancel",
+              "confirm": "Yes, cancel agreement",
+              "cancelling": "Cancelling agreement..."
+            }
+          },
+          "zone": {
+            "zone-code": "Zone code: {{code}}",
+            "cancellation-date": "The agreement expires",
+            "all-filtered": {
+                          "help": "You have turned on compact view and therefore only the charging points where a cable is connected but charging is not started are displayed.",
+              "overview": {
+                "one": "Right now there is 1 available charging point.",
+                                "many": "Right now there are {{count}} available charging points."
+              }
+            },
+            "empty": "There are currently no charging points in this zone.",
+            "not-connected-to-evse": "Cable not connected to charging point.",
+            "not-connected-to-ev": "Car not connected to charging point.",
+            "charge-options": {
+              "header": "Engine heating/Car charging?",
+              "message": "Do you want to start engine heating or car charging?",
+              "heater": "Engine heating",
+              "charging": "Car charging",
+              "cancel": "Abort"
+            }
+          },
+          "charging": {
+            "title": {
+              "charging": "Charging at {{name}}",
+              "heating": "Heating at {{name}}"
+            },
+            "status": {
+              "label": "Charging status",
+              "0": "Connected to charge pool",
+              "1": "Connected to charge pool",
+              "2": {
+                "charging": "Charging ({{power}}W)",
+                "heating": "Heating"
+              },
+              "3": "Charging completed"
+            },
+            "departure-time": "Departure time",
+            "energy": "Energy",
+            "started-at": "Arrival time",
+            "stop": "End charging"
+          }
+        },
+        "user-terms": {
+          "title": "New terms and conditions",
+          "accept": "Approve terms and conditions"
+        },
+        "failed-to-start": "Couldn't start charging ...",
+        "failed-to-stop": "Couldn't end charging ...",
+        "connecting": "Connecting...",
+        "compact-view-toast": {
+          "no": "No",
+          "yes": "Yes",
+          "message": "Would you like to turn on compact view? This removes all occupied charging points from the view. The setting can be changed later in the Settings page."
+        }
+      },
+      "economy": {
+        "payment-methods": {
+          "title": "My payment methods",
+          "remove": "Remove",
+          "empty": "No saved payment methods.",
+          "add": "Add payment method",
+          "sort": "Sort payment methods",
+          "save": "Save",
+          "cancel": "Cancel sorting",
+          "removing": "Removing payment method...",
+          "saving": "Saving..."
+        },
+        "next-invoice": {
+          "title": "Next invoice",
+          "description": "We create an invoice once a month and try to charge the amount from your credit card.",
+          "total": "Total",
+          "empty": "No accrued costs.",
+          "group": {
+            "0": "Subscription",
+            "1": "Repayment subscription",
+            "2": "Consumption",
+            "3": "Repayment förbrukning",
+            "4": "Subscription",
+            "5": "Repayment subscription",
+            "6": "Maintenance fee"
+          }
+        },
+        "invoices": {
+          "title": "Previous invoices",
+          "paid": "Paid",
+          "unpaid": "Unpaid",
+          "empty": "No previous invoices.",
+          "downloading": "Downloading invoice...",
+          "unknown-error": "An error occurred!",
+          "could-not-open": "Could not open the file!"
+        },
+        "add-payment-method": {
+          "title": "Add payment method"
+        },
+        "components": {
+          "add-payment-method": {
+            "title": "Add payment method"
+          },
+          "braintree-form": {
+            "init": "Creating a secure connection...",
+            "adding": "Waiting for result...",
+            "failed-to-add": "Could not add payment method!",
+            "add": "Add payment method",
+            "number": {
+              "label": "Credit card number",
+              "placeholder": "Credit card number"
+            },
+            "cvv": {
+              "label": "Security code (CVV)",
+              "placeholder": "E.g. 123"
+            },
+            "expiration-date": {
+              "label": "Expiration date",
+              "placeholder": "MM / YYYY"
+            },
+            "postal-code": {
+              "label": "Postal code",
+              "placeholder": "Postal code"
+            },
+            "3d-secure": {
+              "title": "3D secure",
+              "cancel": "Cancel"
+            }
+          }
+        }
+      },
+      "history": {
+        "title": "History",
+        "period": "Period",
+        "date": "Date",
+        "cancel": "Cancel",
+        "done": "OK",
+        "totals": {
+          "title": "Totals",
+          "energy": "Energy",
+          "sessions": {
+            "labels": "Sessions",
+            "one": "session",
+            "many": "sessions"
+          }
+        },
+        "per-day": {
+          "title": "Per day",
+          "one": "session",
+          "many": "sessions"
+        }
+      },
+      "settings": {
+        "account": {
+          "title": "Account",
+          "username": "Signed in as",
+          "logout": "Logout"
+        },
+        "settings": {
+          "title": "App settings",
+          "compact-view": {
+            "label": "Compact view",
+            "description": "When compact view is enabled, only charging points where a cable is connected but charging is not yet started are shown."
+          },
+          "compact-view-limit": {
+            "label": "Compact view limit",
+            "description": "Maximum number of charging points to show before compact view is activated."
+          },
+          "charge-options-view": {
+            "label": "Always show car heating",
+            "description": "When this option is switched on, you get the option to start the box as an engine heater even if you have a car charging agreement."
+          }
+        },
+        "advanced": {
+          "title": "Advanced",
+          "enabled": "You have now activated advanced settings",
+          "clicks": "Your are {{left}} clicks from enabling advanced settings.",
+          "beta": {
+            "label": "Beta",
+            "description": "When you enable beta you will receive test versions of the app before they are released to the public."
+          }
+        },
+        "password": {
+          "title": "Change password",
+          "current-password": {
+            "label": "You current password",
+            "placeholder": "Enter your current password"
+          },
+          "new-password": {
+            "label": "New password",
+            "placeholder": "Enter your new password"
+          },
+          "set-password": "Change password",
+          "setting": "Changing your password...",
+          "setted": "Your password has been changed",
+          "invalid": {
+            "header": "Password to simple",
+            "message": "Your new password needs to be at least six characters."
+          },
+          "not-matching": {
+            "header": "Password doesnt match",
+            "message": "The password you entered as your current doesn´t match."
+          },
+          "unknown-error": {
+            "header": "An unknown error occurred",
+            "message": "Try again or contact support."
+          },
+          "ok": "OK"
+        },
+        "language": {
+          "title": "Select language"
+        },
+        "version": {
+          "title": "Version",
+          "app-version": "Binary version",
+          "code-push-version": "Update version",
+          "beta": {
+            "label": "Beta",
+            "yes": "Yes",
+            "no": "No"
+          }
+        },
+        "terms": {
+          "title": "User terms and conditions"
+        }
+      },
+      "help": {
+        "contact": {
+          "title": "Contact us",
+          "text": "Dont´t hesitate to contact us if you have any questions.",
+          "email": {
+            "label": "E-mail",
+            "text": "{{vendorSupportEmail}}"
+          },
+          "telephone": {
+            "label": "Telephone",
+            "text": "+46 8-22 33 77"
+          }
+        },
+        "faq": {
+          "title": "Frequently asked questions"
+        }
+      }
+    }
+  }
+}

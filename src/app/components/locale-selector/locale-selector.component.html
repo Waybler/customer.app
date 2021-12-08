@@ -1,0 +1,11 @@
+<ion-card>
+    <ion-card-header>
+        <ion-card-title>{{t('language.title')}}</ion-card-title>
+    </ion-card-header>
+    <ion-list #selected="var" [var]="localeService.locale$ | async">
+        <ion-item *ngFor="let locale of localeService.supportedLocales" (click)="selectLocale(locale)">
+            <ion-icon color="primary" name="checkmark-circle" *ngIf="selected.var != null && selected.var.language === locale.language"></ion-icon>
+            &nbsp;{{locale.localName}}
+        </ion-item>
+    </ion-list>
+</ion-card>

@@ -1,0 +1,29 @@
+<ion-tabs>
+    <ion-tab-bar slot="bottom">
+        <ion-tab-button tab="charge">
+            <ion-icon name="battery-charging"></ion-icon>
+            <ion-badge *ngIf="userService.sessionCount > 0">{{userService.sessionCount}}</ion-badge>
+            <ion-label>{{t("charge")}}</ion-label>
+        </ion-tab-button>
+
+        <ion-tab-button tab="history">
+            <ion-icon name="time"></ion-icon>
+            <ion-label>{{t("history")}}</ion-label>
+        </ion-tab-button>
+
+        <ion-tab-button tab="economy">
+            <ion-icon name="logo-euro"></ion-icon>
+            <ion-label>{{t("economy")}}</ion-label>
+        </ion-tab-button>
+
+        <ion-tab-button tab="help">
+            <ion-icon name="help"></ion-icon>
+            <ion-label>{{t("help")}}</ion-label>
+        </ion-tab-button>
+
+        <ion-tab-button tab="settings">
+            <ion-icon name="cog"></ion-icon>
+            <ion-label>{{t("settings")}}</ion-label>
+        </ion-tab-button>
+    </ion-tab-bar>
+</ion-tabs>

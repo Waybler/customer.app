@@ -1,0 +1,61 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button color="dark" (click)="closeModal()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>{{data.zone.name}} ({{data.zone.code}})</ion-title>
+    <ion-spinner *ngIf="isLoading" slot="end"></ion-spinner>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-item-group>
+      <ion-item-divider>
+        <ion-label>{{t('zone-info.title')}}</ion-label>
+      </ion-item-divider>
+
+      <ion-item stacked>
+        <ion-label position="stacked">{{t('zone-info.contract-type.label')}}</ion-label>
+        {{data.zone.contractType}}
+        <div>
+          {{t('zone-info.contract-type.' + data.zone.contractType)}}
+        </div>
+      </ion-item>
+
+      <ion-item *ngIf="data.zone.terms.subscriptionFee.total > 0" stacked>
+        <ion-label position="stacked">{{t('zone-info.subscription-fee.label')}}</ion-label>
+        <div>
+          {{t('zone-info.subscription-fee.value', {value: data.zone.terms.subscriptionFee.total, currency: data.zone.terms.subscriptionFee.currency})}}
+        </div>
+      </ion-item>
+
+      <ion-item stacked>
+        <ion-label position="stacked">{{t('zone-info.consumption-fee.label')}}</ion-label>
+        <div>
+          {{t('zone-info.consumption-fee.value', {value: data.zone.terms.consumptionFee.total, currency: data.zone.terms.consumptionFee.currency})}}
+        </div>
+      </ion-item>
+
+      <ion-item *ngIf="data.zone.terms.cancellation > 0" stacked>
+        <ion-label position="stacked">{{t('zone-info.cancellation.label')}}</ion-label>
+        <div>{{t('zone-info.cancellation.value', {value: data.zone.terms.cancellation})}}</div>
+      </ion-item>
+    </ion-item-group>
+
+    <ng-container *ngIf="data.user.needToAddPaymentMethod">
+      <ion-item-group>
+        <ion-item-divider>
+          <ion-label>{{t('payment-method.title')}}</ion-label>
+        </ion-item-divider>
+      </ion-item-group>
+      <app-braintree-form (loading)="loadingChanged($event)" (success)="addContract($event)"></app-braintree-form>
+    </ng-container>
+
+    <ion-button expand="full" (click)="addContract()" *ngIf="!data.user.needToAddPaymentMethod">
+      {{t('add')}}
+    </ion-button>
+  </ion-card>
+</ion-content>

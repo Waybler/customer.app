@@ -1,0 +1,49 @@
+
+ion-list.userAppSettings {
+  display: flex;
+  flex-direction: column;
+
+  ion-item {
+    flex: 0 1 auto;
+  }
+}
+
+ion-item.compactViewLimit {
+  display: flex;
+  justify-content: space-between;
+
+    .item-native {
+    display: flex;
+    background: #FF0;
+
+    .input-wrapper {
+      slot[name="start"] {
+        display: flex;
+        flex: 1 0 auto;
+        justify-content: space-between;
+        background: blue;
+      }
+    }
+  }
+
+  ion-label{
+    display: flex;
+    flex: 1 0 auto;
+  }
+  ion-input {
+    display: inline-flex;
+    flex: 0 1 10%;
+
+    input.native-input {
+
+    }
+  }
+}
+:host ::ng-deep  ion-item.compactViewLimit .item-native .input-wrapper  slot[name="start"]{
+  display: flex;
+  flex: 1 0 auto;
+  justify-content: space-between;
+}
+ion-item[help] {
+  font-size: 0.8rem;
+}

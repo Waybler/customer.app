@@ -1,0 +1,194 @@
+<ion-content>
+  <app-code-push></app-code-push>
+
+  <ng-container *ngIf="(localeService.locale$ | async); let locale">
+    <ion-card *ngIf="locale.language == 'sv'">
+      <ion-card-header>
+        <ion-card-title>
+          {{t("faq.title")}}
+        </ion-card-title>
+      </ion-card-header>
+
+      <ion-list faq>
+        <ion-item-group>
+          <ion-item-divider>
+            <ion-label>Komma igång</ion-label>
+          </ion-item-divider>
+
+          <ion-item question (click)="toggle($event, getting_started_zone_id)">
+            <ion-icon name="help-circle-outline" slot="start"></ion-icon>
+            Var hittar jag områdes-ID?
+            <ion-icon name="arrow-forward-circle" slot="end"></ion-icon>
+          </ion-item>
+          <ion-item answer #getting_started_zone_id>
+            <article>
+              Saknas skyltning är området med största sannolikhet inte tillgängligt för publik laddning utan en administratör måste lägga till dig som
+              användare.
+              <section>
+                <header>Företagsparkering / Kommersiell fastighet</header>
+                Kontakta er parkeringsansvariga eller er fastighetsägare för att få tillgång till laddning.
+              </section>
+              <section>
+                <header>Bostadsrättsparkering</header>
+                Kontakta er förvaltare eller styrelse och be dem lägga till ett laddavtal.
+              </section>
+              <section>
+                Om något är oklart så är du självklart välkommen att kontakta {{vendor.vendorName}}.
+              </section>
+            </article>
+          </ion-item>
+
+          <ion-item question (click)="toggle($event, getting_started_heater)">
+            <ion-icon name="help-circle-outline" slot="start"></ion-icon>
+            Hur fungerar motorvärmaren?
+            <ion-icon name="arrow-forward-circle" slot="end"></ion-icon>
+          </ion-item>
+          <ion-item answer #getting_started_heater>
+            <article>
+              Motorvärmaren startar 2 timmar innan inställd avfärdstid och fortsätter 1 timme efter avfärdstiden. Om du t.ex. valt att du skall åka
+              06:40 kommer motorvärmaren starta 04:40.
+              <section>
+                <header>Hur gör man?</header>
+                <ul>
+                  <li>Koppla in motorvärmaradaptern</li>
+                  <li>Starta {{vendor.vendorName}}-appen på din telefon</li>
+                  <li>Tryck på den stationen som du kopplat in motorvärmaren på</li>
+                  <li>Välj vilken tid bilen ska vara varm. Tryck på start.</li>
+                </ul>
+              </section>
+            </article>
+          </ion-item>
+
+          <ion-item question (click)="toggle($event, getting_started_not_connected)">
+            <ion-icon name="help-circle-outline" slot="start"></ion-icon>
+            Det står "Ingen kabel ansluten till laddstationen"?
+            <ion-icon name="arrow-forward-circle" slot="end"></ion-icon>
+          </ion-item>
+          <ion-item answer #getting_started_not_connected>
+            <article>
+              <section>
+                Får du inte upp en gul bil på när du kopplat in kabeln i laddstationen och bilen så prova att dra ur kabeln i både laddstationen och
+                din bil.
+              </section>
+              <section>
+                Tänds lampan ändå inte upp så kontrollera att stiften i kontakterna är hela och rena och sätt därefter i kabeln igen. Känn efter att
+                kabeln verkligen är intryckt hela vägen.
+              </section>
+              <section>
+                Får du fortfarande inte upp en gul bil, kontrollera kabeln hos tillverkare/återförsäljare.
+              </section>
+            </article>
+          </ion-item>
+
+          <ion-item question (click)="toggle($event, getting_started_charging_not_starting)">
+            <ion-icon name="help-circle-outline" slot="start"></ion-icon>
+            Laddningen startar inte?
+            <ion-icon name="arrow-forward-circle" slot="end"></ion-icon>
+          </ion-item>
+          <ion-item answer #getting_started_charging_not_starting>
+            <article>
+              <section>
+                Börjar inte bilen ladda när dioden vid uttaget lyser blått så kontrollera inställningarna i bilen. Lägg speciellt fokus på att det
+                inte är finns någon timer för laddning eller avresetid inställd.
+              </section>
+              <section>
+                {{vendor.vendorName}} system sprider ut laddningen för att så många användare som möjligt skall kunna ladda och för att kunna säkerställa
+                att din bil får den laddning som erbjuds så måste systemet ha möjlighet att starta laddningen vid vilken tidpunkt som helst.
+              </section>
+              <section>
+                <header>Laddningen startar ändå inte</header>
+                Vissa bilar hamnar ibland i ett läge där den inte vill starta laddningen. Lås upp bilen, dra ur kabel i både bil och laddstation, lås
+                bilen, vänta ett par minuter. Koppla därefter tillbaka laddkabeln i både bilen och laddstationen. Starta sedan laddningen igen.
+                Laddningen ska då starta upp, gör den inte det trots att dioden vid uttaget lyser blått kontrollera ev. felkoder i bilens display och
+                ring din biltillverkare för vidare felsökning.
+              </section>
+            </article>
+          </ion-item>
+          <ion-item question (click)="toggle($event, getting_started_diode_colors)">
+            <ion-icon name="help-circle-outline" slot="start"></ion-icon>
+            Vad betyder färgerna på lampan?
+            <ion-icon name="arrow-forward-circle" slot="end"></ion-icon>
+          </ion-item>
+          <ion-item answer #getting_started_diode_colors>
+            <article>
+              <section>
+                <header>Grön</header>
+                Ingen anslutning till bilen.
+              </section>
+              <section>
+                <header>Grön (blinkande)</header>
+                Anslutning till bilen.
+              </section>
+              <section>
+                <header>Blått</header>
+                Laddning pågår.
+              </section>
+              <section>
+                <header>Blått (blinkande)</header>
+                Väntar på laddning.
+              </section>
+              <section>
+                <header>Rött</header>
+                Rött sken betyder att ett laddningsfel har inträffat. Detta kan vara ett av följande.
+                <ul>
+                  <li>Diodfel</li>
+                  <li>DC-läckströmsfel</li>
+                  <li>Överströmsfel</li>
+                </ul>
+              </section>
+              <section>
+                <header>Rött (svagt blinkande)</header>
+                Personsäkerhetsbrytaren har löst ut.
+              </section>
+            </article>
+          </ion-item>
+        </ion-item-group>
+
+        <ion-item-group>
+          <ion-item-divider>
+            <ion-label>Betalning</ion-label>
+          </ion-item-divider>
+          <ion-item question (click)="toggle($event, payments_when)">
+            <ion-icon name="help-circle-outline" slot="start"></ion-icon>
+            När sker betalningen?
+            <ion-icon name="arrow-forward-circle" slot="end"></ion-icon>
+          </ion-item>
+          <ion-item answer #payments_when>
+            <article>
+              Vi skapar upp en faktura för förgående månad i början på månaden efter laddningen skett.<br/>
+              <section>
+                T.ex. Om du laddar den 17:e Augusti så skapar vi en faktura för detta den 1:e September.
+              </section>
+              <section>
+                Skulle fakturans belopp understiga 50 SEK så avvaktar vi med att fakturera upp till 60 dagar.
+              </section>
+            </article>
+          </ion-item>
+        </ion-item-group>
+      </ion-list>
+    </ion-card>
+  </ng-container>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>
+        {{t("contact.title")}}
+      </ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      {{t('contact.text')}}
+    </ion-card-content>
+
+    <ion-list>
+      <ion-item stacked>
+        <ion-label position="stacked">{{t('contact.email.label')}}</ion-label>
+        <div>{{t('contact.email.text', {vendorSupportEmail: vendor.vendorSupportEmail})}}</div>
+      </ion-item>
+      <ion-item stacked>
+        <ion-label position="stacked">{{t('contact.telephone.label')}}</ion-label>
+        <div>{{t('contact.telephone.text', {vendorName: vendor.vendorName})}}</div>
+      </ion-item>
+    </ion-list>
+  </ion-card>
+</ion-content>

@@ -1,0 +1,17 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button color="dark" (click)="close(false)">
+        <ion-icon name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>{{t('title')}}</ion-title>
+    <ion-spinner *ngIf="isLoading" slot="end"></ion-spinner>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <app-braintree-form (loading)="loadingChanged($event)" (success)="close(true)"></app-braintree-form>
+  </ion-card>
+</ion-content>

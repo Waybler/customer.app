@@ -1,0 +1,468 @@
+{
+  "http-error-interceptor": {
+    "communication-error": "Les serveurs de {{vendorName}} ne sont pas joignables.",
+    "server-error": "Une erreur s’est produite sur les serveurs {{vendorName}}.",
+    "client-error": "Une erreur s’est produite"
+  },
+  "services": {
+    "code-push": {
+      "restarting": "Redemarrage!",
+      "downloading": "Mise à jour en cours...",
+      "installing": "Installation"
+    }
+  },
+  "components": {
+    "user-terms": {
+      "expand": "Étendre",
+      "collapse": "Fermer"
+    }
+  },
+  "pages": {
+    "start": {
+      "exit-app": "Quitter l’application",
+      "try-again": "Réessayer",
+      "ok": "OK",
+      "error": {
+        "title": "Une erreur s’est produite",
+        "message": "Les serveurs de {{vendorName}} ne sont pas joignables."
+      }
+    },
+    "unauthenticated": {
+      "tabs": {
+        "login": "Identifiant"
+      },
+      "login": {
+        "title": "Identifiant",
+        "email": {
+          "label": "E-mail",
+          "placeholder": "Votre adresse e-mail"
+        },
+        "password": {
+          "label": "Mot de passe",
+          "placeholder": "Votre mot de passe"
+        },
+        "login": "Identifiant",
+        "register": "Enregistrez-vous",
+        "reset-password": "Réinitialisation de mot de passe",
+        "logging-in": "Connexion...",
+        "login-failed": "Mot de passe erroné!",
+        "components": {
+          "register": {
+            "title": "Enregistrez-vous",
+            "firstname": {
+              "label": "Prénom",
+              "placeholder": "Votre prénom"
+            },
+            "lastname": {
+              "label": "Nom",
+              "placeholder": "Votre nom"
+            },
+            "email": {
+              "label": "E-mail",
+              "placeholder": "Votre e-mail"
+            },
+            "country": {
+              "label": "Pays",
+              "ok": "D'accord",
+              "cancel": "Annuler",
+              "SE": "Suède",
+              "NO": "Norvège",
+              "LU": "Luxembourg"
+            },
+            "terms": "Conditions générales d'utilisation",
+            "register": "Enregistrez-vous",
+            "registrating": "Enregistrement en cours...",
+            "success": {
+              "title": "Enregistrement réussi!",
+              "message": "Nous avons envoyé votre mot de passe à “email <strong>{{email}}</strong>.",
+              "ok": "OK"
+            },
+            "existing": "Vous êtes déjà enregistré(e) !",
+            "unknown-error": "Une erreur s’est produite!"
+          },
+          "reset-password": {
+            "title": "Réinitialiser votre mot de passe",
+            "email": {
+              "label": "E-mail",
+              "placeholder": "Votre e-mail"
+            },
+            "reset": "Envoyer le nouveau mot de passe",
+            "resetting": "Réinitialisation du mot de passe en cours...",
+            "success": {
+              "title": "Réinitialisation réussie!",
+              "message": "Nous avons envoyé votre mot de passe à <strong>{{email}}</strong>.",
+              "ok": "OK"
+            },
+            "not-found": "Ce compte n’existe pas!"
+          }
+        }
+      }
+    },
+    "authenticated": {
+      "tabs": {
+        "charge": "Chargement",
+        "economy": "Paiement",
+        "settings": "Réglages",
+        "history": "Historique",
+        "help": "Support"
+      },
+      "charge": {
+        "components": {
+          "zone-status": {
+            "errors": {
+              "no-payment-method": {
+                "owner": "Vous devez ajouter un moyen de paiement à votre compte.",
+                "user": "Votre administrateur doit ajouter un moyen de paiement à votre compte."
+              },
+              "max-parallel-sessions": "Le nombre maximal des sessions de recharge sur votre compte est atteint.",
+              "new-terms": {
+                "admin": "Vous devez approuver les nouvelles conditions d’utilisation.",
+                "user": "Votre administrateur doit approuver les nouvelles conditions d’utilisation."
+              },
+              "no-user-payment-method": "Vous devez ajouter un moyen de paiement à votre compte.",
+              "user-terms-not-accepted": "Vous devez approuver les nouvelles conditions d’utilisation.",
+              "time-restricted": "Votre abonnement n’est pas valable en ce créneau horaire.",
+              "unknown-error": "Une erreur est survenue, veuillez contacter le support technique [{{status}}]."
+            },
+            "terms": {
+              "affects-all": "Concerne tous vos utilisateurs",
+              "subscriptions": "Abonnements / utilisateur",
+              "subscription": "Abonnement",
+              "subscription-fee": "{{amount}} {{currency}}/mois",
+              "max-subscription-fee": "Max {{amount}} {{currency}}/mois",
+              "consumption-fee": "Consommation",
+              "cancellation": "Délai d’annulation",
+              "cancellation-time": "{{ time }} mois",
+              "max-sessions": "Nombre maximal des sessions",
+              "autostart": {
+                "title": "Démarrage automatique",
+                "description": "Avec l’option démarrage automatique activée, la session de recharge va commencer dès qu’un câble est connecté à la prise. Vous serez facturé(e) pour la consommation d'électricité.",
+                "enabled": "Oui"
+              },
+              "accept": "Approuvez les conditions d’utilisation"
+            },
+            "technical-problem": "Les bornes qui sont marquées en rouge ont des problèmes techniques - nous sommes en train d’en investiguer la cause."
+          },
+          "heater-options": {
+            "title": "When should the car be warm?",
+            "select-day": {
+              "label": "What day?",
+              "today": "Today",
+              "tomorrow": "Tomorrow",
+              "day-after-tomorrow": "Day after tomorrow",
+              "asap": "Asap"
+            },
+            "time": {
+              "label": "Time",
+              "placeholder": "Select time"
+            },
+            "cancel": "Cancel",
+            "done": "OK",
+            "start": "Start"
+          },
+          "zone-add": {
+            "zone-info": {
+              "title": "Information sur la zone",
+              "contract-type": {
+                "label": "Type de zone",
+                "Mixed": "Zone de charge",
+                "Charging": "Zone de charge",
+                "Heating": "Zone de chauffage"
+              },
+              "subscription-fee": {
+                "label": "Abonnement",
+                "value": "{{value}} {{currency}}/mois"
+              },
+              "consumption-fee": {
+                "label": "Consommation",
+                "value": "{{value}} {{currency}}/kWh"
+              },
+              "cancellation": {
+                "label": "Période d’annulation",
+                "value": "{{value}} mois"
+              }
+            },
+            "payment-method": {
+              "title": "Ajouter un moyen de paiement"
+            },
+            "add": "Accepter les conditions générales",
+            "adding": "Attendre une réponse...",
+            "failed-to-add": "Nous n’avons pas pu ajouter la zone demandée. Veuillez vérifier vos informations."
+          },
+          "zone-search": {
+            "title": "Ajouter une nouvelle zone",
+            "text": "Bienvenu ! Voici les instructions pour commencer. <br /> <br /> Si vous avez le numéro de la zone de la borne de recharge, ajoutez le. <br /> <br /> Si vous ne connaissez pas le numéro de la zone, contactez le propriétaire de la borne ou bien service de support P.E.S. (28 48 41 14) ou {{vendorName}} ( +46 8-22 33 77)",
+            "zone-code": {
+              "label": "Numéro de la zone",
+              "placeholder": "1234"
+            },
+            "add": "Ajouter",
+            "error": {
+              "1": "Vous avez déjà un abonnement pour cette zone.",
+              "2": "Nous n’avons pas pu trouver une zone avec ce numéro.",
+              "3": "Cette zone est privée et administrée par le propriétaire des bornes."
+            }
+          },
+          "zone-options": {
+            "subscription-fee": {
+              "label": "Abonnement",
+              "value": "{{value}} {{currency}}/mois"
+            },
+            "consumption-fee": {
+              "label": "Consommation",
+              "value": "{{value}} {{currency}}/kWh"
+            },
+            "cancellation": {
+              "label": "Période d’annulation",
+              "value": "{{value}} mois"
+            },
+            "cancel": {
+              "button": "Annuler l’abonnement",
+              "title": "Etes-vous sûr(e)?",
+              "message": "Voulez-vous annuler l’abonnement pour cette zone?",
+              "cancel": "Non, annuler",
+              "confirm": "Oui, annuler l’abonnement",
+              "cancelling": "Annulation de l'abonnement en cours..."
+            }
+          },
+          "zone": {
+            "zone-code": "Numéro de la zone: {{code}}",
+            "cancellation-date": "L’abonnement expire",
+            "all-filtered": {
+              "help": "Vous avez choisi l’option de l'écran compact: seulement les prises connectées à un câble et en cours de recharge sont visibles.",
+              "overview": {
+                "one": "En ce moment 1 point de recharge est disponible.",
+                "many": "En ce moment {{count}} de recharge sont disponibles."
+              }
+            },
+            "empty": "En ce moment il n ya pas de points de recharge disponibles dans cette zone.",
+            "not-connected-to-evse": "Le câble n’est pas connecté à la prise.",
+            "not-connected-to-ev": "La voiture n’est pas connectée à la prise.",
+            "charge-options": {
+              "header": "Engine heating/Car charging?",
+              "message": "Do you want to start engine heating or car charging?",
+              "heater": "Engine heating",
+              "charging": "Car charging",
+              "cancel": "Abort"
+            }
+          },
+          "charging": {
+            "title": {
+              "charging": "Chargement en cours à {{name}}",
+              "heating": "Heating at {{name}}"
+            },
+            "status": {
+              "label": "Statut de recharge",
+              "0": "Connecté à la zone de recharge",
+              "1": "Connecté à la zone de recharge",
+              "2": {
+                "charging": "Recharge en cours ({{power}}W)",
+                "heating": "Heating"
+              },
+              "3": "Recharge terminée"
+            },
+            "departure-time": "L’heure de départ",
+            "energy": "Énergie",
+            "started-at": "L’heure d'arrivée",
+            "stop": "Arreter la recharge"
+          }
+        },
+        "user-terms": {
+          "title": "Mis à jour des conditions d’utilisation",
+          "accept": "Approuver les conditions d’utilisation"
+        },
+        "failed-to-start": "Échec de démarrer la recharge...",
+        "failed-to-stop": "Échec de terminer la recharge...",
+        "connecting": "Connexion en cours...",
+        "compact-view-toast": {
+          "no": "Non",
+          "yes": "Oui",
+          "message": "Voulez-vous activer le menu compact? Ceci vous permettra de ne plus voir les prises qui sont déjà occupées. Vous pouvez toujours revenir à l’option de base sur la page Réglages."
+        }
+      },
+      "economy": {
+        "payment-methods": {
+          "title": "Mes moyens de paiement",
+          "remove": "Remove",
+          "empty": "Aucun moyen de paiement sauvegardé",
+          "add": "Ajouter un moyen de paiement",
+          "sort": "STrier les moyens de paiement",
+          "save": "Enregistrer",
+          "cancel": "Annuler le tri des moyens de paiement",
+          "removing": "Suppression du moyen de paiement en cours…",
+          "saving": "Enregistrement en cours..."
+        },
+        "next-invoice": {
+          "title": "Prochaine facture",
+          "description": "Nous vous envoyons une facture mensuelle et nous débitons votre carte de crédit ensuite.",
+          "total": "Total",
+          "empty": "Frais accumulés.",
+          "group": {
+            "0": "Abonnement",
+            "1": "Remboursement l’abonnement",
+            "2": "Consommation",
+            "3": "Repayment förbrukning",
+            "4": "Subscription",
+            "5": "Repayment subscription",
+            "6": "Maintenance fee"
+          }
+        },
+        "invoices": {
+          "title": "Factures précédentes",
+          "paid": "Payé",
+          "unpaid": "Non payé",
+          "empty": "Pas de factures précédentes.",
+          "downloading": "Téléchargement de la Facture...",
+          "unknown-error": "Une erreur est survenue!",
+          "could-not-open": "Erreur d’ouverture du fichier!"
+        },
+        "add-payment-method": {
+          "title": "Ajouter un moyen de paiement"
+        },
+        "components": {
+          "add-payment-method": {
+            "title": "Ajouter un moyen de paiement"
+          },
+          "braintree-form": {
+            "init": "Lancement de la connexion sécurisée en cours...",
+            "adding": "Nous sommes en train d’ajouter votre moyen de paiement...",
+            "failed-to-add": "Nous n’avons pas pu ajouter!",
+            "add": "Ajouter un moyen de paiement",
+            "number": {
+              "label": "Numéro de la carte de crédit",
+              "placeholder": "Numéro de la carte de crédit"
+            },
+            "cvv": {
+              "label": "Code securité CVV",
+              "placeholder": "123"
+            },
+            "expiration-date": {
+              "label": "Date d’expiration",
+              "placeholder": "MM / AAAA"
+            },
+            "postal-code": {
+              "label": "Code postal",
+              "placeholder": "Code postal"
+            },
+            "3d-secure": {
+              "title": "Securisé 3D",
+              "cancel": "Annuler"
+            }
+          }
+        }
+      },
+      "history": {
+        "title": "Historique",
+        "period": "Période",
+        "date": "Date",
+        "cancel": "Annuler",
+        "done": "OK",
+        "totals": {
+          "title": "Totaux",
+          "energy": "Energie",
+          "sessions": {
+            "labels": "Sessions",
+            "one": "session",
+            "many": "sessions"
+          }
+        },
+        "per-day": {
+          "title": "Par jour",
+          "one": "session",
+          "many": "sessions"
+        }
+      },
+      "settings": {
+        "account": {
+          "title": "Compte",
+          "username": "Votre identifiant",
+          "logout": "Deconnexion"
+        },
+        "settings": {
+          "title": "Paramètres",
+          "compact-view": {
+            "label": "Ecran compact",
+            "description": "Une fois l’option de l'écran compact activée, seulement les prises connectées à un câble où la recharge n'a pas commencé sont visibles."
+          },
+          "compact-view-limit": {
+            "label": "Limite menu compact",
+            "description": "Le nombre maximal des prises à afficher avant d’activer le menu compact"
+          },
+          "charge-options-view": {
+            "label": "Montrez toujours le chauffage de la voiture",
+            "description": "Lorsque cette option est activée, vous avez la possibilité de démarrer la boîte en tant que chauffage du moteur même si vous avez un contrat de recharge de voiture."
+          }
+        },
+        "advanced": {
+          "title": "Avancé",
+          "enabled": "Vous avez activé lesparamètres avancés",
+          "clicks": "Your are {{left}} clicks from enabling advanced settings.",
+          "beta": {
+            "label": "Bêta",
+            "description": "Une fois l’option bêta activée , vous aurez accès aux versions tests de l’Application avant leur disponibilité publique."
+          }
+        },
+        "password": {
+          "title": "Modifier votre mot de passe",
+          "current-password": {
+            "label": "Votre mot de passe actuel",
+            "placeholder": "Entrez votre mot de passe actuel"
+          },
+          "new-password": {
+            "label": "Nouveau mot de passe",
+            "placeholder": "Nouveau mot de passe"
+          },
+          "set-password": "Modifier votre mot de passe",
+          "setting": "Modification de mot de passe en cours...",
+          "setted": "Votre mot de passe à été modifié",
+          "invalid": {
+            "header": "Password to simple",
+            "message": "Votre nouveau mot de passe doit consister au moins de 6 caractères."
+          },
+          "not-matching": {
+            "header": "Le mot de passe ne correspond pas à votre identifiant",
+            "message": "Ce mot de passe ne correspond pas à votre identifiant."
+          },
+          "unknown-error": {
+            "header": "Une erreur inconnue est survenue",
+            "message": "Essayez encore ou contactez le service de support technique."
+          },
+          "ok": "OK"
+        },
+        "language": {
+          "title": "Sélectionner une langue"
+        },
+        "version": {
+          "title": "Version",
+          "app-version": "Version binaire",
+          "code-push-version": "Mettre à jour la version",
+          "beta": {
+            "label": "Bêta",
+            "yes": "Oui",
+            "no": "Non"
+          }
+        },
+        "terms": {
+          "title": "Conditions générales d'utilisation"
+        }
+      },
+      "help": {
+        "contact": {
+          "title": "Contactez-nous",
+          "text": "N'hésitez pas à nous contacter pour toute question éventuelle.",
+          "email": {
+            "label": "E-mail",
+            "text": "{{vendorSupportEmail}}"
+          },
+          "telephone": {
+            "label": "Téléphone",
+            "text": "P.E.S. (28 99 96 74) ou {{vendorName}} (+46 8-22 33 77)"
+          }
+        },
+        "faq": {
+          "title": "Frequently asked questions"
+        }
+      }
+    }
+  }
+}

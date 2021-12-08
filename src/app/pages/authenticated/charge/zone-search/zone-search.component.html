@@ -1,0 +1,27 @@
+<ion-card>
+    <ion-card-header>
+        <ion-card-title>
+            <ion-icon name="home"></ion-icon>
+            {{t('title')}}
+        </ion-card-title>
+    </ion-card-header>
+
+    <ion-button card-option fill="clear" size="large" color="medium" (click)="closed.emit()" *ngIf="showClose">
+        <ion-icon name="close"></ion-icon>
+    </ion-button>
+
+    <ion-card-content>
+        <ion-text [innerHtml]="t('text', { vendorName: vendor.vendorName })"></ion-text>
+    </ion-card-content>
+
+    <form #form="ngForm" (ngSubmit)="search(form)">
+        <ion-list>
+            <ion-item>
+                <ion-label position="stacked">{{t('zone-code.label')}}</ion-label>
+                <ion-input [placeholder]="t('zone-code.placeholder')" type="number" name="zoneCode" ngModel required></ion-input>
+            </ion-item>
+        </ion-list>
+
+        <ion-button expand="full" [disabled]="form.invalid" type="submit">{{t('add')}}</ion-button>
+    </form>
+</ion-card>

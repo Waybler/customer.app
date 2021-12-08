@@ -1,0 +1,12 @@
+ion-card-content[legend] {
+    span {
+        vertical-align: super;
+    }
+    
+    ion-icon {
+        font-size: 1.6em;
+        &:not(:first-child) {
+            margin-left: 20px;
+        }
+    }
+}

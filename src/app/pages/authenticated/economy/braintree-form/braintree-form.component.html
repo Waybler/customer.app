@@ -1,0 +1,35 @@
+<form #form id="creditcard">
+    <ion-list>
+        <ng-content></ng-content>
+
+        <ion-item *ngIf="!ready">
+            {{t('init')}}
+        </ion-item>
+
+        <ion-item [class.ion-invalid]="fields['number'].showError" [class.ion-touched]="fields['number'].showError"
+            [hidden]="!ready">
+            <ion-label position="stacked">{{t('number.label')}}</ion-label>
+            <ion-input id="number"></ion-input>
+        </ion-item>
+
+        <ion-item [class.ion-invalid]="fields['cvv'].showError" [class.ion-touched]="fields['cvv'].showError"
+            [hidden]="!ready">
+            <ion-label position="stacked">{{t('cvv.label')}}</ion-label>
+            <ion-input id="cvv"></ion-input>
+        </ion-item>
+
+        <ion-item [class.ion-invalid]="fields['expirationDate'].showError"
+            [class.ion-touched]="fields['expirationDate'].showError" [hidden]="!ready">
+            <ion-label position="stacked">{{t('expiration-date.label')}}</ion-label>
+            <ion-input id="expiration-date"></ion-input>
+        </ion-item>
+
+        <ion-item [class.ion-invalid]="fields['postalCode'].showError"
+            [class.ion-touched]="fields['postalCode'].showError" [hidden]="!ready">
+            <ion-label position="stacked">{{t('postal-code.label')}}</ion-label>
+            <ion-input id="postal-code"></ion-input>
+        </ion-item>
+    </ion-list>
+
+    <ion-button expand="full" [hidden]="!ready" [disabled]="!isValid() || isLoading" (click)="addCard()">{{t('add')}}</ion-button>
+</form>
