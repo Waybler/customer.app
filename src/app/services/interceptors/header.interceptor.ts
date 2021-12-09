@@ -23,7 +23,7 @@ export class HeaderInterceptor implements HttpInterceptor {
 
           if (vendor?.vendorAppId) {
             newHeaders = newHeaders.set(
-              'X-App-Id', vendor.vendorAppId,
+              'X-App-Secret', vendor.vendorAppId,
             );
           } else {
             const errorText = 'Lacking vendorAppId. This value is set in environments.ts';
