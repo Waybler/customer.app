@@ -1,4 +1,4 @@
-import { ContractType, IContractStatus, ITerms } from './contract';
+import { ContractType, CONTRACT_STATUS, ITerms } from './contract';
 import * as Moment from 'moment';
 
 export enum STATION_STATE {
@@ -8,6 +8,14 @@ export enum STATION_STATE {
   FREE = 'free',
   READY = 'ready'
 }
+
+export enum ZONE_ERROR_LEVEL {
+  ERROR = 'error',
+  INFO = 'info',
+  OK = 'ok',
+  UNKNOWN = 'unknown',
+  WARNING = 'warning',
+ }
 
 export interface Station {
   stationId: number;
@@ -60,7 +68,7 @@ export interface ChargeZone {
   newTerms: any;
   ownerId: number;
   stationGroups: StationGroup[];
-  status: IContractStatus;
+  status: CONTRACT_STATUS;
   terms: ITerms;
 }
 

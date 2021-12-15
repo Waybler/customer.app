@@ -785,9 +785,11 @@ export class UserService {
 
   public acceptChargeZoneTerms(chargeZone: ChargeZone): Observable<boolean> {
     if (chargeZone.newTerms.contractTermsId) {
+      const url = `${environment.apiUrl}${chargeZone.contracteeId}/contracts/${chargeZone.contractId}/accept`;
+
       return this.httpClient
         .post(
-          `${environment.apiUrl}${chargeZone.contracteeId}/contracts/${chargeZone.contractId}/accept`,
+          url,
           { contractTermsId: chargeZone.newTerms.contractTermsId },
         )
         .pipe(
