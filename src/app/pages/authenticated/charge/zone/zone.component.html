@@ -50,11 +50,11 @@
             <ng-container *ngFor="let station of filteredStations.var">
 
               <ion-button [attr.data-zone]="chargeZone.zoneId" [attr.data-station]="station.stationId"
-                          [disabled]="chargeZone.status != 'ok'" (click)="toast(t('not-connected-to-evse'))"
+                          [disabled]="!getCanChargeBasedOnChargeZoneStatus()" (click)="toast(t('not-connected-to-evse'))"
                           *ngIf="station.state == 'free'">{{station.name}}</ion-button>
 
               <ion-button [attr.data-zone]="chargeZone.zoneId" [attr.data-station]="station.stationId"
-                          [disabled]="chargeZone.status != 'ok'" (click)="toast(t('not-connected-to-ev'))"
+                          [disabled]="!getCanChargeBasedOnChargeZoneStatus()" (click)="toast(t('not-connected-to-ev'))"
                           *ngIf="station.state == 'cable-connected'">
                 <div station-name>{{station.name}}</div>
                 <ion-icon name="car-sport" slot="end" *ngIf="chargeZone.contractType === ContractType.Charging"></ion-icon>
@@ -62,7 +62,7 @@
               </ion-button>
 
               <ion-button [attr.data-zone]="chargeZone.zoneId" [attr.data-station]="station.stationId"
-                          [disabled]="chargeZone.status != 'ok'" (click)="startCharge(chargeZone, station)"
+                          [disabled]="!getCanChargeBasedOnChargeZoneStatus()" (click)="startCharge(chargeZone, station)"
                           *ngIf="chargeZone.contractType === ContractType.Charging && (station.state == 'ready' || station.state == 'possibly-ready')">
                 <div station-name>{{station.name}}</div>
                 <ion-icon name="car-sport" slot="end" color="warning"></ion-icon>

@@ -4,23 +4,32 @@
     <ng-container *ngSwitchCase="'owner-payment-method-missing'">
         {{chargeZone.isOwner ? t('errors.no-payment-method.owner') : t('errors.no-payment-method.user')}}
     </ng-container>
-    <ng-container *ngSwitchCase="'contract-occupied'">
+    <ng-container *ngSwitchCase="CONTRACT_STATUS.CONTRACT_OCCUPIED">
         {{t('errors.max-parallel-sessions')}}
     </ng-container>
-    <ng-container *ngSwitchCase="'not-accepted-contract-terms'">
+    <ng-container *ngSwitchCase="CONTRACT_STATUS.NOT_ACCEPTED_USER_TERMS">
         {{chargeZone.isAdmin ? t('errors.new-terms.admin') : t('errors.new-terms.user')}}
     </ng-container>
-    <ng-container *ngSwitchCase="'user-payment-method-missing'">
+    <ng-container *ngSwitchCase="CONTRACT_STATUS.USER_PAYMENT_METHOD_MISSING">
         {{t('errors.no-user-payment-method')}}
     </ng-container>
-    <ng-container *ngSwitchCase="'not-accepted-user-terms'">
+    <ng-container *ngSwitchCase="CONTRACT_STATUS.USER_PAYMENT_METHOD_ABOUT_TO_EXPIRE">
+        {{t('errors.user-payment-method-about-to-expire')}}
+    </ng-container>
+    <ng-container *ngSwitchCase="CONTRACT_STATUS.USER_PAYMENT_METHOD_EXPIRED_LAST_MONTH">
+        {{t('errors.user-payment-method-expired-last-month')}}
+    </ng-container>
+    <ng-container *ngSwitchCase="CONTRACT_STATUS.USER_PAYMENT_METHOD_EXPIRED_MORE_THAN_ONE_MONTH_AGO">
+        {{t('errors.user-payment-method-expired-more-than-one-month-ago')}}
+    </ng-container>
+    <ng-container *ngSwitchCase="CONTRACT_STATUS.NOT_ACCEPTED_USER_TERMS">
         {{t('errors.user-terms-not-accepted')}}
     </ng-container>
-    <ng-container *ngSwitchCase="'time-restricted'">
+    <ng-container *ngSwitchCase="CONTRACT_STATUS.TIME_RESTRICTED">
         {{t('errors.time-restricted')}}
     </ng-container>
 
-    <ng-container *ngSwitchDefault>{{t("errors.unknown", chargeZone)}]</ng-container>
+    <ng-container *ngSwitchDefault>{{t("errors.unknown-error", chargeZone)}]</ng-container>
 </ion-item>
 
 <ng-container *ngIf="(chargeZone.status == 'not-accepted-contract-terms' || chargeZone.status == 'not-accepted-user-terms') && chargeZone.newTerms" [class.terms]="true">

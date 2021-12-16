@@ -15,6 +15,7 @@ export class ZoneStatusComponent implements OnInit {
 
   public t: ITranslator;
 
+  public CONTRACT_STATUS = CONTRACT_STATUS;
   constructor(private userService: UserService, translateProviderService: TranslatorFactoryService) {
     this.t = translateProviderService.create('pages.authenticated.charge.components.zone-status');
   }

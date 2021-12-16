@@ -6,7 +6,7 @@ import { HeaterOptionsComponent } from '../heater-options/heater-options.compone
 import { UserAppSettings } from '../../../../models/user';
 import { ChargeZone, ShouldUseCompactviewObject, STATION_STATE } from '../../../../models/chargeZone';
 import { ChargeSession } from '../../../../models/chargeSession';
-import { ContractType } from '../../../../models/contract';
+import { CONTRACT_STATUS, ContractType } from '../../../../models/contract';
 
 @Component({
   selector: 'app-zone',
@@ -34,7 +34,7 @@ export class ZoneComponent implements OnInit {
 
   public showOptions = false;
   public t: ITranslator;
-  public ContractType  = ContractType;
+  public ContractType = ContractType;
 
   constructor(
     public userService: UserService,
@@ -90,6 +90,26 @@ export class ZoneComponent implements OnInit {
     }
 
     return result;
+  }
+
+  public getCanChargeBasedOnChargeZoneStatus(): boolean {
+    let shouldBeAbleToCharge = false;
+
+    const chargeZoneStatus = this.chargeZone.status;
+
+    switch (chargeZoneStatus) {
+      case CONTRACT_STATUS.OK:
+      case CONTRACT_STATUS.USER_PAYMENT_METHOD_ABOUT_TO_EXPIRE:
+      case CONTRACT_STATUS.USER_PAYMENT_METHOD_EXPIRED_LAST_MONTH: {
+        shouldBeAbleToCharge = true;
+        break;
+      }
+      default: {
+        // Leave it false
+      }
+    }
+
+    return shouldBeAbleToCharge;
   }
 
   public async toast(message: string): Promise<void> {

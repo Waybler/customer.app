@@ -798,9 +798,11 @@ export class UserService {
           }),
         );
     } else {
+      const url = `${environment.apiUrl}${chargeZone.contracteeId}/contracts/${chargeZone.contractId}/users/${chargeZone.newTerms.contractUserId}/accept`;
+
       return this.httpClient
         .post(
-          `${environment.apiUrl}${chargeZone.contracteeId}/contracts/${chargeZone.contractId}/users/${chargeZone.newTerms.contractUserId}/accept`,
+          url ,
           { contractUserTermsId: chargeZone.newTerms.contractUserTermsId },
         )
         .pipe(
