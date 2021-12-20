@@ -179,7 +179,7 @@ export class UserService {
   public currentUserTerms$: Observable<TermsAndConditions>;
   public tmp$: Observable<any>;
 
-  private tokenSubject = new BehaviorSubject<string>(null);
+  public tokenSubject = new BehaviorSubject<string>(null);
   public token$: Observable<string>;
 
   public legalEntityIdSubject = new BehaviorSubject(null);
@@ -602,7 +602,7 @@ export class UserService {
   }
 
   public getStatus(): Observable<StatusResultWithMessage> {
-    return this.httpClient.get(`https://status.cacharge.com/status.json?rid=${Math.floor(Math.random() * 20000000)}`)
+     return this.httpClient.get(`https://status.cacharge.com/status.json?rid=${Math.floor(Math.random() * 20000000)}`)
       .pipe(
         map((a: any) => {
           if (a.length > 0) {

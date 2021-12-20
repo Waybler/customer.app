@@ -12,32 +12,42 @@ export class HeaderInterceptor implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     // do not intercept request whose urls are filtered by the injected filter
-    return this.userService.token$.pipe(
-      take(1),
-      mergeMap(token => {
-        const urlIsForAPI = req.url.startsWith(environment.apiUrl);
-        if (token != null && urlIsForAPI) {
-          let newHeaders = req.headers.set(
-            'X-CaCharge-Token', token,
-          );
+    let newHeaders;
+    const urlIsForAPI = req.url.startsWith(environment.apiUrl);
+    if (urlIsForAPI) {
+      if (vendor?.vendorAppId) {
+        newHeaders = req.headers.set(
+          'X-App-Secret', vendor.vendorAppId,
+        );
+      } else {
+        const errorText = 'Lacking vendorAppId. This value is set in environments.ts';
+        console.error(errorText);
+        throw(errorText);
+      }
+    }
 
-          if (vendor?.vendorAppId) {
+    if (!this.userService.tokenSubject?.value) {
+      const clonereq = req.clone({ headers: newHeaders });
+      return next.handle(clonereq);
+
+    } else {
+      return this.userService.token$.pipe(
+        take(1),
+        mergeMap(token => {
+          if (token != null && urlIsForAPI) {
             newHeaders = newHeaders.set(
-              'X-App-Secret', vendor.vendorAppId,
+              'X-CaCharge-Token', token,
             );
-          } else {
-            const errorText = 'Lacking vendorAppId. This value is set in environments.ts';
-            console.error(errorText);
-            throw(errorText);
-          }
 
-          const clonereq = req.clone({ headers: newHeaders });
-          return next.handle(clonereq);
-        } else {
-          return next.handle(req);
-        }
-      }),
-    );
+            const clonereq = req.clone({ headers: newHeaders });
+            return next.handle(clonereq);
+          } else {
+            const clonereq = req.clone({ headers: newHeaders });
+            return next.handle(clonereq);
+          }
+        }),
+      );
+    }
   }
 
   protected get userService(): UserService {
