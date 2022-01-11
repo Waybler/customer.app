@@ -293,36 +293,42 @@ export class UserService {
 
     this.paymentMethods$ = combineLatest(this.legalEntityId$, this.paymentMethodsChanged$).pipe(
       mergeMap(([leid]) => {
-        return this.httpClient.get(`${environment.apiUrl}${leid}/paymentmethods`).pipe(
+        return this.httpClient.get(`${environment.apiUrl}${leid}/paymentmethods?includeExpired=true`).pipe(
           tap((response: PaymentMethodsAPIResponse) => {
 
             const paymentMethods = response.paymentMethods;
+            const paymentMethodIsMissing = !paymentMethods || !paymentMethods.length;
             let hasOKPaymentMethod;
             let hasPaymentMethodAboutToExpire;
             let hasPaymentMethodAboutExpiredLastMonth;
             let hasPaymentMethodAboutExpiredMoreThanOneMonthAgo;
-            paymentMethods.forEach((paymentMethod) => {
-              switch (paymentMethod.status) {
-                case   PAYMENT_METHOD_STATUS.OK: {
-                  hasOKPaymentMethod = true;
-                  break;
-                }
-                case   PAYMENT_METHOD_STATUS.PAYMENT_METHOD_ABOUT_TO_EXPIRE: {
-                  hasPaymentMethodAboutToExpire = true;
-                  break;
-                }
-                case   PAYMENT_METHOD_STATUS.PAYMENT_METHOD_EXPIRED_LAST_MONTH: {
-                  hasPaymentMethodAboutExpiredLastMonth = true;
-                  break;
-                }
-                case   PAYMENT_METHOD_STATUS.PAYMENT_METHOD_EXPIRED_MORE_THAN_ONE_MONTH_AGO: {
-                  hasPaymentMethodAboutExpiredMoreThanOneMonthAgo = true;
-                  break;
-                }
-              }
-            });
 
-            if (hasOKPaymentMethod) {
+            if (!paymentMethodIsMissing) {
+              paymentMethods.forEach((paymentMethod) => {
+                switch (paymentMethod.status) {
+                  case   PAYMENT_METHOD_STATUS.OK: {
+                    hasOKPaymentMethod = true;
+                    break;
+                  }
+                  case   PAYMENT_METHOD_STATUS.PAYMENT_METHOD_ABOUT_TO_EXPIRE: {
+                    hasPaymentMethodAboutToExpire = true;
+                    break;
+                  }
+                  case   PAYMENT_METHOD_STATUS.PAYMENT_METHOD_EXPIRED_LAST_MONTH: {
+                    hasPaymentMethodAboutExpiredLastMonth = true;
+                    break;
+                  }
+                  case   PAYMENT_METHOD_STATUS.PAYMENT_METHOD_EXPIRED_MORE_THAN_ONE_MONTH_AGO: {
+                    hasPaymentMethodAboutExpiredMoreThanOneMonthAgo = true;
+                    break;
+                  }
+                }
+              });
+            }
+
+            if (paymentMethodIsMissing) {
+              this.paymentMethodsStatus.next(PAYMENT_METHOD_STATUS.PAYMENT_METHOD_IS_MISSING);
+            } else if (hasOKPaymentMethod) {
               this.paymentMethodsStatus.next(PAYMENT_METHOD_STATUS.OK);
             } else if (hasPaymentMethodAboutToExpire) {
               this.paymentMethodsStatus.next(PAYMENT_METHOD_STATUS.PAYMENT_METHOD_ABOUT_TO_EXPIRE);
@@ -331,9 +337,7 @@ export class UserService {
             } else if (hasPaymentMethodAboutExpiredMoreThanOneMonthAgo) {
               this.paymentMethodsStatus.next(PAYMENT_METHOD_STATUS.PAYMENT_METHOD_EXPIRED_MORE_THAN_ONE_MONTH_AGO);
             }
-            console.info('user.service -> constructur -> paymentMethods$ -> mergeMap -> tap: '
-              , '\nresponse: ', response
-              , '\nthis.paymentMethodsStatus: ', this.paymentMethodsStatus.value);
+
           }),
           map((response: PaymentMethodsAPIResponse) => {
             return response.paymentMethods;

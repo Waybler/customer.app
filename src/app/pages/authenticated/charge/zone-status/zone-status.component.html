@@ -3,106 +3,136 @@
           [attr.error]="zoneIsInError(chargeZone)"
           [attr.warning]="zoneIsInWarning(chargeZone)"
           [attr.info]="zoneIsInInfo(chargeZone)" technical-error>
-    <ion-icon *ngIf="chargeZone.status !== CONTRACT_STATUS.TIME_RESTRICTED" name="warning" color="light"></ion-icon>
-    <ion-icon *ngIf="chargeZone.status === CONTRACT_STATUS.TIME_RESTRICTED" name="clock" color="light"></ion-icon>
-    <ng-container *ngSwitchCase="'owner-payment-method-missing'">
-        {{chargeZone.isOwner ? t('errors.no-payment-method.owner') : t('errors.no-payment-method.user')}}
-    </ng-container>
-    <ng-container *ngSwitchCase="CONTRACT_STATUS.CONTRACT_OCCUPIED">
-        {{t('errors.max-parallel-sessions')}}
-    </ng-container>
-    <ng-container *ngSwitchCase="CONTRACT_STATUS.NOT_ACCEPTED_USER_TERMS">
-        {{chargeZone.isAdmin ? t('errors.new-terms.admin') : t('errors.new-terms.user')}}
-    </ng-container>
-    <ng-container *ngSwitchCase="CONTRACT_STATUS.USER_PAYMENT_METHOD_MISSING">
-        {{t('errors.no-user-payment-method')}}
-    </ng-container>
-    <ng-container *ngSwitchCase="CONTRACT_STATUS.USER_PAYMENT_METHOD_ABOUT_TO_EXPIRE">
-        {{t('errors.user-payment-method-about-to-expire')}}
-    </ng-container>
-    <ng-container *ngSwitchCase="CONTRACT_STATUS.USER_PAYMENT_METHOD_EXPIRED_LAST_MONTH">
-        {{t('errors.user-payment-method-expired-last-month')}}
-    </ng-container>
-    <ng-container *ngSwitchCase="CONTRACT_STATUS.USER_PAYMENT_METHOD_EXPIRED_MORE_THAN_ONE_MONTH_AGO">
-        {{t('errors.user-payment-method-expired-more-than-one-month-ago')}}
-    </ng-container>
-    <ng-container *ngSwitchCase="CONTRACT_STATUS.NOT_ACCEPTED_USER_TERMS">
-        {{t('errors.user-terms-not-accepted')}}
-    </ng-container>
-    <ng-container *ngSwitchCase="CONTRACT_STATUS.TIME_RESTRICTED">
-        {{t('errors.time-restricted')}}
-    </ng-container>
+  <ion-icon *ngIf="chargeZone.status !== CONTRACT_STATUS.TIME_RESTRICTED" name="warning" color="light"></ion-icon>
+  <ion-icon *ngIf="chargeZone.status === CONTRACT_STATUS.TIME_RESTRICTED" name="clock" color="light"></ion-icon>
+  <ng-container *ngSwitchCase="CONTRACT_STATUS.OWNER_PAYMENT_METHOD_MISSING">
+    {{chargeZone.isOwner ? t('errors.no-payment-method.owner') : t('errors.no-payment-method.user')}}
+  </ng-container>
+  <ng-container *ngSwitchCase="CONTRACT_STATUS.CONTRACT_OCCUPIED">
+    {{t('errors.max-parallel-sessions')}}
+  </ng-container>
+  <ng-container *ngSwitchCase="CONTRACT_STATUS.NOT_ACCEPTED_USER_TERMS">
+    {{chargeZone.isAdmin ? t('errors.new-terms.admin') : t('errors.new-terms.user')}}
+  </ng-container>
+  <ng-container *ngSwitchCase="CONTRACT_STATUS.USER_PAYMENT_METHOD_MISSING">
+    {{t('errors.no-user-payment-method')}}
+  </ng-container>
+  <ng-container *ngSwitchCase="CONTRACT_STATUS.USER_PAYMENT_METHOD_ABOUT_TO_EXPIRE">
+    {{t('errors.user-payment-method-about-to-expire')}}
+  </ng-container>
+  <ng-container *ngSwitchCase="CONTRACT_STATUS.USER_PAYMENT_METHOD_EXPIRED_LAST_MONTH">
+    {{t('errors.user-payment-method-expired-last-month')}}
+  </ng-container>
+  <ng-container *ngSwitchCase="CONTRACT_STATUS.USER_PAYMENT_METHOD_EXPIRED_MORE_THAN_ONE_MONTH_AGO">
+    {{t('errors.user-payment-method-expired-more-than-one-month-ago')}}
+  </ng-container>
+  <ng-container *ngSwitchCase="CONTRACT_STATUS.NOT_ACCEPTED_USER_TERMS">
+    {{t('errors.user-terms-not-accepted')}}
+  </ng-container>
+  <ng-container *ngSwitchCase="CONTRACT_STATUS.TIME_RESTRICTED">
+    {{t('errors.time-restricted')}}
+  </ng-container>
 
-    <ng-container *ngSwitchDefault>{{t("errors.unknown-error", chargeZone)}]</ng-container>
+  <ng-container *ngSwitchDefault>{{t("errors.unknown-error", chargeZone)}]</ng-container>
 </ion-item>
 
-<ng-container *ngIf="(chargeZone.status == CONTRACT_STATUS.NOT_ACCEPTED_CONTRACT_TERMS || chargeZone.status == CONTRACT_STATUS.NOT_ACCEPTED_USER_TERMS) && chargeZone.newTerms"
-              [class.terms]="true">
-    <ion-card-content>
-        <ion-text *ngIf="chargeZone.newTerms.users > 1">{{t('terms.affects-all')}}</ion-text>
-        <ion-list>
-            <ion-item *ngIf="chargeZone.newTerms.subscriptionFee" stacked>
-                <ion-label position="stacked">
-                    {{chargeZone.newTerms.users > 1 ? t('terms.subscriptions') : t('terms.subscription')}}
-                </ion-label>
-                <div>
-                    {{t('terms.subscription-fee', {amount: chargeZone.newTerms.subscriptionFeeTotal.value, currency: chargeZone.newTerms.subscriptionFee.currency })}}
-                    <br />
-                    <p *ngIf="chargeZone.newTerms.users > 1">
-                        {{t('terms.max-subscription-fee', {amount: chargeZone.newTerms.subscriptionFee.max, currency: chargeZone.newTerms.subscriptionFee.currency})}}
-                    </p>
-                </div>
-            </ion-item>
+ <ion-item
+  *ngIf="paymentMethodStatus && (paymentMethodStatus !== PAYMENT_METHOD_STATUS.OK)"
+  [ngSwitch]="paymentMethodStatus"
+  [attr.error]="PAYMENT_METHOD_STATUS.PAYMENT_METHOD_EXPIRED_MORE_THAN_ONE_MONTH_AGO || PAYMENT_METHOD_STATUS.PAYMENT_METHOD_IS_MISSING"
+  [attr.warning]="PAYMENT_METHOD_STATUS.PAYMENT_METHOD_EXPIRED_LAST_MONTH"
+  [attr.info]="PAYMENT_METHOD_STATUS.PAYMENT_METHOD_ABOUT_TO_EXPIRE" technical-error
+>
+  <ion-icon *ngIf="paymentMethodStatus !== PAYMENT_METHOD_STATUS.OK" name="warning" color="light"></ion-icon>
+  <ng-container *ngSwitchCase="PAYMENT_METHOD_STATUS.PAYMENT_METHOD_ABOUT_TO_EXPIRE">
+    {{t('errors.user-payment-method-about-to-expire')}}
+  </ng-container>
+  <ng-container *ngSwitchCase="PAYMENT_METHOD_STATUS.PAYMENT_METHOD_EXPIRED_LAST_MONTH">
+    {{t('errors.user-payment-method-expired-last-month')}}
+  </ng-container>
+  <ng-container *ngSwitchCase="PAYMENT_METHOD_STATUS.PAYMENT_METHOD_EXPIRED_MORE_THAN_ONE_MONTH_AGO">
+    {{t('errors.user-payment-method-expired-more-than-one-month-ago')}}
+  </ng-container>
+  <ng-container *ngSwitchCase="PAYMENT_METHOD_STATUS.PAYMENT_METHOD_IS_MISSING">
+    {{t('errors.no-user-payment-method')}}
+  </ng-container>
+  <ng-container *ngSwitchDefault>{{t("errors.unknown-error", chargeZone)}]</ng-container>
+</ion-item>
 
-            <ion-item *ngIf="chargeZone.newTerms.consumptionFee" stacked>
-                <ion-label position="stacked">
-                    {{t('terms.consumption-fee')}}
-                </ion-label>
-                <div>
-                    {{chargeZone.newTerms.consumptionFeeTotal.value}}{{chargeZone.newTerms.consumptionFee.currency}}/kWh
-                </div>
-            </ion-item>
+<ng-container
+  *ngIf="(chargeZone.status == CONTRACT_STATUS.NOT_ACCEPTED_CONTRACT_TERMS || chargeZone.status == CONTRACT_STATUS.NOT_ACCEPTED_USER_TERMS) && chargeZone.newTerms"
+  [class.terms]="true">
+  <ion-card-content>
+    <ion-text *ngIf="chargeZone.newTerms.users > 1">{{t('terms.affects-all')}}</ion-text>
+    <ion-list>
+      <ion-item *ngIf="chargeZone.newTerms.subscriptionFee" stacked>
+        <ion-label position="stacked">
+          {{chargeZone.newTerms.users > 1 ? t('terms.subscriptions') : t('terms.subscription')}}
+        </ion-label>
+        <div>
+          {{t('terms.subscription-fee', {
+          amount: chargeZone.newTerms.subscriptionFeeTotal.value,
+          currency: chargeZone.newTerms.subscriptionFee.currency
+        })}}
+          <br/>
+          <p *ngIf="chargeZone.newTerms.users > 1">
+            {{t('terms.max-subscription-fee', {
+            amount: chargeZone.newTerms.subscriptionFee.max,
+            currency: chargeZone.newTerms.subscriptionFee.currency
+          })}}
+          </p>
+        </div>
+      </ion-item>
 
-            <ion-item *ngIf="chargeZone.newTerms.cancellation" stacked>
-                <ion-label position="stacked">
-                    {{t('terms.cancellation')}}
-                </ion-label>
-                <div>
-                    {{t('terms.cancellation-time', {time: chargeZone.newTerms.cancellation})}}
-                </div>
-            </ion-item>
+      <ion-item *ngIf="chargeZone.newTerms.consumptionFee" stacked>
+        <ion-label position="stacked">
+          {{t('terms.consumption-fee')}}
+        </ion-label>
+        <div>
+          {{chargeZone.newTerms.consumptionFeeTotal.value}}{{chargeZone.newTerms.consumptionFee.currency}}/kWh
+        </div>
+      </ion-item>
 
-            <ion-item *ngIf="chargeZone.newTerms.maxParallelSessions" stacked>
-                <ion-label position="stacked">
-                    {{t('terms.max-sessions')}}
-                </ion-label>
-                <div>
-                    {{chargeZone.newTerms.maxParallelSessions}}
-                </div>
-            </ion-item>
+      <ion-item *ngIf="chargeZone.newTerms.cancellation" stacked>
+        <ion-label position="stacked">
+          {{t('terms.cancellation')}}
+        </ion-label>
+        <div>
+          {{t('terms.cancellation-time', {time: chargeZone.newTerms.cancellation})}}
+        </div>
+      </ion-item>
 
-            <ion-item *ngIf="chargeZone.newTerms.autostart" stacked>
-                <ion-label position="stacked">
-                    {{t('terms.autostart.title')}}
-                </ion-label>
-                <div>
-                    {{t('terms.autostart.enabled')}}
-                </div>
-            </ion-item>
+      <ion-item *ngIf="chargeZone.newTerms.maxParallelSessions" stacked>
+        <ion-label position="stacked">
+          {{t('terms.max-sessions')}}
+        </ion-label>
+        <div>
+          {{chargeZone.newTerms.maxParallelSessions}}
+        </div>
+      </ion-item>
 
-            <ion-item *ngIf="chargeZone.newTerms.autostart" stacked>
-                <ion-text>
-                    {{t('terms.autostart.description')}}
-                </ion-text>
-            </ion-item>
-        </ion-list>
-    </ion-card-content>
+      <ion-item *ngIf="chargeZone.newTerms.autostart" stacked>
+        <ion-label position="stacked">
+          {{t('terms.autostart.title')}}
+        </ion-label>
+        <div>
+          {{t('terms.autostart.enabled')}}
+        </div>
+      </ion-item>
 
-    <ion-button expand="full" (click)="acceptChargeZoneTerms(chargeZone)">{{t('terms.accept')}}</ion-button>
+      <ion-item *ngIf="chargeZone.newTerms.autostart" stacked>
+        <ion-text>
+          {{t('terms.autostart.description')}}
+        </ion-text>
+      </ion-item>
+    </ion-list>
+  </ion-card-content>
+
+  <ion-button expand="full" (click)="acceptChargeZoneTerms(chargeZone)">{{t('terms.accept')}}</ion-button>
 </ng-container>
 
 <ion-item *ngIf="chargeZone.status == CONTRACT_STATUS.OK && !allStationsOk(chargeZone)"
           [attr.error]="true" technical-error>
-    <ion-icon name="warning" color="light"></ion-icon>
-    {{t('technical-problem')}}
+  <ion-icon name="warning" color="light"></ion-icon>
+  {{t('technical-problem')}}
 </ion-item>

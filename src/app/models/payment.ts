@@ -85,6 +85,7 @@ export enum PAYMENT_METHOD_STATUS {
   PAYMENT_METHOD_ABOUT_TO_EXPIRE = 'payment-method-about-to-expire',
   PAYMENT_METHOD_EXPIRED_LAST_MONTH = 'payment-method-expired-last-month',
   PAYMENT_METHOD_EXPIRED_MORE_THAN_ONE_MONTH_AGO = 'payment-method-expired-more-than-one-month-ago',
+  PAYMENT_METHOD_IS_MISSING = 'payment-method-is-missing',
 }
 
 export interface PaymentMethodsAPIResponse {
