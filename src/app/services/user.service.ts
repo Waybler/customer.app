@@ -1,23 +1,30 @@
 import { Injectable } from '@angular/core';
-import { Observable, of, from, Subject, combineLatest, BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, combineLatest, from, Observable, of, Subject } from 'rxjs';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { map, tap, mergeMap, catchError, switchMap, first } from 'rxjs/operators';
+import { catchError, first, map, mergeMap, switchMap, tap } from 'rxjs/operators';
 
 import { environment } from '../../environments/environment';
 import { StorageService } from './storage.service';
 import { ILocale, LocaleService } from './locale.service';
 import {
+  USER_APP_SETTINGS_PROPERTY,
   UserAppSettings,
   UserAppSettingsAPIResponse,
   UserAuthenticateVerifyAPIResponse,
-  USER_APP_SETTINGS_PROPERTY,
 } from '../models/user';
 import { IWebSocketTypeOfUserUpdated } from '../models/webSocket';
 import { ChargeZone, StationsAvailableObject } from '../models/chargeZone';
 import { API, HTTP_STATUS_CODE } from '../models/api';
-import { TermsAndConditions } from '../models/contract';
-import { HistoryChartDatum, HistoryForMonthGUIModel, HistoryForMonthAPIResponse } from '../models/history';
-import { BillingInvoicesAPIResponse, Invoice, Payment, PaymentMethodsAPIResponse, UninvoicedAPIResponse } from '../models/payment';
+import { CONTRACT_STATUS, TermsAndConditions } from '../models/contract';
+import { HistoryChartDatum, HistoryForMonthAPIResponse, HistoryForMonthGUIModel } from '../models/history';
+import {
+  BillingInvoicesAPIResponse,
+  Invoice,
+  PAYMENT_METHOD_STATUS,
+  PaymentMethod,
+  PaymentMethodsAPIResponse,
+  UninvoicedAPIResponse,
+} from '../models/payment';
 import { APIBodyChargeSessionStart, ChargeSessionStartParams, ChargeSessionStopParams } from '../models/chargeSession';
 
 // import { LocaleService } from './locale.service';
@@ -171,8 +178,9 @@ export class UserService {
   public betaChanged$ = this.betaChangedSubject.asObservable();
   public beta$: Observable<boolean>;
 
-  public paymentMethods$: Observable<Payment[]>;
-  public uninvoiced$: Observable<UninvoicedAPIResponse>; // TODO: Fix type
+  public paymentMethods$: Observable<PaymentMethod[]>;
+  public paymentMethodsStatus: BehaviorSubject<PAYMENT_METHOD_STATUS | null> = new BehaviorSubject(null);
+  public uninvoiced$: Observable<UninvoicedAPIResponse>;
   public invoices$: Observable<Invoice[]>;
   public history$: Observable<HistoryForMonthGUIModel>;
   public historyPeriod$: Subject<string> = new Subject<any>();
@@ -286,8 +294,49 @@ export class UserService {
     this.paymentMethods$ = combineLatest(this.legalEntityId$, this.paymentMethodsChanged$).pipe(
       mergeMap(([leid]) => {
         return this.httpClient.get(`${environment.apiUrl}${leid}/paymentmethods`).pipe(
-          map((d: PaymentMethodsAPIResponse) => {
-            return d.paymentMethods;
+          tap((response: PaymentMethodsAPIResponse) => {
+
+            const paymentMethods = response.paymentMethods;
+            let hasOKPaymentMethod;
+            let hasPaymentMethodAboutToExpire;
+            let hasPaymentMethodAboutExpiredLastMonth;
+            let hasPaymentMethodAboutExpiredMoreThanOneMonthAgo;
+            paymentMethods.forEach((paymentMethod) => {
+              switch (paymentMethod.status) {
+                case   PAYMENT_METHOD_STATUS.OK: {
+                  hasOKPaymentMethod = true;
+                  break;
+                }
+                case   PAYMENT_METHOD_STATUS.PAYMENT_METHOD_ABOUT_TO_EXPIRE: {
+                  hasPaymentMethodAboutToExpire = true;
+                  break;
+                }
+                case   PAYMENT_METHOD_STATUS.PAYMENT_METHOD_EXPIRED_LAST_MONTH: {
+                  hasPaymentMethodAboutExpiredLastMonth = true;
+                  break;
+                }
+                case   PAYMENT_METHOD_STATUS.PAYMENT_METHOD_EXPIRED_MORE_THAN_ONE_MONTH_AGO: {
+                  hasPaymentMethodAboutExpiredMoreThanOneMonthAgo = true;
+                  break;
+                }
+              }
+            });
+
+            if (hasOKPaymentMethod) {
+              this.paymentMethodsStatus.next(PAYMENT_METHOD_STATUS.OK);
+            } else if (hasPaymentMethodAboutToExpire) {
+              this.paymentMethodsStatus.next(PAYMENT_METHOD_STATUS.PAYMENT_METHOD_ABOUT_TO_EXPIRE);
+            } else if (hasPaymentMethodAboutExpiredLastMonth) {
+              this.paymentMethodsStatus.next(PAYMENT_METHOD_STATUS.PAYMENT_METHOD_EXPIRED_LAST_MONTH);
+            } else if (hasPaymentMethodAboutExpiredMoreThanOneMonthAgo) {
+              this.paymentMethodsStatus.next(PAYMENT_METHOD_STATUS.PAYMENT_METHOD_EXPIRED_MORE_THAN_ONE_MONTH_AGO);
+            }
+            console.info('user.service -> constructur -> paymentMethods$ -> mergeMap -> tap: '
+              , '\nresponse: ', response
+              , '\nthis.paymentMethodsStatus: ', this.paymentMethodsStatus.value);
+          }),
+          map((response: PaymentMethodsAPIResponse) => {
+            return response.paymentMethods;
           }),
         );
       }),
@@ -535,7 +584,7 @@ export class UserService {
     const url = `${environment.apiUrl}${params.legalEntityId}/sessions`;
 
     const body: APIBodyChargeSessionStart = {
-       contractUserId: params.contractUserId,
+      contractUserId: params.contractUserId,
       stationId: params.stationId,
       params: params.otherParams,
     };
@@ -602,7 +651,7 @@ export class UserService {
   }
 
   public getStatus(): Observable<StatusResultWithMessage> {
-     return this.httpClient.get(`https://status.cacharge.com/status.json?rid=${Math.floor(Math.random() * 20000000)}`)
+    return this.httpClient.get(`https://status.cacharge.com/status.json?rid=${Math.floor(Math.random() * 20000000)}`)
       .pipe(
         map((a: any) => {
           if (a.length > 0) {
@@ -802,7 +851,7 @@ export class UserService {
 
       return this.httpClient
         .post(
-          url ,
+          url,
           { contractUserTermsId: chargeZone.newTerms.contractUserTermsId },
         )
         .pipe(

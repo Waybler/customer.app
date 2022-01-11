@@ -1,4 +1,4 @@
-import { IFee } from './contract';
+import { CONTRACT_STATUS, IFee } from './contract';
 import { API_RESULT } from './api';
 
 export interface InvoiceAmount {
@@ -35,19 +35,60 @@ export interface BillingInvoicesAPIResponse {
   result: API_RESULT;
 }
 
-export type PaymentMethod = 'CreditCardPaymentMethod' | 'GiroPaymentMethod' | 'InvoicePaymentMethod';
+export type PaymentMethodType = 'CreditCardPaymentMethod' | 'GiroPaymentMethod' | 'InvoicePaymentMethod';
 
-export interface Payment {
-  expirationDate: string;
-  maskedNumber: string;
-  cardType: string;
+export enum CreditCardType {
+  Unknown = 'Unknown',
+  Visa = 'Visa',
+  Mastercard = 'Mastercard',
+  Invoice = 'Invoice'
+}
+
+export enum InvoicePaymentMethodState {
+  Unknown = 'Unknown',
+  Waiting = 'Waiting',
+  Approved = 'Approved',
+  Denied = 'Denied'
+}
+
+export enum GiroPaymentMethodType {
+  Unknown = 'Unknown',
+  BankAccount = 'BankAccount',
+  PlusGiro = 'PlusGiro',
+  BankGiro = 'BankGiro'
+}
+
+export interface PaymentMethod {
   paymentMethodId: number;
   index: number;
-  type: PaymentMethod;
+  type: PaymentMethodType;
+  status: PAYMENT_METHOD_STATUS;
+}
+
+export interface PaymentMethodCreditCard extends PaymentMethod {
+  expirationDate: string;
+  maskedNumber: string;
+  cardType: CreditCardType;
+}
+
+export interface PaymentMethodInvoice extends PaymentMethod {
+  state: InvoicePaymentMethodState;
+}
+
+export interface PaymentMethodGiro extends PaymentMethod {
+  accountNumber: string;
+  giroType: GiroPaymentMethodType;
+}
+
+export enum PAYMENT_METHOD_STATUS {
+  OK = 'ok',
+  PAYMENT_METHOD_ABOUT_TO_EXPIRE = 'payment-method-about-to-expire',
+  PAYMENT_METHOD_EXPIRED_LAST_MONTH = 'payment-method-expired-last-month',
+  PAYMENT_METHOD_EXPIRED_MORE_THAN_ONE_MONTH_AGO = 'payment-method-expired-more-than-one-month-ago',
 }
 
 export interface PaymentMethodsAPIResponse {
-  paymentMethods: Payment[];
+  paymentMethods: PaymentMethod[];
   result: API_RESULT;
 }
 

@@ -1,6 +1,10 @@
-<ion-item *ngIf="zoneErrorlevel(chargeZone) != 'ok'" [ngSwitch]="chargeZone.status" [attr.error]="zoneIsInError(chargeZone)" [attr.warning]="zoneIsInWarning(chargeZone)" [attr.info]="zoneIsInInfo(chargeZone)" technical-error>
-    <ion-icon *ngIf="chargeZone.status !== 'time-restricted'" name="warning" color="light"></ion-icon>
-    <ion-icon *ngIf="chargeZone.status === 'time-restricted'" name="clock" color="light"></ion-icon>
+<ion-item *ngIf="zoneErrorlevel(chargeZone) != CONTRACT_STATUS.OK"
+          [ngSwitch]="chargeZone.status"
+          [attr.error]="zoneIsInError(chargeZone)"
+          [attr.warning]="zoneIsInWarning(chargeZone)"
+          [attr.info]="zoneIsInInfo(chargeZone)" technical-error>
+    <ion-icon *ngIf="chargeZone.status !== CONTRACT_STATUS.TIME_RESTRICTED" name="warning" color="light"></ion-icon>
+    <ion-icon *ngIf="chargeZone.status === CONTRACT_STATUS.TIME_RESTRICTED" name="clock" color="light"></ion-icon>
     <ng-container *ngSwitchCase="'owner-payment-method-missing'">
         {{chargeZone.isOwner ? t('errors.no-payment-method.owner') : t('errors.no-payment-method.user')}}
     </ng-container>
@@ -32,7 +36,8 @@
     <ng-container *ngSwitchDefault>{{t("errors.unknown-error", chargeZone)}]</ng-container>
 </ion-item>
 
-<ng-container *ngIf="(chargeZone.status == 'not-accepted-contract-terms' || chargeZone.status == 'not-accepted-user-terms') && chargeZone.newTerms" [class.terms]="true">
+<ng-container *ngIf="(chargeZone.status == CONTRACT_STATUS.NOT_ACCEPTED_CONTRACT_TERMS || chargeZone.status == CONTRACT_STATUS.NOT_ACCEPTED_USER_TERMS) && chargeZone.newTerms"
+              [class.terms]="true">
     <ion-card-content>
         <ion-text *ngIf="chargeZone.newTerms.users > 1">{{t('terms.affects-all')}}</ion-text>
         <ion-list>
@@ -96,7 +101,8 @@
     <ion-button expand="full" (click)="acceptChargeZoneTerms(chargeZone)">{{t('terms.accept')}}</ion-button>
 </ng-container>
 
-<ion-item *ngIf="chargeZone.status == 'ok' && !allStationsOk(chargeZone)" [attr.error]="true" technical-error>
+<ion-item *ngIf="chargeZone.status == CONTRACT_STATUS.OK && !allStationsOk(chargeZone)"
+          [attr.error]="true" technical-error>
     <ion-icon name="warning" color="light"></ion-icon>
     {{t('technical-problem')}}
 </ion-item>
