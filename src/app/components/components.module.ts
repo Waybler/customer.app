@@ -7,19 +7,21 @@ import { UserTermsComponent } from './user-terms/user-terms.component';
 import { LanguageSelectorComponent } from './locale-selector/locale-selector.component';
 import { DirectivesModule } from '../directives/directives.module';
 import { CodePushComponent } from './code-push/code-push.component';
-import {ToastComponent} from './utils/cac-toast/toast.component';
+import { ToastComponent } from './utils/cac-toast/toast.component';
+import { VehicleModule } from './vehicle/vehicle.module';
 
 @NgModule({
-    imports: [
-        CommonModule,
-        FormsModule,
-        IonicModule,
-        DirectivesModule,
-        RoundProgressModule
-    ],
-    declarations: [UserTermsComponent, LanguageSelectorComponent, CodePushComponent, ToastComponent],
-    entryComponents: [UserTermsComponent, LanguageSelectorComponent, CodePushComponent, ToastComponent],
-    exports: [UserTermsComponent, LanguageSelectorComponent, CodePushComponent, ToastComponent]
+  imports: [
+    CommonModule,
+    FormsModule,
+    IonicModule,
+    DirectivesModule,
+    RoundProgressModule,
+    VehicleModule
+  ],
+  declarations: [UserTermsComponent, LanguageSelectorComponent, CodePushComponent, ToastComponent],
+  entryComponents: [UserTermsComponent, LanguageSelectorComponent, CodePushComponent, ToastComponent],
+  exports: [UserTermsComponent, LanguageSelectorComponent, CodePushComponent, ToastComponent],
 })
 export class ComponentsModule {
 }

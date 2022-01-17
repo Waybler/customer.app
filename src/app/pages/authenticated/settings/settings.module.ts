@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { SettingsPage } from './settings.page';
 import { ComponentsModule } from 'src/app/components/components.module';
+import { VehicleModule } from '../../../components/vehicle/vehicle.module';
 
 const routes: Routes = [
   {
@@ -21,7 +22,8 @@ const routes: Routes = [
     FormsModule,
     IonicModule,
     RouterModule.forChild(routes),
-    ComponentsModule
+    ComponentsModule,
+    VehicleModule,
   ],
   declarations: [SettingsPage]
 })

@@ -19,6 +19,15 @@
     "user-terms": {
       "expand": "Expand",
       "collapse": "Collapse"
+    },
+    "vehicle": {
+      "make": "Make",
+      "model": "Model",
+      "model-year": "Model year",
+      "vehicle-identification-number": "Vehicle identification number",
+      "vehicle-identification-number-initials": "VIN",
+      "vehicle-registration-number": "Registration number",
+      "vehicle-year": "Vehicle year"
     }
   },
   "pages": {
