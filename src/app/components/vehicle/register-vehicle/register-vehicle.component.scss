@@ -1,15 +1,21 @@
-div[wrapper] {
-    position: relative;
+:host {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  margin: 0 0 10px;
+}
 
-    div[text] {
-        top: 50%;
-        bottom: auto;
-        left: 50px;
-        transform: translateY(-50%);
-        font-size: 20px;
-        position: absolute;
-        font-weight: 100;
-        line-height: 1;
-        white-space: nowrap
-    }
+ion-fab.showExpandedViewFab {
+  min-height: 60px;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}
+.app-vehicles {
+  &.register-vehicle {
+    position: relative;
+    min-height: 50px;
+    margin: 0 0 10px;
+  }
+
 }

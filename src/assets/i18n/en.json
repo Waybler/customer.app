@@ -1,5 +1,6 @@
 {
   "global": {
+    "add": "Add",
     "no": "No",
     "yes": "Yes"
   },
@@ -21,9 +22,12 @@
       "collapse": "Collapse"
     },
     "vehicle": {
+      "country-code": "Country code",
       "make": "Make",
       "model": "Model",
       "model-year": "Model year",
+      "vehicle": "Vehicle",
+      "vehicles": "Vehicles",
       "vehicle-identification-number": "Vehicle identification number",
       "vehicle-identification-number-initials": "VIN",
       "vehicle-registration-number": "Registration number",

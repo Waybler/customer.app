@@ -1,15 +1,21 @@
 <ion-card class="app-vehicles manage-vehicles">
   <ion-card-header>
     <ion-card-title>
-      <!--      {{t("account.title")}}-->
-      Vehicles
-    </ion-card-title>
+            {{t("vehicles")}}
+     </ion-card-title>
   </ion-card-header>
   <ion-card-content>
     <ion-spinner *ngIf="!hasFetchedData"></ion-spinner>
-    <div wrapper *ngIf="hasFetchedData">
+    <div  *ngIf="hasFetchedData" class="wrapper">
       <app-vehicle-vehicles-list *ngIf="vehicles && vehicles.length" [vehicles]="vehicles"></app-vehicle-vehicles-list>
       <p *ngIf="!vehicles?.length">No registered vehicles</p>
+      <app-vehicle-register-vehicle *ngIf="showExpandedView" (onRegisterVehicle)="onRegisterVehicle($event)"></app-vehicle-register-vehicle>
+
+      <ion-fab vertical="bottom" horizontal="center" slot="fixed" class="showExpandedViewFab" *ngIf="!showExpandedView">
+        <ion-fab-button (click)="onShowExpandedViewButtonClick()" class="showExpandedViewButton">
+          <ion-icon name="add"></ion-icon>
+        </ion-fab-button>
+      </ion-fab>
     </div>
   </ion-card-content>
 </ion-card>

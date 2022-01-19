@@ -1,5 +1,21 @@
+:host {
+}
+
 .app-vehicles {
   &.manage-vehicles {
 
   }
+
+  .wrapper {
+    padding-bottom: 60px;
+  }
+}
+
+app-vehicle-vehicles-list {
+
+}
+
+app-vehicle-register-vehicle {
+  margin-top: 30px;
+  margin-bottom: -30px;
 }

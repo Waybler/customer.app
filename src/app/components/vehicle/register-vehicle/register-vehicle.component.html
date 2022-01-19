@@ -1,4 +1,37 @@
 <ion-card class="app-vehicles register-vehicle">
-    <ion-card-content>
-    </ion-card-content>
+  <ion-card-content>
+    <form #form="ngForm" (ngSubmit)="onRegisterVehicleSubmit(form)">
+      <ion-list>
+        <ion-item>
+          <ion-label position="stacked">{{t('vehicle-registration-number') }} ({{t('vehicle-identification-number-initials') }})</ion-label>
+          <ion-input
+            [placeholder]="t('vehicle-registration-number')"
+            type="string"
+            name="registrationNumber"
+            [(ngModel)]="vehicleRegistrationModel.registrationNumber"
+            required
+            (ionChange)="onCountryCodeChange($event)">
+          </ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">{{t('country-code')}}</ion-label>
+          <ion-input
+            [placeholder]="t('country-code')"
+            type="string"
+            name="countryCode"
+            [(ngModel)]="vehicleRegistrationModel.countryCode"
+            required
+            (ionChange)="onCountryCodeChange($event)">
+
+          </ion-input>
+        </ion-item>
+      </ion-list>
+      {{vehicleRegistrationModel | json}}
+      <ion-button expand="full" [disabled]="form.invalid" type="submit" name="registerVehicleButton">
+        {{tGlobal('add')}}
+      </ion-button>
+    </form>
+  </ion-card-content>
+
 </ion-card>
+

@@ -17,7 +17,7 @@ export class VehiclesListComponent implements OnInit, OnDestroy {
   constructor(private userService: UserService,
               translateProviderService: TranslatorFactoryService,
               private cdr: ChangeDetectorRef) {
-    this.t = translateProviderService.create('pages.components.vehicle');
+    this.t = translateProviderService.create('components.vehicle');
   }
 
   ngOnInit() {

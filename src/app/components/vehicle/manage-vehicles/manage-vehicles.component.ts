@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef, OnDestroy } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, OnDestroy, Input } from '@angular/core';
 import { tap } from 'rxjs/operators';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { UserService } from '../../../services/user.service';
@@ -16,11 +16,13 @@ export class ManageVehiclesComponent implements OnInit, OnDestroy {
   public vehicles: Vehicle[];
   public hasFetchedData = false;
 
+  public showExpandedView = false;
+
   constructor(private userService: UserService,
               private vehicleService: VehicleService,
               translateProviderService: TranslatorFactoryService,
               private cdr: ChangeDetectorRef) {
-    this.t = translateProviderService.create('pages.components.vehicle');
+    this.t = translateProviderService.create('components.vehicle');
   }
 
   ngOnInit() {
@@ -44,4 +46,15 @@ export class ManageVehiclesComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
   }
+
+  onRegisterVehicle(event) {
+    console.info('manage-vehicle.component -> onRegisterVehicle'
+      , '\nevent: ', event);
+  }
+
+  onShowExpandedViewButtonClick() {
+    console.info('manage-vehicle.component -> onShowExpandedViewButtonClick');
+    this.showExpandedView = true;
+  }
+
 }
