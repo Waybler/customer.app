@@ -1,15 +1,5 @@
-div[wrapper] {
-    position: relative;
+.app-vehicles {
+  &.manage-vehicles {
 
-    div[text] {
-        top: 50%;
-        bottom: auto;
-        left: 50px;
-        transform: translateY(-50%);
-        font-size: 20px;
-        position: absolute;
-        font-weight: 100;
-        line-height: 1;
-        white-space: nowrap
-    }
+  }
 }

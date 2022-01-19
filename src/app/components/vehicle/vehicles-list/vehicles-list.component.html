@@ -1,4 +1,5 @@
 <ion-card class="app-vehicles vehicles-list">
-    <ion-card-content>
-    </ion-card-content>
+  <ion-card-content>
+    <app-vehicle-vehicle-display *ngFor="let vehicle of vehicles" [vehicle]="vehicle"></app-vehicle-vehicle-display>
+  </ion-card-content>
 </ion-card>

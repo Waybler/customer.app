@@ -1,5 +1,25 @@
-<ion-card class="app-vehicles vehicle-display">
-    <ion-card-content>
-
-    </ion-card-content>
-</ion-card>
+<details class="app-vehicles vehicle-display">
+  <summary>{{vehicle.registrationNumber}}</summary>
+  <div class="more-data">
+    <ul>
+      <li class="vehicle-make">
+        <span class="property ">Make</span><span class="value">{{vehicle.make}}</span>
+      </li>
+      <li class="vehicle-model">
+        <span class="property ">Model</span><span class="value">{{vehicle.model}}</span>
+      </li>
+      <li class="vehicle-vehicleYear">
+        <span class="property ">Vehicle year</span><span class="value">{{vehicle.vehicleYear}}</span>
+      </li>
+      <li class="vehicle-modelYear">
+        <span class="property ">Model year</span><span class="value">{{vehicle.modelYear}}</span>
+      </li>
+      <li class="vehicle-vehicleIdentificationNumber">
+        <span class="property ">Vehicle identification number (VIN)</span><span class="value">{{vehicle.vehicleIdentificationNumber}}</span>
+      </li>
+      <li class="vehicle-countryCode">
+        <span class="property ">Country code</span><span class="value">{{vehicle.countryCode}}</span>
+      </li>
+    </ul>
+  </div>
+</details>

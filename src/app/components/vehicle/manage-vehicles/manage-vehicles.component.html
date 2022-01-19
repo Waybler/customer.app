@@ -1,13 +1,15 @@
 <ion-card class="app-vehicles manage-vehicles">
   <ion-card-header>
     <ion-card-title>
-<!--      {{t("account.title")}}-->
+      <!--      {{t("account.title")}}-->
       Vehicles
     </ion-card-title>
-  </ion-card-header> <ion-card-content>
-        <div wrapper>
-            <!--<round-progress [current]="codepushService.percentage" [max]="100" [rounded]="true" [radius]="30" [stroke]="7"></round-progress>-->
-            <ion-spinner></ion-spinner>
-         </div>
-    </ion-card-content>
+  </ion-card-header>
+  <ion-card-content>
+    <ion-spinner *ngIf="!hasFetchedData"></ion-spinner>
+    <div wrapper *ngIf="hasFetchedData">
+      <app-vehicle-vehicles-list *ngIf="vehicles && vehicles.length" [vehicles]="vehicles"></app-vehicle-vehicles-list>
+      <p *ngIf="!vehicles?.length">No registered vehicles</p>
+    </div>
+  </ion-card-content>
 </ion-card>

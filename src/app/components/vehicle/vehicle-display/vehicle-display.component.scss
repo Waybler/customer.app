@@ -1,15 +1,41 @@
-div[wrapper] {
-    position: relative;
+.app-vehicles {
+  &.vehicle-display {
+    display: flex;
+    flex-direction: column;
+    flex: 1 0 auto;
 
-    div[text] {
-        top: 50%;
-        bottom: auto;
-        left: 50px;
-        transform: translateY(-50%);
-        font-size: 20px;
-        position: absolute;
-        font-weight: 100;
-        line-height: 1;
-        white-space: nowrap
+  }
+}
+
+summary{
+  padding: 10px ;
+  cursor: pointer;
+  font-weight: bold;
+
+}
+ul {
+  margin: 0;
+  padding: 0 10px;
+
+  li {
+    list-style: none;
+  }
+}
+.more-data{
+  padding-left: 10px;
+  padding-bottom: 20px;
+  li{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+    span{
+      display: flex;
     }
+    .property{
+      font-weight: bold;
+      &::after{
+        content: ' :';
+      }
+    }
+  }
 }
