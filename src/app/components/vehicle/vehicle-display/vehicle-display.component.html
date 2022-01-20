@@ -1,5 +1,9 @@
 <details class="app-vehicles vehicle-display">
-  <summary>{{vehicle.registrationNumber}}</summary>
+  <summary>
+    <span class="text">{{vehicle.registrationNumber}}</span>
+    <span class="isDefaultIcon" *ngIf="vehicle.isDefaultVehicle"><ion-icon name="checkmark-outline"></ion-icon></span>
+
+  </summary>
   <div class="more-data">
     <div class="vehicle-properties">
       <ul>
@@ -16,7 +20,8 @@
           <span class="property ">{{t('model-year') }}</span><span class="value">{{vehicle.modelYear}}</span>
         </li>
         <li class="vehicle-vehicleIdentificationNumber">
-          <span class="property "> {{t('vehicle-identification-number') }}  ({{t('vehicle-identification-number-initials') }})</span><span class="value">{{vehicle.vehicleIdentificationNumber}}</span>
+          <span class="property "> {{t('vehicle-identification-number') }}  ({{t('vehicle-identification-number-initials') }})</span><span
+          class="value">{{vehicle.vehicleIdentificationNumber}}</span>
         </li>
         <li class="vehicle-countryCode">
           <span class="property ">{{t('country-code') }}</span><span class="value">{{vehicle.countryCode}}</span>

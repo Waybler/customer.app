@@ -4,7 +4,7 @@ import { BehaviorSubject, Subscription } from 'rxjs';
 import { UserService } from '../../../services/user.service';
 import { ITranslator, TranslatorFactoryService } from '../../../services/translator-factory.service';
 import { VehicleService } from '../../../services/vehicle.service';
-import { Vehicle } from '../../../models/vehicle';
+import { RegisterVehiclesAPIRequestBody, Vehicle } from '../../../models/vehicle';
 
 @Component({
   selector: 'app-vehicle-manage-vehicles',
@@ -47,9 +47,16 @@ export class ManageVehiclesComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
   }
 
-  onRegisterVehicle(event) {
+  onRegisterVehicle(vehicleData: RegisterVehiclesAPIRequestBody) {
     console.info('manage-vehicle.component -> onRegisterVehicle'
-      , '\nevent: ', event);
+      , '\nevent: ', vehicleData);
+    this.vehicleService.registerVehicle(vehicleData).subscribe((data) => {
+
+      console.info('manage-vehicle.component -> onRegisterVehicle -> registerVehicle response:'
+        , '\ndata: ', data
+        , '\nthis.userService.legalEntityIdSubject.value: ', this.userService.legalEntityIdSubject.value);
+      this.vehicleService.fetchVehiclesForUser((this.userService.legalEntityIdSubject.value));
+    });
   }
 
   onRemoveVehicle(vehicle: Vehicle) {

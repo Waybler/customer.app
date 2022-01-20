@@ -8,9 +8,25 @@
 }
 
 summary {
+  display: flex;
   padding: 10px;
   cursor: pointer;
   font-weight: bold;
+
+  span {
+    display: inline-flex;
+
+    &.text {
+      flex: 1 1 auto;
+    }
+
+    &.isDefaultIcon {
+      flex: 0 0 auto;
+      width: 20px;
+      font-size: 1.5em;
+      color: var(--ion-color-primary);
+    }
+  }
 
 }
 
