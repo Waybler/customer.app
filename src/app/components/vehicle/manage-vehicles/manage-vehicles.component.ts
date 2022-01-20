@@ -57,6 +57,16 @@ export class ManageVehiclesComponent implements OnInit, OnDestroy {
       , '\nvehicle: ', vehicle);
   }
 
+  onSetVehicleAsDefault(vehicle: Vehicle) {
+    console.info('manage-vehicle.component -> onSetVehicleAsDefault:'
+      , '\nvehicle: ', vehicle);
+  }
+
+  onUnsetVehicleAsDefault(vehicle: Vehicle) {
+    console.info('manage-vehicle.component -> onUnsetVehicleAsDefault:'
+      , '\nvehicle: ', vehicle);
+  }
+
   onShowExpandedViewButtonClick() {
     console.info('manage-vehicle.component -> onShowExpandedViewButtonClick');
     this.showExpandedView = true;

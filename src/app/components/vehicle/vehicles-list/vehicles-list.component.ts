@@ -15,6 +15,13 @@ export class VehiclesListComponent implements OnInit, OnDestroy {
   @Output()
   public removeVehicle: EventEmitter<Vehicle> = new EventEmitter<Vehicle>();
 
+
+  @Output()
+  public setVehicleAsDefault: EventEmitter<Vehicle> = new EventEmitter<Vehicle>();
+
+  @Output()
+  public unsetVehicleAsDefault: EventEmitter<Vehicle> = new EventEmitter<Vehicle>();
+
   public t: ITranslator;
 
   constructor(private userService: UserService,
@@ -34,5 +41,15 @@ export class VehiclesListComponent implements OnInit, OnDestroy {
     console.info('vehicles-list.component -> onRemoveVehicle:'
       , '\nvehicle: ', vehicle );
     this.removeVehicle.emit(vehicle);
+  }
+  onSetVehicleAsDefault(vehicle: Vehicle) {
+    console.info('vehicles-list.component -> onSetVehicleAsDefault:'
+      , '\nvehicle: ', vehicle );
+    this.setVehicleAsDefault.emit(vehicle);
+  }
+  onUnsetVehicleAsDefault(vehicle: Vehicle) {
+    console.info('vehicles-list.component -> onUnsetVehicleAsDefault:'
+      , '\nvehicle: ', vehicle );
+    this.unsetVehicleAsDefault.emit(vehicle);
   }
 }

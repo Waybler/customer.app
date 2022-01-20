@@ -3,7 +3,7 @@
     display: flex;
     flex-direction: column;
     flex: 1 0 auto;
-
+    max-width: 100%;
   }
 }
 
@@ -42,6 +42,24 @@ ul {
 
       &::after {
         content: ' :';
+      }
+    }
+  }
+
+  .vehicle-options {
+    margin-bottom: 60px;
+
+    ion-item {
+      display: flex;
+      flex-direction: column;
+
+      &[help] {
+        padding-right: 40px;
+
+        div.description {
+          display: inline-block;
+        }
+
       }
     }
   }

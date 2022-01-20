@@ -3,7 +3,10 @@
     <app-vehicle-vehicle-display
       *ngFor="let vehicle of vehicles"
       [vehicle]="vehicle"
-      (removeVehicle)="onRemoveVehicle($event)">
+      (removeVehicle)="onRemoveVehicle($event)"
+      (setVehicleAsDefault)="onSetVehicleAsDefault($event)"
+      (unsetVehicleAsDefault)="onUnsetVehicleAsDefault($event)"
+    >
     </app-vehicle-vehicle-display>
   </ion-card-content>
 </ion-card>

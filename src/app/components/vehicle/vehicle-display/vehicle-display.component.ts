@@ -15,6 +15,12 @@ export class VehicleDisplayComponent implements OnInit, OnDestroy {
   @Output()
   public removeVehicle: EventEmitter<Vehicle> = new EventEmitter<Vehicle>();
 
+  @Output()
+  public setVehicleAsDefault: EventEmitter<Vehicle> = new EventEmitter<Vehicle>();
+
+  @Output()
+  public unsetVehicleAsDefault: EventEmitter<Vehicle> = new EventEmitter<Vehicle>();
+
   // private isExpandedView = false;
 
   public t: ITranslator;
@@ -32,9 +38,21 @@ export class VehicleDisplayComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
   }
 
+  onSetAsDefaultToggleChange($event) {
+    console.info('vehicle-display.component -> onSetAsDefaultToggleChange:'
+      , '\n$event: ', $event
+      , '\n$event.detail.checked: ', $event.detail.checked );
+    const shouldBeDefault = $event.detail.checked;
+    if (shouldBeDefault) {
+      this.setVehicleAsDefault.emit(this.vehicle);
+    } else {
+      this.unsetVehicleAsDefault.emit(this.vehicle);
+    }
+  }
+
   onRemoveVehicleButtonClick() {
     console.info('vehicle-display.component -> onRemoveVehicleButtonClick:'
-      , '\nthis.vehicle: ', this.vehicle );
+      , '\nthis.vehicle: ', this.vehicle);
     this.removeVehicle.emit(this.vehicle);
   }
 }

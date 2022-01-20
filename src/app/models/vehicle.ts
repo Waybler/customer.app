@@ -6,6 +6,7 @@ export interface Vehicle {
   registrationNumber: string;
   vehicleIdentificationNumber: string;
   vehicleYear: number;
+  isDefaultVehicle: boolean;
 }
 
 export interface GetVehiclesAPIResponse {
