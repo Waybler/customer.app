@@ -4,7 +4,7 @@ import { BehaviorSubject, Subscription } from 'rxjs';
 import { UserService } from '../../../services/user.service';
 import { ITranslator, TranslatorFactoryService } from '../../../services/translator-factory.service';
 import { VehicleService } from '../../../services/vehicle.service';
-import { RegisterVehiclesAPIRequestBody, Vehicle } from '../../../models/vehicle';
+import { RegisterVehiclesAPIRequestBody, RegisterVehiclesServiceParams, Vehicle } from '../../../models/vehicle';
 
 @Component({
   selector: 'app-vehicle-manage-vehicles',
@@ -50,13 +50,15 @@ export class ManageVehiclesComponent implements OnInit, OnDestroy {
   onRegisterVehicle(vehicleData: RegisterVehiclesAPIRequestBody) {
     console.info('manage-vehicle.component -> onRegisterVehicle'
       , '\nevent: ', vehicleData);
-    this.vehicleService.registerVehicle(vehicleData).subscribe((data) => {
-
-      console.info('manage-vehicle.component -> onRegisterVehicle -> registerVehicle response:'
-        , '\ndata: ', data
-        , '\nthis.userService.legalEntityIdSubject.value: ', this.userService.legalEntityIdSubject.value);
-      this.vehicleService.fetchVehiclesForUser((this.userService.legalEntityIdSubject.value));
+    const legalEntityId = this.userService.legalEntityIdSubject.value;
+    const registerVehicleParams: RegisterVehiclesServiceParams = Object.assign({}, vehicleData, {
+      legalEntityId,
     });
+    this.vehicleService.registerVehicle(registerVehicleParams).subscribe((data: Vehicle) => {
+      console.info('manage-vehicle.component -> onRegisterVehicle -> registerVehicle response -> fetchVehiclesForUser: :'
+        , '\nnew vehicle: ', data);
+    });
+    this.refetchVehicles();
   }
 
   onRemoveVehicle(vehicle: Vehicle) {
@@ -79,4 +81,12 @@ export class ManageVehiclesComponent implements OnInit, OnDestroy {
     this.showExpandedView = true;
   }
 
+  refetchVehicles() {
+    this.vehicleService.fetchVehiclesForUser((this.userService.legalEntityIdSubject.value)).subscribe((vehicles: Vehicle[]) => {
+      this.showExpandedView = false;
+      console.info('manage-vehicle.component -> refetchVehicles :'
+        , '\nall vehicles: ', vehicles);
+    });
+
+  }
 }

@@ -1,13 +1,19 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 
 import { environment } from '../../environments/environment';
 import { StorageService } from './storage.service';
 import { LocaleService } from './locale.service';
 import { UserService } from './user.service';
-import { GetVehiclesAPIResponse, RegisterVehiclesAPIRequestBody, Vehicle } from '../models/vehicle';
+import {
+  GetVehiclesAPIResponse,
+  RegisterVehiclesAPIRequestBody,
+  RegisterVehiclesAPIResponse,
+  RegisterVehiclesServiceParams,
+  Vehicle,
+} from '../models/vehicle';
 
 const cache: any = {
   stationsObject: null,
@@ -30,11 +36,15 @@ export class VehicleService {
     });
   }
 
-  public registerVehicle(params: RegisterVehiclesAPIRequestBody): Observable<any> {
-
-    return this.httpClient.put(`${environment.apiUrl}/vehicles/add`, params)
+  public registerVehicle(params: RegisterVehiclesServiceParams): Observable<Vehicle> {
+    const legalEntityId = params.legalEntityId;
+    const url = `${environment.apiUrl}${legalEntityId}/vehicles/add`;
+    return this.httpClient.post(url, params)
       .pipe(
-        map(response => response),
+        tap((response: RegisterVehiclesAPIResponse) => {
+          console.info('VehicleService -> registerVehicle -> response: ', response);
+        }),
+        map((response: RegisterVehiclesAPIResponse) => response.data),
       );
   }
 

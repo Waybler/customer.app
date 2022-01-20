@@ -14,8 +14,17 @@ export interface GetVehiclesAPIResponse {
   data: Vehicle[];
 }
 
+
 export interface RegisterVehiclesAPIRequestBody {
   countryCode: string;
   registrationNumber: string;
-
 }
+
+export interface RegisterVehiclesAPIResponse {
+  success: boolean;
+  data: Vehicle;
+}
+
+export interface RegisterVehiclesServiceParams extends  RegisterVehiclesAPIRequestBody{
+  legalEntityId: number;
+ }

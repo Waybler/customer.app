@@ -1,8 +1,8 @@
 <details class="app-vehicles vehicle-display">
   <summary>
-    <span class="text">{{vehicle.registrationNumber}}</span>
-    <span class="isDefaultIcon" *ngIf="vehicle.isDefaultVehicle"><ion-icon name="checkmark-outline"></ion-icon></span>
-
+    <div class="summary-container">
+      <span class="text">{{vehicle.registrationNumber}}</span>
+      <span class="isDefaultIcon" *ngIf="vehicle.isDefaultVehicle"><ion-icon name="checkmark-outline"></ion-icon></span></div>
   </summary>
   <div class="more-data">
     <div class="vehicle-properties">
