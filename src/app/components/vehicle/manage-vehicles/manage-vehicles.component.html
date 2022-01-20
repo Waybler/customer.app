@@ -7,9 +7,10 @@
   <ion-card-content>
     <ion-spinner *ngIf="!hasFetchedData"></ion-spinner>
     <div  *ngIf="hasFetchedData" class="wrapper">
-      <app-vehicle-vehicles-list *ngIf="vehicles && vehicles.length" [vehicles]="vehicles"></app-vehicle-vehicles-list>
+      <app-vehicle-vehicles-list *ngIf="vehicles && vehicles.length" [vehicles]="vehicles"       (removeVehicle)="onRemoveVehicle($event)">
+        ></app-vehicle-vehicles-list>
       <p *ngIf="!vehicles?.length">No registered vehicles</p>
-      <app-vehicle-register-vehicle *ngIf="showExpandedView" (onRegisterVehicle)="onRegisterVehicle($event)"></app-vehicle-register-vehicle>
+      <app-vehicle-register-vehicle *ngIf="showExpandedView" (registerVehicle)="onRegisterVehicle($event)"></app-vehicle-register-vehicle>
 
       <ion-fab vertical="bottom" horizontal="center" slot="fixed" class="showExpandedViewFab" *ngIf="!showExpandedView">
         <ion-fab-button (click)="onShowExpandedViewButtonClick()" class="showExpandedViewButton">

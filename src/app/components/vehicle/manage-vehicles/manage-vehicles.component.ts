@@ -52,6 +52,11 @@ export class ManageVehiclesComponent implements OnInit, OnDestroy {
       , '\nevent: ', event);
   }
 
+  onRemoveVehicle(vehicle: Vehicle) {
+    console.info('manage-vehicle.component -> onRemoveVehicle:'
+      , '\nvehicle: ', vehicle);
+  }
+
   onShowExpandedViewButtonClick() {
     console.info('manage-vehicle.component -> onShowExpandedViewButtonClick');
     this.showExpandedView = true;

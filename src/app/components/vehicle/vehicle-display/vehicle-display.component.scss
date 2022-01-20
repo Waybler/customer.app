@@ -7,12 +7,13 @@
   }
 }
 
-summary{
-  padding: 10px ;
+summary {
+  padding: 10px;
   cursor: pointer;
   font-weight: bold;
 
 }
+
 ul {
   margin: 0;
   padding: 0 10px;
@@ -21,21 +22,33 @@ ul {
     list-style: none;
   }
 }
-.more-data{
+
+.more-data {
+  position: relative;
   padding-left: 10px;
   padding-bottom: 20px;
-  li{
+
+  li {
     display: flex;
     flex-direction: column;
     margin-bottom: 20px;
-    span{
+
+    span {
       display: flex;
     }
-    .property{
+
+    .property {
       font-weight: bold;
-      &::after{
+
+      &::after {
         content: ' :';
       }
     }
+  }
+
+  ion-fab-button.removeVehicleButton {
+    --background: var(--ion-color-danger);
+    width: 45px;
+    height: 45px;
   }
 }

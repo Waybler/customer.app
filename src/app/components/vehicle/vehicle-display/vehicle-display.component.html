@@ -21,5 +21,10 @@
         <span class="property ">Country code</span><span class="value">{{vehicle.countryCode}}</span>
       </li>
     </ul>
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed" class="showExpandedViewFab">
+      <ion-fab-button (click)="onRemoveVehicleButtonClick()" class="removeVehicleButton">
+        <ion-icon name="remove-outline"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
   </div>
 </details>

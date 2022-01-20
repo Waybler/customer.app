@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef, OnDestroy, Input } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, OnDestroy, Input, Output, EventEmitter } from '@angular/core';
 import { UserService } from '../../../services/user.service';
 import { ITranslator, TranslatorFactoryService } from '../../../services/translator-factory.service';
 import { Vehicle } from '../../../models/vehicle';
@@ -11,6 +11,9 @@ import { Vehicle } from '../../../models/vehicle';
 export class VehiclesListComponent implements OnInit, OnDestroy {
   @Input()
   public vehicles: Vehicle[];
+
+  @Output()
+  public removeVehicle: EventEmitter<Vehicle> = new EventEmitter<Vehicle>();
 
   public t: ITranslator;
 
@@ -25,5 +28,11 @@ export class VehiclesListComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+  }
+
+  onRemoveVehicle(vehicle: Vehicle) {
+    console.info('vehicles-list.component -> onRemoveVehicle:'
+      , '\nvehicle: ', vehicle );
+    this.removeVehicle.emit(vehicle);
   }
 }

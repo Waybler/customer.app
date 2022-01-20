@@ -11,7 +11,7 @@ import { RegisterVehiclesAPIRequestBody } from '../../../models/vehicle';
 })
 export class RegisterVehicleComponent implements OnInit, OnDestroy {
   @Output()
-  public onRegisterVehicle: EventEmitter<RegisterVehiclesAPIRequestBody> = new EventEmitter<RegisterVehiclesAPIRequestBody>();
+  public registerVehicle: EventEmitter<RegisterVehiclesAPIRequestBody> = new EventEmitter<RegisterVehiclesAPIRequestBody>();
 
   public t: ITranslator;
   public tGlobal: ITranslator;
@@ -47,7 +47,7 @@ export class RegisterVehicleComponent implements OnInit, OnDestroy {
     console.info('register-vehicle.component -> onRegisterVehicleSubmit:'
       , '\nevent: ', form
       , '\nthis.vehicleRegistrationModel: ', this.vehicleRegistrationModel);
-    this.onRegisterVehicle.emit(this.vehicleRegistrationModel);
+    this.registerVehicle.emit(this.vehicleRegistrationModel);
   }
 
 }
