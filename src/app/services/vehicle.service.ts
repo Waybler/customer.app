@@ -11,7 +11,7 @@ import {
   GetVehiclesAPIResponse,
   RegisterVehiclesAPIRequestBody,
   RegisterVehiclesAPIResponse,
-  RegisterVehiclesServiceParams,
+  RegisterOrRemoveVehiclesServiceParams,
   Vehicle,
 } from '../models/vehicle';
 
@@ -36,17 +36,6 @@ export class VehicleService {
     });
   }
 
-  public registerVehicle(params: RegisterVehiclesServiceParams): Observable<Vehicle> {
-    const legalEntityId = params.legalEntityId;
-    const url = `${environment.apiUrl}${legalEntityId}/vehicles/add`;
-    return this.httpClient.post(url, params)
-      .pipe(
-        tap((response: RegisterVehiclesAPIResponse) => {
-          console.info('VehicleService -> registerVehicle -> response: ', response);
-        }),
-        map((response: RegisterVehiclesAPIResponse) => response.data),
-      );
-  }
 
   public fetchVehiclesForUser(legalEntityId: number): Observable<any> {
     if (!legalEntityId) {
@@ -63,7 +52,29 @@ export class VehicleService {
         this.vehiclesSubject.next(vehicles);
         return vehicles;
       }));
-
   }
 
+  public registerVehicle(params: RegisterOrRemoveVehiclesServiceParams): Observable<Vehicle> {
+    const legalEntityId = params.legalEntityId;
+    const url = `${environment.apiUrl}${legalEntityId}/vehicles/add`;
+    return this.httpClient.post(url, params)
+      .pipe(
+        tap((response: RegisterVehiclesAPIResponse) => {
+          console.info('VehicleService -> registerVehicle -> response: ', response);
+        }),
+        map((response: RegisterVehiclesAPIResponse) => response.data),
+      );
+  }
+
+  public removeVehicle(params: RegisterOrRemoveVehiclesServiceParams): Observable<any> {
+    const legalEntityId = params.legalEntityId;
+    const url = `${environment.apiUrl}${legalEntityId}/vehicles/remove`;
+    return this.httpClient.post(url, params)
+      .pipe(
+        tap((response: RegisterVehiclesAPIResponse) => {
+          console.info('VehicleService -> registerVehicle -> response: ', response);
+        }),
+        map((response: RegisterVehiclesAPIResponse) => response.data),
+      );
+  }
 }

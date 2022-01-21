@@ -24,7 +24,11 @@ export interface RegisterVehiclesAPIResponse {
   success: boolean;
   data: Vehicle;
 }
+export interface RemoverVehiclesAPIResponse {
+  success: boolean;
+  data: null;
+}
 
-export interface RegisterVehiclesServiceParams extends  RegisterVehiclesAPIRequestBody{
+export interface RegisterOrRemoveVehiclesServiceParams extends  RegisterVehiclesAPIRequestBody{
   legalEntityId: number;
  }

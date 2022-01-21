@@ -4,7 +4,7 @@ import { BehaviorSubject, Subscription } from 'rxjs';
 import { UserService } from '../../../services/user.service';
 import { ITranslator, TranslatorFactoryService } from '../../../services/translator-factory.service';
 import { VehicleService } from '../../../services/vehicle.service';
-import { RegisterVehiclesAPIRequestBody, RegisterVehiclesServiceParams, Vehicle } from '../../../models/vehicle';
+import { RegisterVehiclesAPIRequestBody, RegisterOrRemoveVehiclesServiceParams, Vehicle } from '../../../models/vehicle';
 
 @Component({
   selector: 'app-vehicle-manage-vehicles',
@@ -51,19 +51,29 @@ export class ManageVehiclesComponent implements OnInit, OnDestroy {
     console.info('manage-vehicle.component -> onRegisterVehicle'
       , '\nevent: ', vehicleData);
     const legalEntityId = this.userService.legalEntityIdSubject.value;
-    const registerVehicleParams: RegisterVehiclesServiceParams = Object.assign({}, vehicleData, {
+    const registerVehicleParams: RegisterOrRemoveVehiclesServiceParams = Object.assign({}, vehicleData, {
       legalEntityId,
     });
     this.vehicleService.registerVehicle(registerVehicleParams).subscribe((data: Vehicle) => {
       console.info('manage-vehicle.component -> onRegisterVehicle -> registerVehicle response -> fetchVehiclesForUser: :'
         , '\nnew vehicle: ', data);
+      this.refetchVehicles();
     });
-    this.refetchVehicles();
   }
 
-  onRemoveVehicle(vehicle: Vehicle) {
+  onRemoveVehicle(vehicleData: RegisterVehiclesAPIRequestBody) {
     console.info('manage-vehicle.component -> onRemoveVehicle:'
-      , '\nvehicle: ', vehicle);
+      , '\nvehicle: ', vehicleData);
+    const legalEntityId = this.userService.legalEntityIdSubject.value;
+    const registerVehicleParams: RegisterOrRemoveVehiclesServiceParams = Object.assign({}, vehicleData, {
+      legalEntityId,
+    });
+    this.vehicleService.removeVehicle(registerVehicleParams).subscribe((data: Vehicle) => {
+      console.info('manage-vehicle.component -> onRemoveVehicle -> removeVehicle  :'
+        , '\nnew vehicle: ', data);
+      this.refetchVehicles();
+    });
+
   }
 
   onSetVehicleAsDefault(vehicle: Vehicle) {
