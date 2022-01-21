@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy, ChangeDetectorRef, AfterViewChecked } from '@angular/core';
 import { webSocket } from 'rxjs/webSocket';
-import { environment } from '../../../../environments/environment';
+import { environment, vendor } from '../../../../environments/environment';
 import { retryWhen, tap, delay, switchMap, debounceTime, filter } from 'rxjs/operators';
 import { Observable, Subscription } from 'rxjs';
 import { ToastController, Platform } from '@ionic/angular';
@@ -151,7 +151,7 @@ export class ChargePage implements OnInit, OnDestroy, AfterViewChecked {
       switchMap(token => {
         this.invalidateState();
         this.pushMessage(`connect with token: ${token}`);
-        return webSocket<any>(`${environment.wsUrl}app/websocket?token=${token}`).pipe(
+        return webSocket<any>(`${environment.wsUrl}app/websocket?token=${token}&app-uuid=${vendor.vendorAppId}`).pipe(
           retryWhen(errors => {
               return errors.pipe(
                 tap(_ => {
