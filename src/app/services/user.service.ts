@@ -774,7 +774,8 @@ export class UserService {
   public acceptTerms(): Observable<boolean> {
     return combineLatest(this.legalEntityId$, this.currentUserTerms$).pipe(
       mergeMap(([leid, terms]) => {
-        return this.httpClient.post(`${environment.apiUrl}${leid}/terms/accept`, { termsId: terms.termsId }).pipe(
+        return this.httpClient.put(
+          `${environment.apiUrl}${leid}/terms/accept`, { termsId: terms.termsId }).pipe(
           map((r: any) => {
             return r.success;
           }),

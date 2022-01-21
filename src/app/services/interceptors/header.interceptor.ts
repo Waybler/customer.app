@@ -1,5 +1,5 @@
 import { Injectable, Injector } from '@angular/core';
-import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
+import { HttpEvent, HttpHandler, HttpHeaders, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { UserService } from '../user.service';
 import { environment, vendor } from 'src/environments/environment';
 import { take, mergeMap } from 'rxjs/operators';
@@ -16,14 +16,17 @@ export class HeaderInterceptor implements HttpInterceptor {
       take(1),
       mergeMap(token => {
         const urlIsForAPI = req.url.startsWith(environment.apiUrl);
-        if (token != null && urlIsForAPI) {
-          let newHeaders = req.headers.set(
-            'X-CaCharge-Token', token,
-          );
+        if (urlIsForAPI) {
+          let newHeaders: HttpHeaders = req.headers;
+          if (token != null) {
+            newHeaders = newHeaders.set(
+              'X-CaCharge-Token', token,
+            );
+          }
 
           if (vendor?.vendorAppId) {
             newHeaders = newHeaders.set(
-              'X-App-Secret', vendor.vendorAppId,
+              'X-App-Uuid', vendor.vendorAppId,
             );
           } else {
             const errorText = 'Lacking vendorAppId. This value is set in environments.ts';
