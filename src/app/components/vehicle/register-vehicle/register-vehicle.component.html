@@ -13,6 +13,7 @@
             (ionChange)="onCountryCodeChange($event)">
           </ion-input>
         </ion-item>
+
         <ion-item>
           <ion-label position="stacked">{{t('country-code')}}</ion-label>
           <ion-input
@@ -22,16 +23,15 @@
             [(ngModel)]="vehicleRegistrationModel.countryCode"
             required
             (ionChange)="onCountryCodeChange($event)">
-
           </ion-input>
         </ion-item>
       </ion-list>
-      {{vehicleRegistrationModel | json}}
+
       <ion-button expand="full" [disabled]="form.invalid" type="submit" name="registerVehicleButton">
         {{tGlobal('add')}}
       </ion-button>
+
     </form>
   </ion-card-content>
-
 </ion-card>
 
