@@ -17,8 +17,7 @@ import { VehicleModule } from './vehicle/vehicle.module';
     IonicModule,
     DirectivesModule,
     RoundProgressModule,
-    VehicleModule
-  ],
+    VehicleModule],
   declarations: [UserTermsComponent, LanguageSelectorComponent, CodePushComponent, ToastComponent],
   entryComponents: [UserTermsComponent, LanguageSelectorComponent, CodePushComponent, ToastComponent],
   exports: [UserTermsComponent, LanguageSelectorComponent, CodePushComponent, ToastComponent],

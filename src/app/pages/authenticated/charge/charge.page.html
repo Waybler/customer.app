@@ -49,20 +49,28 @@
     <ng-container *ngIf="user.termsAccepted">
       <ng-container *ngIf="userAppSettings">
         <div zones>
-          <app-zone-search *ngIf="chargeZones.length == 0 || showAdd" [showClose]="chargeZones.length > 0"
-                           (closed)="showAdd = false"></app-zone-search>
+          <app-zone-search
+            *ngIf="chargeZones.length == 0 || showAdd" [showClose]="chargeZones.length > 0"
+            (closed)="showAdd = false"
+          ></app-zone-search>
           <ng-container *ngFor="let chargeZone of chargeZones">
-            <app-zone [chargeZone]="chargeZone" (start)="startCharge($event.chargeZone, $event.station, $event.params)"
-                      (selected)="selected($event.chargeZone, $event.station)" [sessions]="sessions"
-                      [userAppSettings]="userAppSettings"
-                      [shouldUseCompactviewObject]="shouldUseCompactViewObject"
+            <app-zone
+              [chargeZone]="chargeZone"
+              (start)="startCharge($event.chargeZone, $event.station, $event.params)"
+              (selected)="selected($event.chargeZone, $event.station)" [sessions]="sessions"
+              [userAppSettings]="userAppSettings"
+              [shouldUseCompactviewObject]="shouldUseCompactViewObject"
+              [vehicles]="vehicles"
+              [defaultVehicle]="defaultVehicle"
             ></app-zone>
           </ng-container>
         </div>
       </ng-container>
       <app-charging *ngIf="activeSession != null" [chargeZone]="activeZone" [session]="activeSession"
-                    [station]="activeStation" (stop)="stopCharge()" [showBack]="showBack"
-                    (back)="hideCharging()"></app-charging>
+                    [station]="activeStation"
+                    (stop)="stopCharge()" [showBack]="showBack"
+                    (back)="hideCharging()"
+      ></app-charging>
     </ng-container>
 
     <ion-fab vertical="bottom" horizontal="end" slot="fixed"

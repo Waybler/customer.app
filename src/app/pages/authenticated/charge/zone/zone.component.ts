@@ -7,6 +7,7 @@ import { UserAppSettings } from '../../../../models/user';
 import { ChargeZone, ShouldUseCompactviewObject, STATION_STATE } from '../../../../models/chargeZone';
 import { ChargeSession } from '../../../../models/chargeSession';
 import { ContractType } from '../../../../models/contract';
+import { Vehicle } from '../../../../models/vehicle';
 
 @Component({
   selector: 'app-zone',
@@ -26,6 +27,12 @@ export class ZoneComponent implements OnInit {
   @Input()
   public shouldUseCompactviewObject: ShouldUseCompactviewObject;
 
+  @Input()
+  public vehicles: Vehicle[];
+
+  @Input()
+  public defaultVehicle: Vehicle;
+
   @Output()
   public start = new EventEmitter<any>();
 
@@ -34,7 +41,8 @@ export class ZoneComponent implements OnInit {
 
   public showOptions = false;
   public t: ITranslator;
-  public ContractType  = ContractType;
+  public ContractType = ContractType;
+  public selectedVehicle: Vehicle;
 
   constructor(
     public userService: UserService,
@@ -52,6 +60,9 @@ export class ZoneComponent implements OnInit {
       this.shouldUseCompactviewObject = { shouldUseCompactView: shouldUseCompactview };
       this.cdr.detectChanges();
     });
+    console.info('zone.component -> ngOnInit: ',
+      '\nthis.vehicles:', this.vehicles,
+      '\nthis.defaultVehicle:', this.defaultVehicle);
   }
 
   public showStationGroupName(): boolean {
@@ -107,6 +118,10 @@ export class ZoneComponent implements OnInit {
 
   public startCharge(chargeZone, station, params?: any): void {
     this.userService.userAppSettings$.subscribe(async (appSettings: UserAppSettings) => {
+
+      console.info('zone.component -> startCharge: ',
+        '\nthis.vehicles:', this.vehicles,
+        '\nthis.defaultVehicle:', this.defaultVehicle);
       if (appSettings?.showCarHeating) {
         const alert = await this.alertController.create({
           header: this.t('charge-options.header'),

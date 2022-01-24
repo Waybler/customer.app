@@ -26,8 +26,14 @@ export class VehicleService {
   private legalEntityIdSubject;
   private legalEntityId$: Observable<number>;
   public vehiclesSubject: BehaviorSubject<Vehicle[] | null> = new BehaviorSubject(null);
+  public defaultVehicleSubject: BehaviorSubject<Vehicle | null> = new BehaviorSubject(null);
 
-  constructor(private httpClient: HttpClient, private storageService: StorageService, private localeService: LocaleService, private userService: UserService) {
+  constructor(
+    private httpClient: HttpClient,
+    private storageService: StorageService,
+    private localeService: LocaleService,
+    private userService: UserService,
+  ) {
     this.legalEntityId$ = userService.legalEntityId$;
     this.legalEntityIdSubject = userService.legalEntityIdSubject;
 
@@ -35,7 +41,6 @@ export class VehicleService {
       console.info('VehicleService -> constructor -> legalEntityId: ', legalEntityId);
     });
   }
-
 
   public fetchVehiclesForUser(legalEntityId: number): Observable<any> {
     if (!legalEntityId) {
@@ -49,6 +54,15 @@ export class VehicleService {
           '\nresponse: ', response,
         );
         const vehicles = response.data;
+        if (vehicles && vehicles.length) { // TODO : Erase mock data once back-end supports isDefaultVehicle
+          if (vehicles.length === 1) {
+            vehicles[0].isDefaultVehicle = true;
+          } else if (vehicles.length > 1) {
+            vehicles[1].isDefaultVehicle = true;
+
+          }
+        }
+        this.setDefaultVehicleIfExists(vehicles);
         this.vehiclesSubject.next(vehicles);
         return vehicles;
       }));
@@ -76,5 +90,14 @@ export class VehicleService {
         }),
         map((response: RegisterVehiclesAPIResponse) => response.data),
       );
+  }
+
+  public setDefaultVehicleIfExists(vehicles: Vehicle[]) {
+    const defaultVehicle = vehicles.find((vehicle: Vehicle) => vehicle.isDefaultVehicle);
+    if (defaultVehicle) {
+      this.defaultVehicleSubject.next(defaultVehicle);
+    } else {
+      this.defaultVehicleSubject.next(null);
+    }
   }
 }

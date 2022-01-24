@@ -17,7 +17,13 @@ export interface ChargeSessionStartParams {
   legalEntityId: number;
   contractUserId: number;
   stationId: number;
-  otherParams?: any;
+  otherParams?: ChargeSessionStartParamsAuxiliary;
+}
+
+export interface ChargeSessionStartParamsAuxiliary {
+  legalEntityId: number;
+  vehicleRegistrationNumber: string;
+  vehicleCountryCode: string;
 }
 
 export interface APIBodyChargeSessionStart {

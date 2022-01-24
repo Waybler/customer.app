@@ -20,6 +20,8 @@ import {
 } from '../../../models/chargeZone';
 import { ChargeSession, ChargeSessionStartParams } from '../../../models/chargeSession';
 import { UserAppSettings } from '../../../models/user';
+import { VehicleService } from '../../../services/vehicle.service';
+import { Vehicle } from '../../../models/vehicle';
 
 @Component({
   selector: 'app-charge',
@@ -62,10 +64,13 @@ export class ChargePage implements OnInit, OnDestroy, AfterViewChecked {
   private connecting = false;
   private backPressed = false;
   public userAppSettings: UserAppSettings;
+  public vehicles: Vehicle[];
+  public defaultVehicle: Vehicle;
 
   constructor(
     private userService: UserService,
     private sessionService: SessionService,
+    private vehicleService: VehicleService,
     private toastController: ToastController,
     private platform: Platform,
     private cdr: ChangeDetectorRef,
@@ -119,6 +124,28 @@ export class ChargePage implements OnInit, OnDestroy, AfterViewChecked {
       this.userAppSettings = data;
       this.cdr.detectChanges();
       this.useChargeZoneViewSettings();
+    });
+
+    this.userService.legalEntityIdSubject.subscribe((legalEntityId: number | null) => {
+      if (legalEntityId) {
+        this.vehicleService.fetchVehiclesForUser(legalEntityId).subscribe((vehicles) => {
+          // Do nothing as we handle the response by subscribing to this.vehicleService.vehiclesSubject
+        });
+      }
+    });
+
+    this.vehicleService.vehiclesSubject.subscribe((vehicles: Vehicle[]) => {
+      this.vehicles = vehicles;
+      console.info(') -> ngOnInit -> vehicleService.vehiclesSubject ->  :',
+        '\nvehicles: ', vehicles,
+      );
+    });
+
+    this.vehicleService.defaultVehicleSubject.subscribe((vehicle: Vehicle) => {
+      this.defaultVehicle = vehicle;
+      console.info(') -> ngOnInit -> vehicleService.defaultVehicleSubject ->  :',
+        '\nvehicles: ', vehicle,
+      );
     });
     this.ionViewDidEnterx();
   }
@@ -327,6 +354,22 @@ export class ChargePage implements OnInit, OnDestroy, AfterViewChecked {
   }
 
   public async startCharge(chargeZone: ChargeZone, station: Station, params?: any): Promise<void> {
+    let vehicle: Vehicle;
+    const defaultVehicle = this.vehicleService?.defaultVehicleSubject?.value;
+    if (defaultVehicle) {
+      vehicle = defaultVehicle;
+    } else {
+      // Start a pop-up for vehicle selection
+      console.info('charge.page -> startCharge -> LAUNCH POP-UP FOR VEHICLE SELECTION');
+      // debugger;
+    }
+    if (!vehicle) {
+      console.info('charge.page -> startCharge ->RETURN because we do not have a vehicle');
+      return;
+    }
+    console.info('charge.page -> startCharge:'
+      , '\nvehicle: ', vehicle);
+    return;
     const session: ChargeSession = {
       status: 'Unknown',
       stationId: station.stationId,
