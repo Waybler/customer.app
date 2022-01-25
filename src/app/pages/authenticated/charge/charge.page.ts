@@ -353,16 +353,16 @@ export class ChargePage implements OnInit, OnDestroy, AfterViewChecked {
     this.setActiveSession(this.findSession(station.stationId));
   }
 
-  public async startCharge(chargeZone: ChargeZone, station: Station, params?: any): Promise<void> {
+  public async startCharge(chargeZone: ChargeZone, station: Station, otherParams?: any): Promise<void> {
     let vehicle: Vehicle;
-    const defaultVehicle = this.vehicleService?.defaultVehicleSubject?.value;
-    if (defaultVehicle) {
-      vehicle = defaultVehicle;
-    } else {
-      // Start a pop-up for vehicle selection
-      console.info('charge.page -> startCharge -> LAUNCH POP-UP FOR VEHICLE SELECTION');
-      // debugger;
+    // debugger;
+    const selectedVehicle = otherParams?.vehicle;
+    if (selectedVehicle) {
+      vehicle = selectedVehicle;
     }
+    console.info('charge.page -> startCharge:'
+      , '\notherParams: ', otherParams);
+
     if (!vehicle) {
       console.info('charge.page -> startCharge ->RETURN because we do not have a vehicle');
       return;
@@ -376,7 +376,7 @@ export class ChargePage implements OnInit, OnDestroy, AfterViewChecked {
       zoneId: chargeZone.zoneId,
       contractId: chargeZone.contractId,
       chargedEnergy: 0,
-      settings: params,
+      settings: otherParams,
     };
     const legalEntityId = this.userService?.legalEntityIdSubject?.value;
     this.sessions.push(session);
@@ -386,7 +386,7 @@ export class ChargePage implements OnInit, OnDestroy, AfterViewChecked {
       legalEntityId,
       contractUserId: chargeZone.contractUserId,
       stationId: station.stationId,
-      otherParams: params,
+      otherParams,
     };
     this.userService.startCharge(startChargeParams).subscribe(
       result => {

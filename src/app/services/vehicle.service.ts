@@ -54,18 +54,23 @@ export class VehicleService {
           '\nresponse: ', response,
         );
         const vehicles = response.data;
-        if (vehicles && vehicles.length) { // TODO : Erase mock data once back-end supports isDefaultVehicle
-          if (vehicles.length === 1) {
-            vehicles[0].isDefaultVehicle = true;
-          } else if (vehicles.length > 1) {
-            vehicles[1].isDefaultVehicle = true;
-
-          }
-        }
+        // this.mockDefaultVehicle(vehicles);// TODO : Erase mock data once back-end supports isDefaultVehicle
         this.setDefaultVehicleIfExists(vehicles);
         this.vehiclesSubject.next(vehicles);
         return vehicles;
       }));
+  }
+
+  public mockDefaultVehicle(vehicles: Vehicle[]) {
+    if (vehicles && vehicles.length) { // TODO : Erase mock data once back-end supports isDefaultVehicle
+      if (vehicles.length === 1) {
+        vehicles[0].isDefaultVehicle = true;
+      } else if (vehicles.length > 1) {
+        vehicles[1].isDefaultVehicle = true;
+
+      }
+    }
+
   }
 
   public registerVehicle(params: RegisterOrRemoveVehiclesServiceParams): Observable<Vehicle> {

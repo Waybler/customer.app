@@ -56,7 +56,7 @@
           <ng-container *ngFor="let chargeZone of chargeZones">
             <app-zone
               [chargeZone]="chargeZone"
-              (start)="startCharge($event.chargeZone, $event.station, $event.params)"
+              (start)="startCharge($event.chargeZone, $event.station, $event.otherParams)"
               (selected)="selected($event.chargeZone, $event.station)" [sessions]="sessions"
               [userAppSettings]="userAppSettings"
               [shouldUseCompactviewObject]="shouldUseCompactViewObject"

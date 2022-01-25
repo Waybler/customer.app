@@ -32,7 +32,7 @@
   --ion-font-family: Eina, system-ui, sans-serif;
 
   body {
-    margin-top: constant(safe-area-inset-top);
+    //margin-top: constant(safe-area-inset-top);
     margin-top: env(safe-area-inset-top);
     //background: #363c3c url('/assets/imgs/background.png') center center / cover;
   }
@@ -100,5 +100,32 @@ app-settings.ion-page {
       }
     }
 
+  }
+}
+
+ion-alert.alertController {
+  &.selectVehicle {
+    .alert-button-group {
+      display: flex;
+      flex-direction: column;
+
+      button.alert-button {
+        display: flex;
+        flex: 1 1 auto;
+
+        span.alert-button-inner.sc-ion-alert-md {
+          text-align: center;
+          justify-content: center;
+
+        }
+
+        &:last-of-type {
+          span.alert-button-inner.sc-ion-alert-md {
+            justify-content: flex-end;
+            color: var(--ion-color-danger);
+          }
+        }
+      }
+    }
   }
 }

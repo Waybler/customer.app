@@ -4,16 +4,23 @@ import { ITranslator, TranslatorFactoryService } from 'src/app/services/translat
 import { UserService } from 'src/app/services/user.service';
 import { HeaterOptionsComponent } from '../heater-options/heater-options.component';
 import { UserAppSettings } from '../../../../models/user';
-import { ChargeZone, ShouldUseCompactviewObject, STATION_STATE } from '../../../../models/chargeZone';
+import { ChargeZone, ShouldUseCompactviewObject, Station, STATION_STATE } from '../../../../models/chargeZone';
 import { ChargeSession } from '../../../../models/chargeSession';
 import { ContractType } from '../../../../models/contract';
 import { Vehicle } from '../../../../models/vehicle';
+
+interface AlertForVehicleSelectionParams {
+  chargeZone: ChargeZone;
+  station: Station;
+  otherParams?: any;
+}
 
 @Component({
   selector: 'app-zone',
   templateUrl: './zone.component.html',
   styleUrls: ['./zone.component.scss'],
 })
+
 export class ZoneComponent implements OnInit {
   @Input()
   public chargeZone: ChargeZone;
@@ -56,13 +63,70 @@ export class ZoneComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.userService.shouldUseCompactView$.subscribe((shouldUseCompactview) => {
-      this.shouldUseCompactviewObject = { shouldUseCompactView: shouldUseCompactview };
+    this.userService.shouldUseCompactView$.subscribe((shouldUseCompactView) => {
+      this.shouldUseCompactviewObject = { shouldUseCompactView };
       this.cdr.detectChanges();
     });
     console.info('zone.component -> ngOnInit: ',
       '\nthis.vehicles:', this.vehicles,
       '\nthis.defaultVehicle:', this.defaultVehicle);
+    this.setSelectedVehicleIfNotSet();
+  }
+
+  private async alertForVehicleSelection(params: AlertForVehicleSelectionParams) {
+    const buttons = this.getSelectVehicleButtons(params);
+    const alert = await this.alertController.create({
+      cssClass: 'alertController selectVehicle',
+      // header: this.t('charge-options.header'),
+      header: 'Select vehicle',
+      message: 'Please select vehicle to charge',
+      buttons,
+    });
+
+    await alert.present();
+
+  }
+
+  private getSelectVehicleButtons(params: AlertForVehicleSelectionParams): any[] {
+    const buttons = [];
+    if (this.vehicles?.length) {
+      this.vehicles.forEach((vehicle: Vehicle) => {
+        const newButton = {
+          text: vehicle.registrationNumber,
+          cssClass: 'secondary vehicleRegistrationNumber',
+          handler: () => {
+            this.setAsSelectedVehicle(vehicle);
+            const otherParams = Object.assign({}, params.otherParams);
+            this.startCharge(params.chargeZone, params.station, otherParams);
+          },
+        };
+        buttons.push(newButton);
+      });
+    }
+    const cancelButton = {
+      text: this.t('charge-options.cancel'),
+      role: 'cancel',
+      cssClass: 'secondary',
+      handler: () => {
+      },
+    };
+    buttons.push(cancelButton);
+    return buttons;
+  }
+
+  private setAsSelectedVehicle(vehicle: Vehicle) {
+    this.selectedVehicle = vehicle;
+    console.info('zone.component -> setAsSelectedVehicle: ',
+      'vehicle', vehicle,
+      '\nselectedVehicle', this.selectedVehicle);
+  }
+
+  private setSelectedVehicleIfNotSet() {
+    if (!this.selectedVehicle) {
+      if (this.defaultVehicle) {
+        this.selectedVehicle = this.defaultVehicle;
+      }
+    }
   }
 
   public showStationGroupName(): boolean {
@@ -112,17 +176,51 @@ export class ZoneComponent implements OnInit {
     this.selected.emit({ chargeZone: this.chargeZone, station });
   }
 
-  private startSession(chargeZone, station, params?: any): void {
-    this.start.emit({ chargeZone, station, params });
+  private startSession(chargeZone: ChargeZone, station: Station, otherParams?: any): void {
+    this.start.emit({ chargeZone, station, otherParams });
   }
 
-  public startCharge(chargeZone, station, params?: any): void {
+  public startCharge(chargeZone: ChargeZone, station: Station, otherParams?: any): void {
     this.userService.userAppSettings$.subscribe(async (appSettings: UserAppSettings) => {
-
+      this.setSelectedVehicleIfNotSet();
+      const weHaveNoSelectedVehicleAndAreNotSetToAlwaysShowCarHeating = !this.selectedVehicle
+        && !otherParams?.vehicle
+        && !appSettings?.showCarHeating;
+      const weHaveAlwaysShowCarHeatingAndHaveSelectedChargingAndNoSelectedVehicle = appSettings?.showCarHeating
+        && otherParams?.overrideShowCarHeating
+        && (!this.selectedVehicle && !otherParams?.vehicle);
+      // debugger;
+      console.info('zone.component -> startCharge: ',
+        '\nweHaveNoSelectedVehicleAndAreNotSetToAlwaysShowCarHeating:', weHaveNoSelectedVehicleAndAreNotSetToAlwaysShowCarHeating,
+        '\nweHaveAlwaysShowCarHeatingAndHaveSelectedChargingAndNoSelectedVehicle:', weHaveAlwaysShowCarHeatingAndHaveSelectedChargingAndNoSelectedVehicle,
+        '\notherParams:', otherParams);
+      if (weHaveNoSelectedVehicleAndAreNotSetToAlwaysShowCarHeating
+        || weHaveAlwaysShowCarHeatingAndHaveSelectedChargingAndNoSelectedVehicle) {
+        if (this.vehicles?.length) {
+          await this.alertForVehicleSelection({
+            chargeZone,
+            station,
+            otherParams,
+          });
+        } else {
+          // TODO: Add a modal for vehicle registration.
+        }
+        return;
+      } else {
+        if (!otherParams) {
+          otherParams = {};
+        }
+        if (!otherParams?.vehicle) {
+          if (this.selectedVehicle) {
+            otherParams.vehicle = Object.assign({}, this.selectedVehicle);
+          }
+        }
+      }
       console.info('zone.component -> startCharge: ',
         '\nthis.vehicles:', this.vehicles,
-        '\nthis.defaultVehicle:', this.defaultVehicle);
-      if (appSettings?.showCarHeating) {
+        '\nthis.defaultVehicle:', this.defaultVehicle,
+        '\notherParams:', otherParams);
+      if (appSettings?.showCarHeating && !otherParams?.overrideShowCarHeating) {
         const alert = await this.alertController.create({
           header: this.t('charge-options.header'),
           message: this.t('charge-options.message'),
@@ -136,7 +234,8 @@ export class ZoneComponent implements OnInit {
             }, {
               text: this.t('charge-options.charging'),
               handler: () => {
-                this.startSession(chargeZone, station, params);
+                otherParams.overrideShowCarHeating = true;
+                this.startCharge(chargeZone, station, otherParams);
               },
             },
             {
@@ -151,8 +250,10 @@ export class ZoneComponent implements OnInit {
 
         await alert.present();
       } else {
-        this.startSession(chargeZone, station, params);
+        this.startSession(chargeZone, station, otherParams);
       }
+      this.selectedVehicle = null;
+
     });
   }
 

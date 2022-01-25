@@ -264,7 +264,7 @@
               "message": "Do you want to start engine heating or car charging?",
               "heater": "Engine heating",
               "charging": "Car charging",
-              "cancel": "Abort"
+              "cancel": "Cancel"
             }
           },
           "charging": {
