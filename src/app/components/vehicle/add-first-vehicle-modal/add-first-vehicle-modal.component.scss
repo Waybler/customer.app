@@ -1,0 +1,38 @@
+:host {
+}
+
+.app-vehicles {
+  &.add-first-vehicle-modal {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    flex: 1 0 auto;
+  }
+
+  .wrapper {
+    //padding-bottom: 60px;
+  }
+}
+
+app-vehicle-register-vehicle {
+  margin-top: 30px;
+  margin-bottom: -30px;
+}
+
+.cancelButtonContainer {
+  display: flex;
+  flex: 1 0 auto;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-end;
+  padding: 30px 20px;
+
+  ion-button[name=cancelButton] {
+    width: 50%;
+
+    button {
+      background: var(--ion-color-danger);
+    }
+  }
+
+}

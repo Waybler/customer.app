@@ -8,11 +8,15 @@ import { ChargeZone, ShouldUseCompactviewObject, Station, STATION_STATE } from '
 import { ChargeSession } from '../../../../models/chargeSession';
 import { ContractType } from '../../../../models/contract';
 import { Vehicle } from '../../../../models/vehicle';
+import { AddFirstVehicleModalComponent } from '../../../../components/vehicle/add-first-vehicle-modal/add-first-vehicle-modal.component';
 
 interface AlertForVehicleSelectionParams {
   chargeZone: ChargeZone;
   station: Station;
-  otherParams?: any;
+  otherParams?: {
+    vehicle?: Vehicle;
+    overrideShowCarHeating?: boolean;
+  };
 }
 
 @Component({
@@ -204,6 +208,12 @@ export class ZoneComponent implements OnInit {
           });
         } else {
           // TODO: Add a modal for vehicle registration.
+          await this.showAddFirstVehicleModal({
+            chargeZone,
+            station,
+            otherParams,
+          });
+          console.info('TODO: Add a modal for vehicle registration.');
         }
         return;
       } else {
@@ -255,6 +265,25 @@ export class ZoneComponent implements OnInit {
       this.selectedVehicle = null;
 
     });
+  }
+
+  public async showAddFirstVehicleModal(params: AlertForVehicleSelectionParams): Promise<void> {
+    const modal = await this.modalController.create({
+      component: AddFirstVehicleModalComponent,
+    });
+    await modal.present();
+    const { data } = await modal.onDidDismiss();
+    if (data) {
+      console.info('zone.component -> showAddFirstVehicleModal: ',
+        '\ndata:', data);
+      if (!params.otherParams) {
+        params.otherParams = {};
+      }
+      // this.selectedVehicle = data;
+      params.otherParams.vehicle = data;
+      this.startSession(params.chargeZone, params.station, params.otherParams);
+
+    }
   }
 
   public async showHeaterOptions(chargeZone, station): Promise<void> {

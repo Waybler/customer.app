@@ -8,6 +8,7 @@ import { ManageVehiclesComponent } from './manage-vehicles/manage-vehicles.compo
 import { RegisterVehicleComponent } from './register-vehicle/register-vehicle.component';
 import { VehicleDisplayComponent } from './vehicle-display/vehicle-display.component';
 import { VehiclesListComponent } from './vehicles-list/vehicles-list.component';
+import { AddFirstVehicleModalComponent } from './add-first-vehicle-modal/add-first-vehicle-modal.component';
 
 @NgModule({
   imports: [
@@ -17,9 +18,27 @@ import { VehiclesListComponent } from './vehicles-list/vehicles-list.component';
     // DirectivesModule,
     RoundProgressModule,
   ],
-  declarations: [ManageVehiclesComponent, RegisterVehicleComponent, VehicleDisplayComponent, VehiclesListComponent],
-  entryComponents: [ManageVehiclesComponent, RegisterVehicleComponent, VehicleDisplayComponent, VehiclesListComponent],
-  exports: [ManageVehiclesComponent, RegisterVehicleComponent, VehicleDisplayComponent, VehiclesListComponent],
+  declarations: [
+    AddFirstVehicleModalComponent,
+    ManageVehiclesComponent,
+    RegisterVehicleComponent,
+    VehicleDisplayComponent,
+    VehiclesListComponent,
+  ],
+  entryComponents: [
+    AddFirstVehicleModalComponent,
+    ManageVehiclesComponent,
+    RegisterVehicleComponent,
+    VehicleDisplayComponent,
+    VehiclesListComponent,
+  ],
+  exports: [
+    AddFirstVehicleModalComponent,
+    ManageVehiclesComponent,
+    RegisterVehicleComponent,
+    VehicleDisplayComponent,
+    VehiclesListComponent,
+  ],
 })
 export class VehicleModule {
 }

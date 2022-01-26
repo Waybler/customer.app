@@ -1,0 +1,13 @@
+<ion-card class="app-vehicles add-first-vehicle-modal">
+  <ion-card-content>
+    <app-vehicle-register-vehicle
+      (registerVehicle)="onRegisterVehicle($event)"
+      [showTitle]="true"
+    ></app-vehicle-register-vehicle>
+  </ion-card-content>
+  <div class="cancelButtonContainer">
+    <ion-button expand="full" type="cancel" name="cancelButton" color="danger" (click)="closeModal()">
+      {{tGlobal('cancel')}}
+    </ion-button>
+  </div>
+</ion-card>

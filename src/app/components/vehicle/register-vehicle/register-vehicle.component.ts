@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef, OnDestroy, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, OnDestroy, Output, EventEmitter, Input } from '@angular/core';
 import { UserService } from '../../../services/user.service';
 import { ITranslator, TranslatorFactoryService } from '../../../services/translator-factory.service';
 import { NgForm } from '@angular/forms';
@@ -10,6 +10,9 @@ import { RegisterVehiclesAPIRequestBody } from '../../../models/vehicle';
   styleUrls: ['./register-vehicle.component.scss'],
 })
 export class RegisterVehicleComponent implements OnInit, OnDestroy {
+  @Input()
+  showTitle: boolean;
+
   @Output()
   public registerVehicle: EventEmitter<RegisterVehiclesAPIRequestBody> = new EventEmitter<RegisterVehiclesAPIRequestBody>();
 
@@ -21,9 +24,10 @@ export class RegisterVehicleComponent implements OnInit, OnDestroy {
     countryCode: null,
   };
 
-  constructor(private userService: UserService,
-              translateProviderService: TranslatorFactoryService,
-              private cdr: ChangeDetectorRef) {
+  constructor(
+    private userService: UserService,
+    translateProviderService: TranslatorFactoryService,
+  ) {
     this.t = translateProviderService.create('components.vehicle');
     this.tGlobal = translateProviderService.create('global');
   }

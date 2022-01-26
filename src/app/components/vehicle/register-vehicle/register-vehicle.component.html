@@ -1,4 +1,9 @@
 <ion-card class="app-vehicles register-vehicle">
+  <ion-card-header *ngIf="showTitle">
+    <ion-card-title>
+      {{t("register-vehicle.title")}}
+    </ion-card-title>
+  </ion-card-header>
   <ion-card-content>
     <form #form="ngForm" (ngSubmit)="onRegisterVehicleSubmit(form)">
       <ion-list>

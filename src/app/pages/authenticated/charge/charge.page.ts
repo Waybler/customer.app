@@ -136,14 +136,14 @@ export class ChargePage implements OnInit, OnDestroy, AfterViewChecked {
 
     this.vehicleService.vehiclesSubject.subscribe((vehicles: Vehicle[]) => {
       this.vehicles = vehicles;
-      console.info(') -> ngOnInit -> vehicleService.vehiclesSubject ->  :',
+      console.info('charge.page -> ngOnInit -> vehicleService.vehiclesSubject ->  :',
         '\nvehicles: ', vehicles,
       );
     });
 
     this.vehicleService.defaultVehicleSubject.subscribe((vehicle: Vehicle) => {
       this.defaultVehicle = vehicle;
-      console.info(') -> ngOnInit -> vehicleService.defaultVehicleSubject ->  :',
+      console.info('charge.page -> ngOnInit -> vehicleService.defaultVehicleSubject ->  :',
         '\nvehicles: ', vehicle,
       );
     });

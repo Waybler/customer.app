@@ -1,6 +1,7 @@
 {
   "global": {
     "add": "Add",
+    "cancel": "Cancel",
     "no": "No",
     "yes": "Yes"
   },
@@ -32,6 +33,9 @@
       "vehicle-identification-number-initials": "VIN",
       "vehicle-registration-number": "Registration number",
       "vehicle-year": "Vehicle year",
+      "register-vehicle": {
+        "title": "Add vehicle"
+       },
       "set-as-default-vehicle": {
         "label": "Set as default vehicle",
         "description": "When selected, this vehicle is automatically set as the default vehicle and you do not need to select a vehicle when charging."
