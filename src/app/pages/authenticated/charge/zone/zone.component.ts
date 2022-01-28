@@ -10,13 +10,16 @@ import { ContractType } from '../../../../models/contract';
 import { Vehicle } from '../../../../models/vehicle';
 import { AddFirstVehicleModalComponent } from '../../../../components/vehicle/add-first-vehicle-modal/add-first-vehicle-modal.component';
 
+interface ChargeSessionAuxiliaryParams {
+  chargeZoneId?: number;
+  vehicle?: Vehicle;
+  overrideShowCarHeating?: boolean;
+}
+
 interface AlertForVehicleSelectionParams {
   chargeZone: ChargeZone;
   station: Station;
-  otherParams?: {
-    vehicle?: Vehicle;
-    overrideShowCarHeating?: boolean;
-  };
+  otherParams?: ChargeSessionAuxiliaryParams;
 }
 
 @Component({
@@ -37,6 +40,11 @@ export class ZoneComponent implements OnInit {
 
   @Input()
   public shouldUseCompactviewObject: ShouldUseCompactviewObject;
+
+  @Input()
+  public currentlyChargingVehicles: {
+    [key: string]: Vehicle
+  };
 
   @Input()
   public vehicles: Vehicle[];
@@ -180,11 +188,13 @@ export class ZoneComponent implements OnInit {
     this.selected.emit({ chargeZone: this.chargeZone, station });
   }
 
-  private startSession(chargeZone: ChargeZone, station: Station, otherParams?: any): void {
+  private startSession(chargeZone: ChargeZone, station: Station, otherParams?: ChargeSessionAuxiliaryParams): void {
+    console.info('zone.component -> startSession: ',
+      '\notherParams:', otherParams);
     this.start.emit({ chargeZone, station, otherParams });
   }
 
-  public startCharge(chargeZone: ChargeZone, station: Station, otherParams?: any): void {
+  public startCharge(chargeZone: ChargeZone, station: Station, otherParams?: ChargeSessionAuxiliaryParams): void {
     this.userService.userAppSettings$.subscribe(async (appSettings: UserAppSettings) => {
       this.setSelectedVehicleIfNotSet();
       const weHaveNoSelectedVehicleAndAreNotSetToAlwaysShowCarHeating = !this.selectedVehicle

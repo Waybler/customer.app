@@ -1,4 +1,5 @@
 import * as Moment from 'moment';
+import { Vehicle } from './vehicle';
 
 export interface ChargeSession {
   chargedEnergy: number;
@@ -13,26 +14,29 @@ export interface ChargeSession {
   zoneId: number;
 }
 
-export interface ChargeSessionStartParams {
+export interface ChargeSessionAPIStartParams {
   legalEntityId: number;
   contractUserId: number;
   stationId: number;
-  otherParams?: ChargeSessionStartParamsAuxiliary;
+  otherParams?: ChargeSessionAPIStartParamsAuxiliary;
 }
 
-export interface ChargeSessionStartParamsAuxiliary {
+export interface ChargeSessionAPIStartParamsAuxiliary {
   legalEntityId: number;
-  vehicleRegistrationNumber: string;
-  vehicleCountryCode: string;
+  vehicleRegistrationNumber?: string;
+  vehicleCountryCode?: string;
+  vehicle?: Vehicle;
 }
 
 export interface APIBodyChargeSessionStart {
   contractUserId: number;
   stationId: number;
+  vehicleRegistrationNumber?: string;
+  countryCode?: string;
   params?: any;
 }
 
-export interface ChargeSessionStopParams {
+export interface ChargeSessionAPIStopParams {
   legalEntityId: number;
   sessionId: number;
 }

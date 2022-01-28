@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy, ChangeDetectorRef, AfterViewChecked } fro
 import { webSocket } from 'rxjs/webSocket';
 import { environment, vendor } from '../../../../environments/environment';
 import { retryWhen, tap, delay, switchMap, debounceTime, filter } from 'rxjs/operators';
-import { Observable, Subscription } from 'rxjs';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { ToastController, Platform } from '@ionic/angular';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { SessionService } from 'src/app/services/session.service';
@@ -18,10 +18,10 @@ import {
   StationsAvailableObject,
   STATION_STATE,
 } from '../../../models/chargeZone';
-import { ChargeSession, ChargeSessionStartParams } from '../../../models/chargeSession';
+import { ChargeSession, ChargeSessionAPIStartParams, ChargeSessionAPIStartParamsAuxiliary } from '../../../models/chargeSession';
 import { UserAppSettings } from '../../../models/user';
 import { VehicleService } from '../../../services/vehicle.service';
-import { Vehicle } from '../../../models/vehicle';
+import { ChargingVehiclesObject, Vehicle } from '../../../models/vehicle';
 
 @Component({
   selector: 'app-charge',
@@ -66,6 +66,7 @@ export class ChargePage implements OnInit, OnDestroy, AfterViewChecked {
   public userAppSettings: UserAppSettings;
   public vehicles: Vehicle[];
   public defaultVehicle: Vehicle;
+  public currentlyChargingVehicles: ChargingVehiclesObject = null;
 
   constructor(
     private userService: UserService,
@@ -147,6 +148,15 @@ export class ChargePage implements OnInit, OnDestroy, AfterViewChecked {
         '\nvehicles: ', vehicle,
       );
     });
+
+    this.userService.currentlyChargingVehiclesSubject.subscribe((currentlyChargingVehicles) => {
+      this.currentlyChargingVehicles = currentlyChargingVehicles;
+
+      console.info('charge.page -> ngOnInit -> userService.currentlyChargingVehiclesSubject ->  :',
+        '\ncurrentlyChargingVehicles: ', currentlyChargingVehicles,
+      );
+    });
+
     this.ionViewDidEnterx();
   }
 
@@ -353,7 +363,7 @@ export class ChargePage implements OnInit, OnDestroy, AfterViewChecked {
     this.setActiveSession(this.findSession(station.stationId));
   }
 
-  public async startCharge(chargeZone: ChargeZone, station: Station, otherParams?: any): Promise<void> {
+  public async startCharge(chargeZone: ChargeZone, station: Station, otherParams?: ChargeSessionAPIStartParamsAuxiliary): Promise<void> {
     let vehicle: Vehicle;
     // debugger;
     const selectedVehicle = otherParams?.vehicle;
@@ -369,7 +379,7 @@ export class ChargePage implements OnInit, OnDestroy, AfterViewChecked {
     }
     console.info('charge.page -> startCharge:'
       , '\nvehicle: ', vehicle);
-    return;
+    // return;
     const session: ChargeSession = {
       status: 'Unknown',
       stationId: station.stationId,
@@ -382,7 +392,7 @@ export class ChargePage implements OnInit, OnDestroy, AfterViewChecked {
     this.sessions.push(session);
     this.setActiveSession(session);
 
-    const startChargeParams: ChargeSessionStartParams = {
+    const startChargeParams: ChargeSessionAPIStartParams = {
       legalEntityId,
       contractUserId: chargeZone.contractUserId,
       stationId: station.stationId,
@@ -414,6 +424,8 @@ export class ChargePage implements OnInit, OnDestroy, AfterViewChecked {
       legalEntityId,
       sessionId: this.activeSession.sessionId,
     };
+    console.info('charge.page -> stopCharge:'
+      , '\nthis.activeSession: ', this.activeSession);
 
     this.userService.stopCharge(stopChargeParams).subscribe(
       r => {

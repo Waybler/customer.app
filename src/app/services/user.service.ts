@@ -18,7 +18,8 @@ import { API, HTTP_STATUS_CODE } from '../models/api';
 import { TermsAndConditions } from '../models/contract';
 import { HistoryChartDatum, HistoryForMonthGUIModel, HistoryForMonthAPIResponse } from '../models/history';
 import { BillingInvoicesAPIResponse, Invoice, Payment, PaymentMethodsAPIResponse, UninvoicedAPIResponse } from '../models/payment';
-import { APIBodyChargeSessionStart, ChargeSessionStartParams, ChargeSessionStopParams } from '../models/chargeSession';
+import { APIBodyChargeSessionStart, ChargeSessionAPIStartParams, ChargeSessionAPIStopParams } from '../models/chargeSession';
+import { Vehicle, ChargingVehiclesObject } from '../models/vehicle';
 
 // import { LocaleService } from './locale.service';
 export interface UserServiceCache {
@@ -197,6 +198,8 @@ export class UserService {
   public userUpdated$ = new BehaviorSubject(null);
 
   public sessionCount = 0;
+
+  public currentlyChargingVehiclesSubject = new BehaviorSubject<ChargingVehiclesObject>({});
 
   constructor(private httpClient: HttpClient, private storageService: StorageService, private localeService: LocaleService) {
     this.legalEntityId$ = this.legalEntityIdSubject.pipe(
@@ -525,21 +528,44 @@ export class UserService {
     );
   }
 
-  public startCharge(params: ChargeSessionStartParams): Observable<StartChargeResult> {
+  public startCharge(params: ChargeSessionAPIStartParams): Observable<StartChargeResult> {
+    console.info('user.service -> startCharge: '
+      , '\nparams: ', params);
     if (!params || !params.legalEntityId || !params.contractUserId || !params.stationId) {
       const errorText = 'user.service -> startCharge: Lacking params.';
       console.error(errorText);
       throw Error(errorText);
     }
 
+    if (!params.otherParams || !params.otherParams.vehicle
+      || !params.otherParams.vehicle.registrationNumber || !params.otherParams.vehicle.countryCode) {
+      const errorText = 'user.service -> startCharge: Lacking vehicle registration number.';
+      console.error(errorText);
+      throw Error(errorText);
+    }
     const url = `${environment.apiUrl}${params.legalEntityId}/sessions`;
-
     const body: APIBodyChargeSessionStart = {
-       contractUserId: params.contractUserId,
+      contractUserId: params.contractUserId,
       stationId: params.stationId,
-      params: params.otherParams,
+      vehicleRegistrationNumber: params.otherParams.vehicle.registrationNumber,
+      countryCode: params.otherParams.vehicle.countryCode,
+      params: {
+        vehicleRegistrationNumber: params.otherParams.vehicle.registrationNumber,
+        countryCode: params.otherParams.vehicle.countryCode,
+      },
     };
     return this.httpClient.put(url, body).pipe(
+      tap((data) => {
+        const currentlyChargingVehiclesObject = Object.assign({}, this.currentlyChargingVehiclesSubject.value);
+        const vehicleRegistrationNumber = params.otherParams.vehicle.registrationNumber;
+        currentlyChargingVehiclesObject[vehicleRegistrationNumber] = {
+          vehicle: params.otherParams.vehicle,
+          stationId: params.stationId,
+        };
+        this.currentlyChargingVehiclesSubject.next(currentlyChargingVehiclesObject);
+        console.info('user.service -> startCharge -> tap: '
+          , '\ndata: ', data);
+      }),
       map((d: any) => {
         return d.result === API.GENERIC_RESULT.OK ? StartChargeResult.Success : StartChargeResult.Failed;
       }),
@@ -547,7 +573,9 @@ export class UserService {
     );
   }
 
-  public stopCharge(params: ChargeSessionStopParams): Observable<StopChargeResult> {
+  public stopCharge(params: ChargeSessionAPIStopParams): Observable<StopChargeResult> {
+    console.info('user.service -> stopCharge: '
+      , '\nparams: ', params);
     if (!params || !params.legalEntityId || !params.sessionId) {
       const errorText = 'user.service -> startCharge: Lacking params.';
       console.error(errorText);
