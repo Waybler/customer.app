@@ -51,6 +51,13 @@
                 {{startedAt()}}
             </div>
         </ion-item>
+
+        <ion-item *ngIf="registrationNumber" stacked>
+            <ion-label position="stacked">{{tVehicle('vehicle')}}</ion-label>
+            <div>
+                {{registrationNumber}}
+            </div>
+        </ion-item>
     </ion-list>
-    <ion-button expand="full" (click)="stop.emit()">{{t('stop')}} ({{registrationNumber}})</ion-button>
+    <ion-button expand="full" (click)="stop.emit()">{{t('stop')}}</ion-button>
 </ion-card>

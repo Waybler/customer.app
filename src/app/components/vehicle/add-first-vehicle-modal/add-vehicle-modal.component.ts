@@ -6,11 +6,11 @@ import { RegisterVehiclesAPIRequestBody, RegisterOrRemoveVehiclesServiceParams, 
 import { ModalController } from '@ionic/angular';
 
 @Component({
-  selector: 'app-vehicle-add-first-vehicle-modal',
-  templateUrl: './add-first-vehicle-modal.component.html',
-  styleUrls: ['./add-first-vehicle-modal.component.scss'],
+  selector: 'app-vehicle-add-vehicle-modal',
+  templateUrl: './add-vehicle-modal.component.html',
+  styleUrls: ['./add-vehicle-modal.component.scss'],
 })
-export class AddFirstVehicleModalComponent implements OnInit, OnDestroy {
+export class AddVehicleModalComponent implements OnInit, OnDestroy {
   public t: ITranslator;
   public tGlobal: ITranslator;
   public vehicles: Vehicle[];

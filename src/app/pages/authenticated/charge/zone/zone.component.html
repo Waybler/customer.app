@@ -99,7 +99,8 @@
                   [attr.charging]="isSessionOwner(station)"
                   (click)="showStation(station)"
                 >
-                  <div station-name>{{station.name}} {{station.state | json}}</div>
+                  <div
+                    station-name>{{station.name}} {{this.getMatchingRegistrationNumberForChargeStation(station.stationId) }}</div>
                   <ion-icon name="thermometer"
                             *ngIf="station.session == 'heat'" slot="end" color="warning"></ion-icon>
                   <ion-icon name="battery-charging" color="warning"
@@ -112,7 +113,7 @@
                           [attr.data-station]="station.stationId"
                           *ngIf="station.state == 'failure'"
               >
-                <div station-name>{{station.name}} </div>
+                <div station-name>{{station.name}} {{this.getMatchingRegistrationNumberForChargeStation(station.stationId) }} </div>
               </ion-button>
             </ng-container>
           </ng-container>

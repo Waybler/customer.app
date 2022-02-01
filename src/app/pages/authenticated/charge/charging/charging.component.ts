@@ -11,6 +11,7 @@ import { Station } from '../../../../models/chargeZone';
 })
 export class ChargingComponent implements OnInit {
   public t: ITranslator;
+  public tVehicle: ITranslator;
 
   @Input()
   public session: ChargeSession;
@@ -38,6 +39,7 @@ export class ChargingComponent implements OnInit {
     translatorFactoryService: TranslatorFactoryService,
   ) {
     this.t = translatorFactoryService.create('pages.authenticated.charge.components.charging');
+    this.tVehicle = translatorFactoryService.create('components.vehicle');
   }
 
   ngOnInit() {

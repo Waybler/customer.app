@@ -8,7 +8,8 @@ import { ChargeZone, ShouldUseCompactviewObject, Station, STATION_STATE } from '
 import { ChargeSession } from '../../../../models/chargeSession';
 import { ContractType } from '../../../../models/contract';
 import { Vehicle } from '../../../../models/vehicle';
-import { AddFirstVehicleModalComponent } from '../../../../components/vehicle/add-first-vehicle-modal/add-first-vehicle-modal.component';
+import { AddVehicleModalComponent } from '../../../../components/vehicle/add-first-vehicle-modal/add-vehicle-modal.component';
+import { VehicleService } from '../../../../services/vehicle.service';
 
 interface ChargeSessionAuxiliaryParams {
   chargeZoneId?: number;
@@ -60,6 +61,7 @@ export class ZoneComponent implements OnInit {
 
   public showOptions = false;
   public t: ITranslator;
+  public tVehicle: ITranslator;
   public ContractType = ContractType;
   public selectedVehicle: Vehicle;
 
@@ -67,11 +69,13 @@ export class ZoneComponent implements OnInit {
     public userService: UserService,
     private toastController: ToastController,
     private modalController: ModalController,
-    translatorFactoryService: TranslatorFactoryService,
     private cdr: ChangeDetectorRef,
     private alertController: AlertController,
+    translatorFactoryService: TranslatorFactoryService,
+    public vehicleService: VehicleService,
   ) {
     this.t = translatorFactoryService.create('pages.authenticated.charge.components.zone');
+    this.tVehicle = translatorFactoryService.create('components.vehicle');
   }
 
   ngOnInit() {
@@ -79,9 +83,7 @@ export class ZoneComponent implements OnInit {
       this.shouldUseCompactviewObject = { shouldUseCompactView };
       this.cdr.detectChanges();
     });
-    console.info('zone.component -> ngOnInit: ',
-      '\nthis.vehicles:', this.vehicles,
-      '\nthis.defaultVehicle:', this.defaultVehicle);
+
     this.setSelectedVehicleIfNotSet();
   }
 
@@ -89,9 +91,8 @@ export class ZoneComponent implements OnInit {
     const buttons = this.getSelectVehicleButtons(params);
     const alert = await this.alertController.create({
       cssClass: 'alertController selectVehicle',
-      // header: this.t('charge-options.header'),
-      header: 'Select vehicle',
-      message: 'Please select vehicle to charge',
+      header: this.tVehicle('select-vehicle.header'),
+      message: this.tVehicle('select-vehicle.message'),
       buttons,
     });
 
@@ -128,9 +129,6 @@ export class ZoneComponent implements OnInit {
 
   private setAsSelectedVehicle(vehicle: Vehicle) {
     this.selectedVehicle = vehicle;
-    console.info('zone.component -> setAsSelectedVehicle: ',
-      'vehicle', vehicle,
-      '\nselectedVehicle', this.selectedVehicle);
   }
 
   private setSelectedVehicleIfNotSet() {
@@ -179,6 +177,11 @@ export class ZoneComponent implements OnInit {
     return result;
   }
 
+  public getMatchingRegistrationNumberForChargeStation(stationId: number): string {
+    const registrationNumber = this.vehicleService.getMatchingRegistrationNumberForChargeStation(stationId);
+    return (registrationNumber) ? `(${registrationNumber})` : '';
+  }
+
   public async toast(message: string): Promise<void> {
     const toast = await this.toastController.create({ message, duration: 1000 });
     await toast.present();
@@ -223,8 +226,7 @@ export class ZoneComponent implements OnInit {
             station,
             otherParams,
           });
-          console.info('TODO: Add a modal for vehicle registration.');
-        }
+         }
         return;
       } else {
         if (!otherParams) {
@@ -236,10 +238,7 @@ export class ZoneComponent implements OnInit {
           }
         }
       }
-      console.info('zone.component -> startCharge: ',
-        '\nthis.vehicles:', this.vehicles,
-        '\nthis.defaultVehicle:', this.defaultVehicle,
-        '\notherParams:', otherParams);
+
       if (appSettings?.showCarHeating && !otherParams?.overrideShowCarHeating) {
         const alert = await this.alertController.create({
           header: this.t('charge-options.header'),
@@ -279,13 +278,11 @@ export class ZoneComponent implements OnInit {
 
   public async showAddFirstVehicleModal(params: AlertForVehicleSelectionParams): Promise<void> {
     const modal = await this.modalController.create({
-      component: AddFirstVehicleModalComponent,
+      component: AddVehicleModalComponent,
     });
     await modal.present();
     const { data } = await modal.onDidDismiss();
     if (data) {
-      console.info('zone.component -> showAddFirstVehicleModal: ',
-        '\ndata:', data);
       if (!params.otherParams) {
         params.otherParams = {};
       }

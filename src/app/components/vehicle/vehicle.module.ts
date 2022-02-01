@@ -8,7 +8,7 @@ import { ManageVehiclesComponent } from './manage-vehicles/manage-vehicles.compo
 import { RegisterVehicleComponent } from './register-vehicle/register-vehicle.component';
 import { VehicleDisplayComponent } from './vehicle-display/vehicle-display.component';
 import { VehiclesListComponent } from './vehicles-list/vehicles-list.component';
-import { AddFirstVehicleModalComponent } from './add-first-vehicle-modal/add-first-vehicle-modal.component';
+import { AddVehicleModalComponent } from './add-first-vehicle-modal/add-vehicle-modal.component';
 
 @NgModule({
   imports: [
@@ -19,21 +19,21 @@ import { AddFirstVehicleModalComponent } from './add-first-vehicle-modal/add-fir
     RoundProgressModule,
   ],
   declarations: [
-    AddFirstVehicleModalComponent,
+    AddVehicleModalComponent,
     ManageVehiclesComponent,
     RegisterVehicleComponent,
     VehicleDisplayComponent,
     VehiclesListComponent,
   ],
   entryComponents: [
-    AddFirstVehicleModalComponent,
+    AddVehicleModalComponent,
     ManageVehiclesComponent,
     RegisterVehicleComponent,
     VehicleDisplayComponent,
     VehiclesListComponent,
   ],
   exports: [
-    AddFirstVehicleModalComponent,
+    AddVehicleModalComponent,
     ManageVehiclesComponent,
     RegisterVehicleComponent,
     VehicleDisplayComponent,

@@ -36,6 +36,10 @@
       "register-vehicle": {
         "title": "Add vehicle"
        },
+      "select-vehicle": {
+        "header": "Select vehicle",
+        "message": "Please select vehicle to charge"
+       },
       "set-as-default-vehicle": {
         "label": "Set as default vehicle",
         "description": "When selected, this vehicle is automatically set as the default vehicle and you do not need to select a vehicle when charging."
