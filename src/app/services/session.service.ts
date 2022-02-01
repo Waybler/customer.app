@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 import { ChargeSession } from '../models/chargeSession';
+import { ChargingVehiclesObject } from '../models/vehicle';
 
 @Injectable({
   providedIn: 'root',
@@ -15,4 +16,5 @@ export class SessionService {
       '\ndata:', data);
     this.sessionUpdatedSubject.next(data);
   }
+
 }

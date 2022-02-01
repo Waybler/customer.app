@@ -1,24 +1,28 @@
-import { Component, OnInit, OnDestroy, ChangeDetectorRef, AfterViewChecked } from '@angular/core';
+import { AfterViewChecked, ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { webSocket } from 'rxjs/webSocket';
 import { environment, vendor } from '../../../../environments/environment';
-import { retryWhen, tap, delay, switchMap, debounceTime, filter } from 'rxjs/operators';
-import { BehaviorSubject, Observable, Subscription } from 'rxjs';
-import { ToastController, Platform } from '@ionic/angular';
-import { ChangeDetectionStrategy } from '@angular/core';
+import { debounceTime, delay, filter, retryWhen, switchMap, tap } from 'rxjs/operators';
+import { Observable, Subscription } from 'rxjs';
+import { Platform, ToastController } from '@ionic/angular';
 import { SessionService } from 'src/app/services/session.service';
 import { ITranslator, TranslatorFactoryService } from 'src/app/services/translator-factory.service';
-import { UserService, StartChargeResult, StopChargeResult, USER_APP_SETTINGS_DEFAULT_VALUE } from 'src/app/services/user.service';
+import { StartChargeResult, StopChargeResult, USER_APP_SETTINGS_DEFAULT_VALUE, UserService } from 'src/app/services/user.service';
 import { LocaleService } from 'src/app/services/locale.service';
-import { WebSocketType, IWebSocketUserServiceResponse } from '../../../models/webSocket';
+import { IWebSocketUserServiceResponse, WebSocketType } from '../../../models/webSocket';
 import {
   ChargeZone,
   ShouldUseCompactviewObject,
   Station,
+  STATION_STATE,
   StationGroup,
   StationsAvailableObject,
-  STATION_STATE,
 } from '../../../models/chargeZone';
-import { ChargeSession, ChargeSessionAPIStartParams, ChargeSessionAPIStartParamsAuxiliary } from '../../../models/chargeSession';
+import {
+  ChargeSession,
+  ChargeSessionAPIStartParams,
+  ChargeSessionAPIStartParamsAuxiliary,
+  CHARGE_SESSION_STATE,
+} from '../../../models/chargeSession';
 import { UserAppSettings } from '../../../models/user';
 import { VehicleService } from '../../../services/vehicle.service';
 import { ChargingVehiclesObject, Vehicle } from '../../../models/vehicle';
@@ -149,7 +153,7 @@ export class ChargePage implements OnInit, OnDestroy, AfterViewChecked {
       );
     });
 
-    this.userService.currentlyChargingVehiclesSubject.subscribe((currentlyChargingVehicles) => {
+    this.vehicleService.currentlyChargingVehiclesSubject.subscribe((currentlyChargingVehicles) => {
       this.currentlyChargingVehicles = currentlyChargingVehicles;
 
       console.info('charge.page -> ngOnInit -> userService.currentlyChargingVehiclesSubject ->  :',
@@ -221,11 +225,11 @@ export class ChargePage implements OnInit, OnDestroy, AfterViewChecked {
               case WebSocketType.SESSION_UPDATED: {
                 const session = this.findSession(data.stationId);
                 if (session == null) {
-                  if (data.status !== 'Completed') {
+                  if (data.status !== CHARGE_SESSION_STATE.COMPLETED) {
                     this.sessions.push(data);
                   }
                 } else {
-                  if (data.status === 'Completed') {
+                  if (data.status === CHARGE_SESSION_STATE.COMPLETED) {
                     this.removeSession(data);
                   } else {
                     Object.assign(session, data as ChargeSession);
@@ -381,7 +385,7 @@ export class ChargePage implements OnInit, OnDestroy, AfterViewChecked {
       , '\nvehicle: ', vehicle);
     // return;
     const session: ChargeSession = {
-      status: 'Unknown',
+      status: CHARGE_SESSION_STATE.UNKOWN,
       stationId: station.stationId,
       zoneId: chargeZone.zoneId,
       contractId: chargeZone.contractId,
@@ -543,6 +547,9 @@ export class ChargePage implements OnInit, OnDestroy, AfterViewChecked {
     this.userService.acceptTerms().subscribe();
   }
 
+  public getMatchingRegistrationNumberForChargeStation(stationId: number): string{
+    return this.vehicleService.getMatchingRegistrationNumberForChargeStation(stationId);
+  }
   private async useChargeZoneViewSettings() {
     this.setStationsObject();
 

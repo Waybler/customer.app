@@ -18,8 +18,10 @@ import { API, HTTP_STATUS_CODE } from '../models/api';
 import { TermsAndConditions } from '../models/contract';
 import { HistoryChartDatum, HistoryForMonthGUIModel, HistoryForMonthAPIResponse } from '../models/history';
 import { BillingInvoicesAPIResponse, Invoice, Payment, PaymentMethodsAPIResponse, UninvoicedAPIResponse } from '../models/payment';
-import { APIBodyChargeSessionStart, ChargeSessionAPIStartParams, ChargeSessionAPIStopParams } from '../models/chargeSession';
+import { APIBodyChargeSessionStart, ChargeSession, ChargeSessionAPIStartParams, ChargeSessionAPIStopParams } from '../models/chargeSession';
 import { Vehicle, ChargingVehiclesObject } from '../models/vehicle';
+import { SessionService } from './session.service';
+import { VehicleService } from './vehicle.service';
 
 // import { LocaleService } from './locale.service';
 export interface UserServiceCache {
@@ -199,9 +201,12 @@ export class UserService {
 
   public sessionCount = 0;
 
-  public currentlyChargingVehiclesSubject = new BehaviorSubject<ChargingVehiclesObject>({});
 
-  constructor(private httpClient: HttpClient, private storageService: StorageService, private localeService: LocaleService) {
+  constructor(
+    private httpClient: HttpClient,
+    private storageService: StorageService,
+    private localeService: LocaleService,
+   ) {
     this.legalEntityId$ = this.legalEntityIdSubject.pipe(
       switchMap(async _ => {
         return await this.storageService.get(STORAGE_SERVICE_KEY.LEGAL_ENTITY_ID);
@@ -350,6 +355,8 @@ export class UserService {
         return tac;
       }),
     );
+
+
   }
 
   public async setToken(token: string) {
@@ -556,15 +563,7 @@ export class UserService {
     };
     return this.httpClient.put(url, body).pipe(
       tap((data) => {
-        const currentlyChargingVehiclesObject = Object.assign({}, this.currentlyChargingVehiclesSubject.value);
-        const vehicleRegistrationNumber = params.otherParams.vehicle.registrationNumber;
-        currentlyChargingVehiclesObject[vehicleRegistrationNumber] = {
-          vehicle: params.otherParams.vehicle,
-          stationId: params.stationId,
-        };
-        this.currentlyChargingVehiclesSubject.next(currentlyChargingVehiclesObject);
-        console.info('user.service -> startCharge -> tap: '
-          , '\ndata: ', data);
+     // Do nothing for now. TODO: Remove if able to track currently charging vehicles without it.
       }),
       map((d: any) => {
         return d.result === API.GENERIC_RESULT.OK ? StartChargeResult.Success : StartChargeResult.Failed;

@@ -2,6 +2,7 @@ import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { ITranslator, TranslatorFactoryService } from 'src/app/services/translator-factory.service';
 import { UserService } from 'src/app/services/user.service';
 import { ChargeSession } from '../../../../models/chargeSession';
+import { Station } from '../../../../models/chargeZone';
 
 @Component({
   selector: 'app-charging',
@@ -18,10 +19,13 @@ export class ChargingComponent implements OnInit {
   public chargeZone: any;
 
   @Input()
+  public registrationNumber: string;
+
+  @Input()
   public showBack: boolean;
 
   @Input()
-  public station: any;
+  public station: Station;
 
   @Output()
   public stop = new EventEmitter();

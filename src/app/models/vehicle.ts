@@ -33,9 +33,11 @@ export interface RegisterOrRemoveVehiclesServiceParams extends RegisterVehiclesA
   legalEntityId: number;
 }
 
+export interface VehicleAndStation {
+  vehicle: Vehicle;
+  stationId: number;
+}
+
 export interface ChargingVehiclesObject {
-  [key: string]: {
-    vehicle: Vehicle;
-    stationId: number;
-  };
+  [key: string]: VehicleAndStation;
 }

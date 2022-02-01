@@ -1,16 +1,25 @@
 import * as Moment from 'moment';
 import { Vehicle } from './vehicle';
 
+export enum CHARGE_SESSION_STATE {
+  UNKOWN = 'Unknown',
+  WAITING = 'Waiting',
+  CHARGING = 'Charging',
+  COMPLETED = 'Completed'
+}
+
 export interface ChargeSession {
   chargedEnergy: number;
   contractId: number;
   contractUserId?: number;
+  countryCode?: string;
   id?: number;
   power?: number;
+  registrationNumber?: string;
   settings?: any;
   startedAt?: Moment.Moment;
   stationId: number;
-  status: string;
+  status: CHARGE_SESSION_STATE;
   zoneId: number;
 }
 
