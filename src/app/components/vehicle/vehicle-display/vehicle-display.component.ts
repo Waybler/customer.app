@@ -12,6 +12,9 @@ export class VehicleDisplayComponent implements OnInit, OnDestroy {
   @Input()
   public vehicle: Vehicle;
 
+  @Input()
+  public isCurrentlyCharging: boolean;
+
   @Output()
   public removeVehicle: EventEmitter<Vehicle> = new EventEmitter<Vehicle>();
 
@@ -32,6 +35,9 @@ export class VehicleDisplayComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
 
+    console.info('vehicle-display.component -> ngOnInit:'
+      , '\nthis.vehicle: ', this.vehicle
+      , '\nthis.isCurrentlyCharging: ', this.isCurrentlyCharging);
   }
 
   ngOnDestroy() {
@@ -40,7 +46,7 @@ export class VehicleDisplayComponent implements OnInit, OnDestroy {
   onSetAsDefaultToggleChange($event) {
     console.info('vehicle-display.component -> onSetAsDefaultToggleChange:'
       , '\n$event: ', $event
-      , '\n$event.detail.checked: ', $event.detail.checked );
+      , '\n$event.detail.checked: ', $event.detail.checked);
     const shouldBeDefault = $event.detail.checked;
     if (shouldBeDefault) {
       this.setVehicleAsDefault.emit(this.vehicle);
@@ -51,7 +57,10 @@ export class VehicleDisplayComponent implements OnInit, OnDestroy {
 
   onRemoveVehicleButtonClick() {
     console.info('vehicle-display.component -> onRemoveVehicleButtonClick:'
-      , '\nthis.vehicle: ', this.vehicle);
-    this.removeVehicle.emit(this.vehicle);
+      , '\nthis.vehicle: ', this.vehicle
+      , '\nthis.isCurrentlyCharging: ', this.isCurrentlyCharging);
+    if (!this.isCurrentlyCharging) {
+      this.removeVehicle.emit(this.vehicle);
+    }
   }
 }

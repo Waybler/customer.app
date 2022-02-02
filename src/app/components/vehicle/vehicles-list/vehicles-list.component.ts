@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectorRef, OnDestroy, Input, Output, EventEmitter } from '@angular/core';
 import { UserService } from '../../../services/user.service';
 import { ITranslator, TranslatorFactoryService } from '../../../services/translator-factory.service';
-import { Vehicle } from '../../../models/vehicle';
+import { ChargingVehiclesObject, Vehicle } from '../../../models/vehicle';
 
 @Component({
   selector: 'app-vehicle-vehicles-list',
@@ -12,9 +12,11 @@ export class VehiclesListComponent implements OnInit, OnDestroy {
   @Input()
   public vehicles: Vehicle[];
 
+  @Input()
+  public currentlyChargingVehicles: ChargingVehiclesObject;
+
   @Output()
   public removeVehicle: EventEmitter<Vehicle> = new EventEmitter<Vehicle>();
-
 
   @Output()
   public setVehicleAsDefault: EventEmitter<Vehicle> = new EventEmitter<Vehicle>();
@@ -38,18 +40,26 @@ export class VehiclesListComponent implements OnInit, OnDestroy {
   }
 
   onRemoveVehicle(vehicle: Vehicle) {
-    console.info('vehicles-list.component -> onRemoveVehicle:'
-      , '\nvehicle: ', vehicle );
     this.removeVehicle.emit(vehicle);
   }
+
   onSetVehicleAsDefault(vehicle: Vehicle) {
-    console.info('vehicles-list.component -> onSetVehicleAsDefault:'
-      , '\nvehicle: ', vehicle );
     this.setVehicleAsDefault.emit(vehicle);
   }
+
   onUnsetVehicleAsDefault(vehicle: Vehicle) {
-    console.info('vehicles-list.component -> onUnsetVehicleAsDefault:'
-      , '\nvehicle: ', vehicle );
     this.unsetVehicleAsDefault.emit(vehicle);
+  }
+
+  isCurrentlyCharging(vehicle: Vehicle): boolean {
+    if (!vehicle || !this.currentlyChargingVehicles) {
+      return false;
+    }
+
+    console.info('vehicles-list.component -> isCurrentlyCharging:'
+      , '\nvehicle: ', vehicle
+      , '\nthis.currentlyChargingVehicles: ', this.currentlyChargingVehicles);
+    const currentlyChargingVehicleObject = this.currentlyChargingVehicles[vehicle.registrationNumber];
+    return !!currentlyChargingVehicleObject;
   }
 }

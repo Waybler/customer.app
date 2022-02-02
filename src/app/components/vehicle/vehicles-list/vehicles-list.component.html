@@ -3,6 +3,7 @@
     <app-vehicle-vehicle-display
       *ngFor="let vehicle of vehicles"
       [vehicle]="vehicle"
+      [isCurrentlyCharging]="isCurrentlyCharging(vehicle)"
       (removeVehicle)="onRemoveVehicle($event)"
       (setVehicleAsDefault)="onSetVehicleAsDefault($event)"
       (unsetVehicleAsDefault)="onUnsetVehicleAsDefault($event)"

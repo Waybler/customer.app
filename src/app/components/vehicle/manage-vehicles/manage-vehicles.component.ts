@@ -1,8 +1,8 @@
-import { Component, OnInit, OnDestroy} from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { UserService } from '../../../services/user.service';
 import { ITranslator, TranslatorFactoryService } from '../../../services/translator-factory.service';
 import { VehicleService } from '../../../services/vehicle.service';
-import { VehicleServiceAPIRequestBody, VehiclesServiceFunctionsParams, Vehicle } from '../../../models/vehicle';
+import { VehicleServiceAPIRequestBody, VehiclesServiceFunctionsParams, Vehicle, ChargingVehiclesObject } from '../../../models/vehicle';
 
 @Component({
   selector: 'app-vehicle-manage-vehicles',
@@ -15,6 +15,7 @@ export class ManageVehiclesComponent implements OnInit, OnDestroy {
   public hasFetchedData = false;
 
   public showExpandedView = false;
+  public currentlyChargingVehicles: ChargingVehiclesObject = null;
 
   constructor(
     private userService: UserService,
@@ -39,6 +40,14 @@ export class ManageVehiclesComponent implements OnInit, OnDestroy {
       this.vehicles = vehicles;
       console.info('manage-vehicle.component -> ngOnInit -> vehicleService.vehiclesSubject ->  :',
         '\nvehicles: ', vehicles,
+      );
+    });
+
+    this.vehicleService.currentlyChargingVehiclesSubject.subscribe((currentlyChargingVehicles) => {
+      this.currentlyChargingVehicles = currentlyChargingVehicles;
+
+      console.info('charge.page -> ngOnInit -> userService.currentlyChargingVehiclesSubject ->  :',
+        '\ncurrentlyChargingVehicles: ', currentlyChargingVehicles,
       );
     });
   }
