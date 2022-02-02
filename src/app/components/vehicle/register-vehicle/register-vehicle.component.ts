@@ -1,8 +1,7 @@
-import { Component, OnInit, ChangeDetectorRef, OnDestroy, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy, Output, EventEmitter, Input } from '@angular/core';
 import { UserService } from '../../../services/user.service';
 import { ITranslator, TranslatorFactoryService } from '../../../services/translator-factory.service';
-import { NgForm } from '@angular/forms';
-import { RegisterVehiclesAPIRequestBody } from '../../../models/vehicle';
+import { VehicleServiceAPIRequestBody } from '../../../models/vehicle';
 
 @Component({
   selector: 'app-vehicle-register-vehicle',
@@ -14,12 +13,12 @@ export class RegisterVehicleComponent implements OnInit, OnDestroy {
   showTitle: boolean;
 
   @Output()
-  public registerVehicle: EventEmitter<RegisterVehiclesAPIRequestBody> = new EventEmitter<RegisterVehiclesAPIRequestBody>();
+  public registerVehicle: EventEmitter<VehicleServiceAPIRequestBody> = new EventEmitter<VehicleServiceAPIRequestBody>();
 
   public t: ITranslator;
   public tGlobal: ITranslator;
 
-  public vehicleRegistrationModel: RegisterVehiclesAPIRequestBody = {
+  public vehicleRegistrationModel: VehicleServiceAPIRequestBody = {
     registrationNumber: null,
     countryCode: null,
   };

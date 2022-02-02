@@ -1,8 +1,8 @@
-import { Component, OnInit,  OnDestroy, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy} from '@angular/core';
 import { UserService } from '../../../services/user.service';
 import { ITranslator, TranslatorFactoryService } from '../../../services/translator-factory.service';
 import { VehicleService } from '../../../services/vehicle.service';
-import { RegisterVehiclesAPIRequestBody, RegisterOrRemoveVehiclesServiceParams, Vehicle } from '../../../models/vehicle';
+import { VehicleServiceAPIRequestBody, VehiclesServiceFunctionsParams, Vehicle } from '../../../models/vehicle';
 
 @Component({
   selector: 'app-vehicle-manage-vehicles',
@@ -46,11 +46,11 @@ export class ManageVehiclesComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
   }
 
-  onRegisterVehicle(vehicleData: RegisterVehiclesAPIRequestBody) {
+  onRegisterVehicle(vehicleData: VehicleServiceAPIRequestBody) {
     console.info('manage-vehicle.component -> onRegisterVehicle'
       , '\nevent: ', vehicleData);
     const legalEntityId = this.userService.legalEntityIdSubject.value;
-    const registerVehicleParams: RegisterOrRemoveVehiclesServiceParams = Object.assign({}, vehicleData, {
+    const registerVehicleParams: VehiclesServiceFunctionsParams = Object.assign({}, vehicleData, {
       legalEntityId,
     });
     this.vehicleService.registerVehicle(registerVehicleParams).subscribe((data: Vehicle) => {
@@ -60,11 +60,11 @@ export class ManageVehiclesComponent implements OnInit, OnDestroy {
     });
   }
 
-  onRemoveVehicle(vehicleData: RegisterVehiclesAPIRequestBody) {
+  onRemoveVehicle(vehicleData: VehicleServiceAPIRequestBody) {
     console.info('manage-vehicle.component -> onRemoveVehicle:'
       , '\nvehicle: ', vehicleData);
     const legalEntityId = this.userService.legalEntityIdSubject.value;
-    const registerVehicleParams: RegisterOrRemoveVehiclesServiceParams = Object.assign({}, vehicleData, {
+    const registerVehicleParams: VehiclesServiceFunctionsParams = Object.assign({}, vehicleData, {
       legalEntityId,
     });
     this.vehicleService.removeVehicle(registerVehicleParams).subscribe((data: Vehicle) => {
@@ -78,16 +78,41 @@ export class ManageVehiclesComponent implements OnInit, OnDestroy {
   onSetVehicleAsDefault(vehicle: Vehicle) {
     console.info('manage-vehicle.component -> onSetVehicleAsDefault:'
       , '\nvehicle: ', vehicle);
+    const registerVehicleParams: VehiclesServiceFunctionsParams = this.getVehicleServiceFunctionParamsForVehicle(vehicle);
+    this.vehicleService.setDefaultVehicle(registerVehicleParams).subscribe((data: Vehicle) => {
+      console.info('manage-vehicle.component -> onSetVehicleAsDefault -> setDefaultVehicle  :'
+        , '\nnew vehicle: ', data);
+      // this.refetchVehicles();
+    });
   }
 
   onUnsetVehicleAsDefault(vehicle: Vehicle) {
     console.info('manage-vehicle.component -> onUnsetVehicleAsDefault:'
       , '\nvehicle: ', vehicle);
+    const registerVehicleParams: VehiclesServiceFunctionsParams = this.getVehicleServiceFunctionParamsForVehicle(vehicle);
+    this.vehicleService.unsetDefaultVehicle(registerVehicleParams).subscribe((data: Vehicle) => {
+      console.info('manage-vehicle.component -> onUnsetVehicleAsDefault -> unsetDefaultVehicle  :'
+        , '\nnew vehicle: ', data);
+      // this.refetchVehicles();
+    });
   }
 
   onShowExpandedViewButtonClick() {
     console.info('manage-vehicle.component -> onShowExpandedViewButtonClick');
     this.showExpandedView = true;
+  }
+
+  getVehicleServiceFunctionParamsForVehicle(vehicle: Vehicle): VehiclesServiceFunctionsParams {
+    const legalEntityId = this.userService.legalEntityIdSubject.value;
+    const vehicleData: VehicleServiceAPIRequestBody = {
+      registrationNumber: vehicle.registrationNumber,
+      countryCode: vehicle.countryCode,
+    }
+    const registerVehicleParams: VehiclesServiceFunctionsParams = Object.assign({}, vehicleData, {
+      legalEntityId,
+    });
+    return registerVehicleParams;
+
   }
 
   refetchVehicles() {

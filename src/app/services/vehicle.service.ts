@@ -10,9 +10,9 @@ import { UserService } from './user.service';
 import {
   ChargingVehiclesObject,
   GetVehiclesAPIResponse,
-  RegisterOrRemoveVehiclesServiceParams,
+  VehiclesServiceFunctionsParams,
   RegisterVehiclesAPIResponse,
-  Vehicle, VehicleAndStation,
+  Vehicle, VehicleAndStation, SetOrUnsetDefaultVehicleAPIResponse, RemoveVehiclesAPIResponse,
 } from '../models/vehicle';
 import { ChargeSession, CHARGE_SESSION_STATE } from '../models/chargeSession';
 import { SessionService } from './session.service';
@@ -21,7 +21,7 @@ interface VehicleCache {
   lastSessionData: ChargeSession | null;
 }
 
-const _cache: VehicleCache = {
+const cache: VehicleCache = {
   lastSessionData: null,
 };
 
@@ -51,9 +51,9 @@ export class VehicleService {
     });
     this.sessionService.sessionUpdates$.subscribe((chargeSessionData: ChargeSession) => {
 
-      console.info('VehicleService -> constructor -> sessionUpdates$: '
+      console.info('VehicleService -> constructor -> sessionService.sessionUpdates$: '
         , '\nchargeSessionData: ', chargeSessionData);
-      _cache.lastSessionData = chargeSessionData;
+      cache.lastSessionData = chargeSessionData;
       this.updateCurrentlyChargingVehiclesSubject(chargeSessionData);
     });
   }
@@ -74,7 +74,7 @@ export class VehicleService {
         this.setDefaultVehicleIfExists(vehicles);
         this.vehiclesSubject.next(vehicles);
 
-        this.updateCurrentlyChargingVehiclesSubject(_cache.lastSessionData);
+        this.updateCurrentlyChargingVehiclesSubject(cache.lastSessionData);
 
         return vehicles;
       }));
@@ -92,7 +92,7 @@ export class VehicleService {
 
   }
 
-  public registerVehicle(params: RegisterOrRemoveVehiclesServiceParams): Observable<Vehicle> {
+  public registerVehicle(params: VehiclesServiceFunctionsParams): Observable<Vehicle> {
     const legalEntityId = params.legalEntityId;
     const url = `${environment.apiUrl}${legalEntityId}/vehicles/add`;
     return this.httpClient.post(url, params)
@@ -104,15 +104,38 @@ export class VehicleService {
       );
   }
 
-  public removeVehicle(params: RegisterOrRemoveVehiclesServiceParams): Observable<any> {
+  public removeVehicle(params: VehiclesServiceFunctionsParams): Observable<any> {
     const legalEntityId = params.legalEntityId;
     const url = `${environment.apiUrl}${legalEntityId}/vehicles/remove`;
     return this.httpClient.post(url, params)
       .pipe(
-        tap((response: RegisterVehiclesAPIResponse) => {
+        tap((response: RemoveVehiclesAPIResponse) => {
           console.info('VehicleService -> registerVehicle -> response: ', response);
         }),
-        map((response: RegisterVehiclesAPIResponse) => response.data),
+        map((response: RemoveVehiclesAPIResponse) => response.data),
+      );
+  }
+
+  public setDefaultVehicle(params: VehiclesServiceFunctionsParams): Observable<any> {
+    const legalEntityId = params.legalEntityId;
+    const url = `${environment.apiUrl}${legalEntityId}/vehicles/setdefault`;
+    return this.httpClient.post(url, params)
+      .pipe(
+        tap((response: SetOrUnsetDefaultVehicleAPIResponse) => {
+          console.info('VehicleService -> setDefaultVehicle -> response: ', response);
+        }),
+        map((response: SetOrUnsetDefaultVehicleAPIResponse) => response.data),
+      );
+  }
+  public unsetDefaultVehicle(params: VehiclesServiceFunctionsParams): Observable<any> {
+    const legalEntityId = params.legalEntityId;
+    const url = `${environment.apiUrl}${legalEntityId}/vehicles/unsetdefault`;
+    return this.httpClient.post(url, params)
+      .pipe(
+        tap((response: SetOrUnsetDefaultVehicleAPIResponse) => {
+          console.info('VehicleService -> unsetDefaultVehicle -> response: ', response);
+        }),
+        map((response: SetOrUnsetDefaultVehicleAPIResponse) => response.data),
       );
   }
 

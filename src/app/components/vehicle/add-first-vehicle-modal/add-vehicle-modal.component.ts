@@ -1,8 +1,8 @@
-import { Component, OnInit, ChangeDetectorRef, OnDestroy, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { UserService } from '../../../services/user.service';
 import { ITranslator, TranslatorFactoryService } from '../../../services/translator-factory.service';
 import { VehicleService } from '../../../services/vehicle.service';
-import { RegisterVehiclesAPIRequestBody, RegisterOrRemoveVehiclesServiceParams, Vehicle } from '../../../models/vehicle';
+import { VehicleServiceAPIRequestBody, VehiclesServiceFunctionsParams, Vehicle } from '../../../models/vehicle';
 import { ModalController } from '@ionic/angular';
 
 @Component({
@@ -43,11 +43,11 @@ export class AddVehicleModalComponent implements OnInit, OnDestroy {
     this.modalController.dismiss();
   }
 
-  onRegisterVehicle(vehicleData: RegisterVehiclesAPIRequestBody) {
+  onRegisterVehicle(vehicleData: VehicleServiceAPIRequestBody) {
     console.info('manage-vehicle.component -> onRegisterVehicle'
       , '\nevent: ', vehicleData);
     const legalEntityId = this.userService.legalEntityIdSubject.value;
-    const registerVehicleParams: RegisterOrRemoveVehiclesServiceParams = Object.assign({}, vehicleData, {
+    const registerVehicleParams: VehiclesServiceFunctionsParams = Object.assign({}, vehicleData, {
       legalEntityId,
     });
     this.vehicleService.registerVehicle(registerVehicleParams).subscribe((data: Vehicle) => {

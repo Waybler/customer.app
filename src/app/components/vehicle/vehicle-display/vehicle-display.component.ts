@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectorRef, OnDestroy, Input, Output, EventEmitter } from '@angular/core';
 import { UserService } from '../../../services/user.service';
 import { ITranslator, TranslatorFactoryService } from '../../../services/translator-factory.service';
-import { RegisterVehiclesAPIRequestBody, Vehicle } from '../../../models/vehicle';
+import { Vehicle } from '../../../models/vehicle';
 
 @Component({
   selector: 'app-vehicle-vehicle-display',
@@ -26,8 +26,7 @@ export class VehicleDisplayComponent implements OnInit, OnDestroy {
   public t: ITranslator;
 
   constructor(private userService: UserService,
-              translateProviderService: TranslatorFactoryService,
-              private cdr: ChangeDetectorRef) {
+              translateProviderService: TranslatorFactoryService) {
     this.t = translateProviderService.create('components.vehicle');
   }
 

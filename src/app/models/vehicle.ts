@@ -1,3 +1,5 @@
+import { API_RESULT } from './api';
+
 export interface Vehicle {
   countryCode: string;
   make: string;
@@ -14,7 +16,7 @@ export interface GetVehiclesAPIResponse {
   data: Vehicle[];
 }
 
-export interface RegisterVehiclesAPIRequestBody {
+export interface VehicleServiceAPIRequestBody {
   countryCode: string;
   registrationNumber: string;
 }
@@ -24,12 +26,21 @@ export interface RegisterVehiclesAPIResponse {
   data: Vehicle;
 }
 
-export interface RemoverVehiclesAPIResponse {
+export interface RemoveVehiclesAPIResponse {
   success: boolean;
-  data: null;
+  data: {
+    result: API_RESULT
+  };
 }
 
-export interface RegisterOrRemoveVehiclesServiceParams extends RegisterVehiclesAPIRequestBody {
+export interface SetOrUnsetDefaultVehicleAPIResponse {
+  success: boolean;
+  data: {
+    result: API_RESULT
+  };
+}
+
+export interface VehiclesServiceFunctionsParams extends VehicleServiceAPIRequestBody {
   legalEntityId: number;
 }
 
