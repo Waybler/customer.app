@@ -1,4 +1,10 @@
 {
+  "global": {
+    "add": "Tilføye",
+    "cancel": "Annullere",
+    "no": "Nei",
+    "yes": "Ja"
+  },
   "http-error-interceptor": {
     "communication-error": "Kunne ikke kontakte {{vendorName}}s servere.",
     "server-error": "Det oppstod en feil på {{vendorName}}s server.",
@@ -15,6 +21,29 @@
     "user-terms": {
       "expand": "Brette ut",
       "collapse": "Brette opp"
+    },
+    "vehicle": {
+      "country-code": "Landkode",
+      "make": "Merke",
+      "model": "Modell",
+      "model-year": "Modellår",
+      "vehicle": "Kjøretøy",
+      "vehicles": "Kjøretøy",
+      "vehicle-identification-number": "Identifikasjonsnummer for kjøretøy",
+      "vehicle-identification-number-initials": "VIN",
+      "vehicle-registration-number": "Registreringsnummer",
+      "vehicle-year": "Kjøretøyår",
+      "register-vehicle": {
+        "title": "Legg til kjøretøy"
+      },
+      "select-vehicle": {
+        "header": "Velg kjøretøy",
+        "message": "Velg kjøretøyet som skal lades"
+      },
+      "set-as-default-vehicle": {
+        "label": "Angi som standard kjøretøy",
+        "description": "Når dette kjøretøyet er valgt, stilles det automatisk inn som standardkjøretøy, og du trenger ikke å velge et kjøretøy under lading."
+      }
     }
   },
   "pages": {

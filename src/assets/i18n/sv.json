@@ -1,4 +1,10 @@
 {
+  "global": {
+    "add": "Lägg till",
+    "cancel": "Avbryt",
+    "no": "Nej",
+    "yes": "Ja"
+  },
   "http-error-interceptor": {
     "communication-error": "Kunde inte kontakta {{vendorName}} servrar.",
     "server-error": "Ett fel inträffade på {{vendorName}} servrar.",
@@ -15,6 +21,29 @@
     "user-terms": {
       "expand": "Expandera",
       "collapse": "Minimera"
+    },
+    "vehicle": {
+      "country-code": "Landskod",
+      "make": "Märke",
+      "model": "Model",
+      "model-year": "Modellår",
+      "vehicle": "Fordon",
+      "vehicles": "Fordon",
+      "vehicle-identification-number": "Fordonsidentifikationsnummer",
+      "vehicle-identification-number-initials": "VIN",
+      "vehicle-registration-number": "Registreringsnummer",
+      "vehicle-year": "Fordonsår",
+      "register-vehicle": {
+        "title": "Lägg till fordon"
+      },
+      "select-vehicle": {
+        "header": "Välj fordon",
+        "message": "Vänligen välj fordon att ladda"
+      },
+      "set-as-default-vehicle": {
+        "label": "Sätt förvald bil",
+        "description": "Vid val så väls denna bil automatiskt och du behöver inte ange en bil vid laddning"
+      }
     }
   },
   "pages": {

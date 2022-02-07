@@ -1,4 +1,10 @@
 {
+  "global": {
+    "add": "Add",
+    "cancel": "Cancel",
+    "no": "No",
+    "yes": "Yes"
+  },
   "http-error-interceptor": {
     "communication-error": "Les serveurs de {{vendorName}} ne sont pas joignables.",
     "server-error": "Une erreur s’est produite sur les serveurs {{vendorName}}.",
@@ -15,6 +21,29 @@
     "user-terms": {
       "expand": "Étendre",
       "collapse": "Fermer"
+    },
+    "vehicle": {
+      "country-code": "Country code",
+      "make": "Make",
+      "model": "Model",
+      "model-year": "Model year",
+      "vehicle": "Vehicle",
+      "vehicles": "Vehicles",
+      "vehicle-identification-number": "Vehicle identification number",
+      "vehicle-identification-number-initials": "VIN",
+      "vehicle-registration-number": "Registration number",
+      "vehicle-year": "Vehicle year",
+      "register-vehicle": {
+        "title": "Add vehicle"
+      },
+      "select-vehicle": {
+        "header": "Select vehicle",
+        "message": "Please select vehicle to charge"
+      },
+      "set-as-default-vehicle": {
+        "label": "Set as default vehicle",
+        "description": "When selected, this vehicle is automatically set as the default vehicle and you do not need to select a vehicle when charging."
+      }
     }
   },
   "pages": {
