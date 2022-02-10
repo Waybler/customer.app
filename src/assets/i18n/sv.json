@@ -298,13 +298,14 @@
           "total": "Totalt",
           "empty": "Inga upplupna kostnader",
           "group": {
-            "0": "Abonnemang",
-            "1": "Återbetalning abonnemangsavgift",
-            "2": "Förbrukning",
-            "3": "Återbetalning förbrukning",
-            "4": "Abonnemang",
-            "5": "Återbetalning abonnemangsavgift",
-            "6": "Systemavgift"
+            "UserSubscription": "Abonnemang",
+            "UserSubscriptionRepayment": "Återbetalning abonnemangsavgift",
+            "Consumption": "Förbrukning",
+            "ConsumptionRepayment": "Återbetalning förbrukning",
+            "Maintenance": "Abonnemang",
+            "MaintenanceRepayment": "Återbetalning abonnemang",
+            "StationFee": "Systemavgift",
+            "StationFeeRepayment": "Återbetalning systemavgift"
           }
         },
         "invoices": {

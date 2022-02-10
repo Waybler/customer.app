@@ -298,13 +298,14 @@
           "total": "Total",
           "empty": "Frais accumulés.",
           "group": {
-            "0": "Abonnement",
-            "1": "Remboursement l’abonnement",
-            "2": "Consommation",
-            "3": "Repayment förbrukning",
-            "4": "Subscription",
-            "5": "Repayment subscription",
-            "6": "Maintenance fee"
+            "UserSubscription": "Abonnement",
+            "UserSubscriptionRepayment": "Remboursement l’abonnement",
+            "Consumption": "Consommation",
+            "ConsumptionRepayment": "Remboursement de la consommation",
+            "Maintenance": "Abonnement",
+            "MaintenanceRepayment": "Remboursement l’abonnement",
+            "StationFee": "Abonnement",
+            "StationFeeRepayment": "Remboursement l’abonnement"
           }
         },
         "invoices": {

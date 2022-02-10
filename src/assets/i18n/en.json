@@ -302,13 +302,14 @@
           "total": "Total",
           "empty": "No accrued costs.",
           "group": {
-            "0": "Subscription",
-            "1": "Repayment subscription",
-            "2": "Consumption",
-            "3": "Repayment förbrukning",
-            "4": "Subscription",
-            "5": "Repayment subscription",
-            "6": "Maintenance fee"
+            "UserSubscription": "Subscription",
+            "UserSubscriptionRepayment": "Subscription repayment",
+            "Consumption": "Consumption",
+            "ConsumptionRepayment": "Consumption repayment",
+            "Maintenance": "Subscription",
+            "MaintenanceRepayment": "Subscription repayment",
+            "StationFee": "System fee",
+            "StationFeeRepayment": "System fee repayment"
           }
         },
         "invoices": {
