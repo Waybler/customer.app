@@ -12,14 +12,14 @@ export interface ChargeSession {
   chargedEnergy: number;
   contractId: number;
   contractUserId?: number;
-  countryCode?: string;
   id?: number;
   power?: number;
-  registrationNumber?: string;
   settings?: any;
   startedAt?: Moment.Moment;
   stationId: number;
   status: CHARGE_SESSION_STATE;
+  vehicleCountryCode?: string;
+  vehicleRegistrationNumber?: string;
   zoneId: number;
 }
 
@@ -41,7 +41,7 @@ export interface APIBodyChargeSessionStart {
   contractUserId: number;
   stationId: number;
   vehicleRegistrationNumber?: string;
-  countryCode?: string;
+  vehicleCountryCode?: string;
   params?: any;
 }
 

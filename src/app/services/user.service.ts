@@ -201,12 +201,11 @@ export class UserService {
 
   public sessionCount = 0;
 
-
   constructor(
     private httpClient: HttpClient,
     private storageService: StorageService,
     private localeService: LocaleService,
-   ) {
+  ) {
     this.legalEntityId$ = this.legalEntityIdSubject.pipe(
       switchMap(async _ => {
         return await this.storageService.get(STORAGE_SERVICE_KEY.LEGAL_ENTITY_ID);
@@ -355,7 +354,6 @@ export class UserService {
         return tac;
       }),
     );
-
 
   }
 
@@ -540,14 +538,14 @@ export class UserService {
       , '\nparams: ', params);
     if (!params || !params.legalEntityId || !params.contractUserId || !params.stationId) {
       const errorText = 'user.service -> startCharge: Lacking params.';
-      console.error(errorText);
+      console.error(errorText, '\nparams:', params);
       throw Error(errorText);
     }
 
     if (!params.otherParams || !params.otherParams.vehicle
       || !params.otherParams.vehicle.registrationNumber || !params.otherParams.vehicle.countryCode) {
       const errorText = 'user.service -> startCharge: Lacking vehicle registration number.';
-      console.error(errorText);
+      console.error(errorText, '\nparams:', params);
       throw Error(errorText);
     }
     const url = `${environment.apiUrl}${params.legalEntityId}/sessions`;
@@ -555,15 +553,15 @@ export class UserService {
       contractUserId: params.contractUserId,
       stationId: params.stationId,
       vehicleRegistrationNumber: params.otherParams.vehicle.registrationNumber,
-      countryCode: params.otherParams.vehicle.countryCode,
+      vehicleCountryCode: params.otherParams.vehicle.countryCode,
       params: {
         vehicleRegistrationNumber: params.otherParams.vehicle.registrationNumber,
-        countryCode: params.otherParams.vehicle.countryCode,
+        vehicleCountryCode: params.otherParams.vehicle.countryCode,
       },
     };
     return this.httpClient.put(url, body).pipe(
       tap((data) => {
-     // Do nothing for now. TODO: Remove if able to track currently charging vehicles without it.
+        // Do nothing for now. TODO: Remove if able to track currently charging vehicles without it.
       }),
       map((d: any) => {
         return d.result === API.GENERIC_RESULT.OK ? StartChargeResult.Success : StartChargeResult.Failed;

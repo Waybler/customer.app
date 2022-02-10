@@ -173,7 +173,7 @@ export class VehicleService {
       '\nchargeSessionData:', chargeSessionData);
     const vehicles = this.vehiclesSubject.value;
     const currentlyChargingVehicles = this.currentlyChargingVehiclesSubject.value;
-    const registrationNumber = chargeSessionData?.registrationNumber;
+    const registrationNumber = chargeSessionData?.vehicleRegistrationNumber;
     if (!registrationNumber) {
       return;
     }

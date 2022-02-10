@@ -130,7 +130,6 @@ or for capacitor
 to the wireless network matching your development computer.
 
 ``` 
-This will minify your app’s code as Ionic’s source and also remove any debugging capabilities from the APK. This is generally used when deploying an app to the Google Play Store.
 
 
 ### Deploying to a Device
@@ -146,7 +145,7 @@ ionic capacitor run android --prod --release
 # or
 ionic capacitor build android --prod --release
 ``` 
-This will minify your app’s code as Ionic’s source and also remove any debugging capabilities from the APK. This is generally used when deploying an app to the Google Play Store.
+This will minify your app’s code, use the minified code for the Ionic build and also remove any debugging capabilities from the APK. This is generally used when deploying an app to the Google Play Store.
 
 ### Debugging  a Device
 Write the following in the address bar.
