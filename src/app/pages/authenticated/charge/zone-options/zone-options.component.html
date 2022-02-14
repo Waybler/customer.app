@@ -1,20 +1,108 @@
 <ion-list>
-  <ion-item stacked *ngIf="chargeZone.terms.subscriptionFee">
-    <ion-label position="stacked">{{t('subscription-fee.label')}}</ion-label>
-    <div>{{t('subscription-fee.value', chargeZone.terms.subscriptionFee)}} </div>
-  </ion-item>
-  <ion-item stacked *ngIf="chargeZone.terms.consumptionFee">
-    <ion-label position="stacked">{{t('consumption-fee.label')}}</ion-label>
-    <div>{{t('consumption-fee.value', (chargeZone.terms.consumptionFee))}} </div>
-  </ion-item>
-  <ion-item stacked *ngIf="chargeZone.terms.cancellation">
-    <ion-label position="stacked">{{t('cancellation.label')}}</ion-label>
-    <div>{{t('cancellation.value', {value: chargeZone.terms.cancellation})}} </div>
-  </ion-item>
 
-  <ion-item *ngIf="chargeZone.cancellationDate == null && chargeZone.isOwner">
-    <ion-button color="danger" (click)="cancelContract(chargeZone)">
-      {{t('cancel.button')}}
-    </ion-button>
-  </ion-item>
+  <ion-item-group>
+    <ion-item-divider>
+      <ion-label>{{t('current.title')}}</ion-label>
+    </ion-item-divider>
+
+    <ion-item stacked *ngIf="!chargeZone.isOneTimeFeeZone && chargeZone.terms.subscriptionFee.value > 0">
+      <ion-label position="stacked">{{t('subscription-fee.label')}}</ion-label>
+      <div>{{t('subscription-fee.value', chargeZone.terms.subscriptionFee)}} </div>
+    </ion-item>
+
+    <ion-item *ngIf="chargeZone.isOneTimeFeeZone && chargeZone.terms.subscriptionFee.value > 0" stacked>
+      <ion-label position="stacked">{{t('one-time-fee.label')}}</ion-label>
+      <div>
+        <div>{{t('one-time-fee.value', chargeZone.terms.subscriptionFee)}} </div>
+      </div>
+    </ion-item>
+
+    <ion-item stacked *ngIf="chargeZone.terms.consumptionFee">
+      <ion-label position="stacked">{{t('consumption-fee.label')}}</ion-label>
+      <div>{{t('consumption-fee.value', chargeZone.terms.consumptionFee)}} </div>
+    </ion-item>
+    <ion-item stacked *ngIf="chargeZone.terms.cancellation">
+      <ion-label position="stacked">{{t('cancellation.label')}}</ion-label>
+      <div>{{t('cancellation.value', {value: chargeZone.terms.cancellation})}} </div>
+    </ion-item>
+    <ion-item stacked *ngIf="(chargeZone.terms.maxParallelSessions && chargeZone.terms.maxParallelSessions > 1)">
+      <ion-label position="stacked">{{t('max-sessions.label')}}</ion-label>
+      <div>{{t('max-sessions.value', {value: chargeZone.terms.maxParallelSessions})}}</div>
+    </ion-item>
+  </ion-item-group>
+
+  <ion-item-group *ngIf="chargeZone.futureTerms">
+    <ion-item-divider>
+      <ion-label>{{t('future.title')}}</ion-label>
+    </ion-item-divider>
+    <ion-item stacked *ngIf="chargeZone.futureTerms.validFrom">
+      <ion-label position="stacked">{{t('valid-from.label')}}</ion-label>
+      <div>{{chargeZone.futureTerms.validFrom | date:'yyyy-MM-dd'}} </div>
+    </ion-item>
+
+    <ion-item stacked *ngIf="!chargeZone.isOneTimeFeeZone && chargeZone.futureTerms.subscriptionFeeTotal">
+      <ion-label position="stacked">{{t('subscription-fee.label')}}</ion-label>
+      <div>
+        {{t('subscription-fee.value', chargeZone.futureTerms.subscriptionFeeTotal)}}
+        <ion-icon
+          *ngIf="chargeZone.futureTerms.subscriptionFeeTotal.value != chargeZone.terms.subscriptionFee.value"
+          name="star" color="warning"></ion-icon>
+      </div>
+    </ion-item>
+
+    <ion-item stacked *ngIf="chargeZone.isOneTimeFeeZone && chargeZone.futureTerms.subscriptionFeeTotal">
+      <ion-label position="stacked">{{t('one-time-fee.label')}}</ion-label>
+      <div>
+        {{t('one-time-fee.value', chargeZone.futureTerms.subscriptionFeeTotal)}}
+        <ion-icon
+          *ngIf="chargeZone.futureTerms.subscriptionFeeTotal.value != chargeZone.terms.subscriptionFee.value"
+          name="star" color="warning"></ion-icon>
+      </div>
+    </ion-item>
+
+    <ion-item stacked *ngIf="chargeZone.futureTerms.consumptionFeeTotal">
+      <ion-label position="stacked">{{t('consumption-fee.label')}}</ion-label>
+      <div>{{t('consumption-fee.value', chargeZone.futureTerms.consumptionFeeTotal)}}
+        <ion-icon *ngIf="chargeZone.futureTerms.consumptionFeeTotal.value != chargeZone.terms.consumptionFee.value"
+                  name="star" color="warning"></ion-icon>
+
+      </div>
+    </ion-item>
+    <ion-item stacked *ngIf="chargeZone.futureTerms.cancellation">
+      <ion-label position="stacked">{{t('cancellation.label')}}</ion-label>
+      <div>{{t('cancellation.value', {value: chargeZone.futureTerms.cancellation})}}
+        <ion-icon *ngIf="chargeZone.futureTerms.cancellation != chargeZone.terms.cancellation" name="star"
+                  color="warning"></ion-icon>
+      </div>
+    </ion-item>
+    <ion-item stacked
+              *ngIf="(chargeZone.terms.maxParallelSessions && chargeZone.terms.maxParallelSessions > 1) || chargeZone.futureTerms.maxParallelSessions != chargeZone.terms.maxParallelSessions">
+      <ion-label position="stacked">{{t('max-sessions.label')}}</ion-label>
+      <div>{{t('max-sessions.value', {value: chargeZone.futureTerms.maxParallelSessions})}}
+        <ion-icon *ngIf="chargeZone.futureTerms.maxParallelSessions != chargeZone.terms.maxParallelSessions" name="star"
+                  color="warning"></ion-icon>
+      </div>
+    </ion-item>
+    <ion-item stacked *ngIf="chargeZone.futureTerms.accepted">
+      <ion-label position="stacked">{{t('accepted.label')}}</ion-label>
+      <div>{{chargeZone.futureTerms.acceptedAt | date:'yyyy-MM-dd'}} </div>
+    </ion-item>
+
+  </ion-item-group>
+  <ion-item-group>
+    <ion-item>
+      <ion-button *ngIf="chargeZone.cancellationDate == null && chargeZone.isOwner" color="danger" fill="solid" (click)="cancelContract(chargeZone)">
+        {{t('cancel.button')}}
+      </ion-button>
+    </ion-item>
+    <ion-item>
+      <ion-button *ngIf="chargeZone.futureTerms && !chargeZone.futureTerms.accepted" color="success" fill="solid"
+                  (click)="acceptFutureTerms(chargeZone)">
+        {{t('accept.button')}}
+      </ion-button>
+    </ion-item>
+
+  </ion-item-group>
 </ion-list>
+
+

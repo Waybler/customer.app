@@ -19,16 +19,22 @@
 
       <ion-item stacked>
         <ion-label position="stacked">{{t('zone-info.contract-type.label')}}</ion-label>
-        {{data.zone.contractType}}
         <div>
           {{t('zone-info.contract-type.' + data.zone.contractType)}}
         </div>
       </ion-item>
 
-      <ion-item *ngIf="data.zone.terms.subscriptionFee.total > 0" stacked>
+      <ion-item *ngIf="!data.zone.isOneTimeFeeZone && data.zone.terms.subscriptionFee.total > 0" stacked>
         <ion-label position="stacked">{{t('zone-info.subscription-fee.label')}}</ion-label>
         <div>
           {{t('zone-info.subscription-fee.value', {value: data.zone.terms.subscriptionFee.total, currency: data.zone.terms.subscriptionFee.currency})}}
+        </div>
+      </ion-item>
+
+      <ion-item *ngIf="data.zone.isOneTimeFeeZone && data.zone.terms.subscriptionFee.total > 0" stacked>
+        <ion-label position="stacked">{{t('zone-info.one-time-fee.label')}}</ion-label>
+        <div>
+          {{t('zone-info.one-time-fee.value', {value: data.zone.terms.subscriptionFee.total, currency: data.zone.terms.subscriptionFee.currency})}}
         </div>
       </ion-item>
 

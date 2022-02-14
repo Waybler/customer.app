@@ -169,6 +169,10 @@
                 "Charging": "ladeområde",
                 "Heating": "Motorvärmarområde"
               },
+              "one-time-fee": {
+                "label": "Engangs avgift",
+                "value": "{{value}} {{currency}}"
+              },
               "subscription-fee": {
                 "label": "Abonnementsavgift",
                 "value": "{{value}} {{currency}}/måned"
@@ -204,9 +208,22 @@
             }
           },
           "zone-options": {
+            "current": {
+              "title": "Vilkår for bruk"
+            },
+            "future": {
+                "title": "Kommende forhold"
+            },
+            "valid-from": {
+                "label": "Dato for endring"
+            },
             "subscription-fee": {
               "label": "Abonnementsavgift",
               "value": "{{value}} {{currency}}/måned"
+            },
+            "one-time-fee": {
+              "label": "Engangs avgift",
+              "value": "{{value}} {{currency}}"
             },
             "consumption-fee": {
               "label": "Forbrukskostnad",
@@ -223,6 +240,14 @@
               "cancel": "Nei, avbryt",
               "confirm": "Ja, si opp avtalen",
               "cancelling": "Sier opp avtalen..."
+            },
+            "accept": {
+              "button": "Godta fremtidige vilkår",
+              "title": "Er du sikker?",
+              "message": "Godtar du de kommende vilkårene for dette området?",
+              "cancel": "Nej, avbryt",
+              "confirm": "Ja, godta vilkårene",
+              "accepting": "Godtar vilkår..."
             }
           },
           "zone": {

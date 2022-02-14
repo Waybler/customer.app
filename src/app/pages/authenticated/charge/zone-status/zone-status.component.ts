@@ -68,11 +68,11 @@ export class ZoneStatusComponent implements OnInit {
         }
 
         const limit = noStations * 0.2;
-        const limitOk = noStationsNok < limit;
+        const limitOk = noStationsNok < limit || limit == 0;
         return limitOk;
     }
 
     public acceptChargeZoneTerms(chargeZone: any): void {
-        this.userService.acceptChargeZoneTerms(chargeZone).subscribe();
+        this.userService.acceptChargeZoneTerms(chargeZone, chargeZone.newTerms).subscribe();
     }
 }

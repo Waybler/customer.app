@@ -204,6 +204,15 @@
             }
           },
           "zone-options": {
+	        "current": {
+	            "title": "Conditions actuelles"
+	        },
+	        "future": {
+	            "title": "Conditions à venir"
+	        },
+	        "valid-from": {
+	            "label": "Date de changement"
+	        },
             "subscription-fee": {
               "label": "Abonnement",
               "value": "{{value}} {{currency}}/mois"
@@ -213,9 +222,17 @@
               "value": "{{value}} {{currency}}/kWh"
             },
             "cancellation": {
-              "label": "Période d’annulation",
+
+             "label": "Période d’annulation",
               "value": "{{value}} mois"
             },
+            "max-sessions": {
+                "label": "Max. charges simultanées",
+                "value": "{{value}}"
+            },
+                        "accepted": {
+                            "label": "Termes acceptés"
+                        },
             "cancel": {
               "button": "Annuler l’abonnement",
               "title": "Etes-vous sûr(e)?",
@@ -223,6 +240,14 @@
               "cancel": "Non, annuler",
               "confirm": "Oui, annuler l’abonnement",
               "cancelling": "Annulation de l'abonnement en cours..."
+            },
+            "accept": {
+                "button": "Accepter les conditions futures",
+              "title": "Etes-vous sûr(e)?",
+                "message": "Godkänner du de kommande villkoren för detta område?",
+              "cancel": "Non, annuler",
+                "confirm": "Oui, acceptez les conditions",
+                "accepting": "Accepter les conditions..."
             }
           },
           "zone": {

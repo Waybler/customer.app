@@ -1,4 +1,4 @@
-import { ContractType, IContractStatus, ITerms } from './contract';
+import { ContractType, ContractUser, FutureTerms, IContractStatus, Terms } from './contract';
 import * as Moment from 'moment';
 
 export enum STATION_STATE {
@@ -16,6 +16,13 @@ export interface Station {
   session: string;
   sortOrder: number;
   state: STATION_STATE;
+}
+
+export interface ContractUserReservedStation {
+  id: number;
+  station: Station;
+  autostart: boolean;
+  contractUser: ContractUser;
 }
 
 export interface StationGroup {
@@ -51,8 +58,10 @@ export interface ChargeZone {
   contractId: number;
   contractUserId: number;
   contractType: ContractType;
-  isAdmin: true;
-  isOwner: true;
+  futureTerms: FutureTerms;
+  isAdmin: boolean;
+  isOneTimeFeeZone: boolean;
+  isOwner: boolean;
   isTimeRestricted: false;
   contracteeId: number;
   maxSessions: number;
@@ -61,7 +70,7 @@ export interface ChargeZone {
   ownerId: number;
   stationGroups: StationGroup[];
   status: IContractStatus;
-  terms: ITerms;
+  terms: Terms;
 }
 
 export interface ShouldUseCompactviewObject {

@@ -784,12 +784,12 @@ export class UserService {
     );
   }
 
-  public acceptChargeZoneTerms(chargeZone: ChargeZone): Observable<boolean> {
-    if (chargeZone.newTerms.contractTermsId) {
+  public acceptChargeZoneTerms(chargeZone: ChargeZone, termsToAccept): Observable<boolean> {
+    if (termsToAccept.contractTermsId) {
       return this.httpClient
         .post(
           `${environment.apiUrl}${chargeZone.contracteeId}/contracts/${chargeZone.contractId}/accept`,
-          { contractTermsId: chargeZone.newTerms.contractTermsId },
+          { contractTermsId: termsToAccept.contractTermsId },
         )
         .pipe(
           map((r: any) => {
@@ -800,7 +800,7 @@ export class UserService {
       return this.httpClient
         .post(
           `${environment.apiUrl}${chargeZone.contracteeId}/contracts/${chargeZone.contractId}/users/${chargeZone.newTerms.contractUserId}/accept`,
-          { contractUserTermsId: chargeZone.newTerms.contractUserTermsId },
+          { contractUserTermsId: termsToAccept.contractUserTermsId },
         )
         .pipe(
           map((r: any) => {

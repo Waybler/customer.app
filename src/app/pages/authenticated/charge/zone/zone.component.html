@@ -8,9 +8,11 @@
     </ion-card-subtitle>
   </ion-card-header>
 
-  <ion-button card-option fill="clear" size="large" color="medium" (click)="toggleShowOptions()"
-              *ngIf="chargeZone.terms"
-  class="chargeZone-terms showOptions">
+
+  <ion-button card-option fill="clear" size="large" color="medium" (click)="showOptions = !showOptions"
+              *ngIf="chargeZone.terms">
+    <ion-icon  *ngIf="chargeZone.futureTerms && !showOptions" [color]="getFutureColor(chargeZone.futureTerms)"  name="alert-circle"></ion-icon>
+    <ion-icon  *ngIf="chargeZone.futureTerms && showOptions"  [color]="getFutureColor(chargeZone.futureTerms)"  name="alert-circle-outline"></ion-icon>
     <ion-icon *ngIf="!showOptions" name="ellipsis-vertical"></ion-icon>
     <ion-icon *ngIf="showOptions" name="ellipsis-vertical-outline"></ion-icon>
   </ion-button>
@@ -20,7 +22,7 @@
     {{t('cancellation-date')}}&nbsp;<strong>{{chargeZone.cancellationDate | date:'yyyy-MM-dd'}}</strong>
   </ion-item>
 
-  <app-zone-options *ngIf="showOptions" (cancelled)="showOptions = false" [chargeZone]="chargeZone">
+  <app-zone-options *ngIf="showOptions" (cancelled)="showOptions = false" (accepted)="showOptions = false" [chargeZone]="chargeZone">
   </app-zone-options>
 
   <app-zone-status [chargeZone]="chargeZone"></app-zone-status>

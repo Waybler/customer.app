@@ -1,8 +1,4 @@
 {
-  "global": {
-    "no": "No",
-    "yes": "Yes"
-  },
   "http-error-interceptor": {
     "communication-error": "Could not reach {{vendorName}} servers.",
     "server-error": "An error occurred on {{vendorName}} servers.",
@@ -177,6 +173,10 @@
                 "label": "Subscription",
                 "value": "{{value}} {{currency}}/month"
               },
+	            "one-time-fee": {
+                "label": "One time fee",
+                "value": "{{value}} {{currency}}"
+              },
               "consumption-fee": {
                 "label": "Consumption",
                 "value": "{{value}} {{currency}}/kWh"
@@ -208,9 +208,22 @@
             }
           },
           "zone-options": {
+            "current": {
+              "title": "Current Terms"
+            },
+            "future": {
+              "title": "Upcoming New Terms"
+            },
+            "valid-from": {
+              "label": "Date for change"
+            },
             "subscription-fee": {
               "label": "Subscription",
               "value": "{{value}} {{currency}}/month"
+            },
+	          "one-time-fee": {
+              "label": "One time fee",
+              "value": "{{value}} {{currency}}"
             },
             "consumption-fee": {
               "label": "Consumption",
@@ -220,6 +233,13 @@
               "label": "Cancellation period",
               "value": "{{value}} months"
             },
+            "max-sessions": {
+              "label": "Max. samtidiga laddningar",
+              "value": "{{value}}"
+            },
+            "accepted": {
+              "label": "Terms accepted"
+            },
             "cancel": {
               "button": "Cancel agreement",
               "title": "Are you sure?",
@@ -227,16 +247,24 @@
               "cancel": "No, cancel",
               "confirm": "Yes, cancel agreement",
               "cancelling": "Cancelling agreement..."
+            },
+            "accept": {
+              "button": "Accept upcoming terms",
+              "title": "Are you sure?",
+              "message": "Do you want to accept the upcoming changes for this zone?",
+              "cancel": "No, cancel",
+              "confirm": "Yes, accept changes",
+              "accepting": "Accepting changes..."
             }
           },
           "zone": {
             "zone-code": "Zone code: {{code}}",
             "cancellation-date": "The agreement expires",
             "all-filtered": {
-                          "help": "You have turned on compact view and therefore only the charging points where a cable is connected but charging is not started are displayed.",
+              "help": "You have turned on compact view and therefore only the charging points where a cable is connected but charging is not started are displayed.",
               "overview": {
                 "one": "Right now there is 1 available charging point.",
-                                "many": "Right now there are {{count}} available charging points."
+                "many": "Right now there are {{count}} available charging points."
               }
             },
             "empty": "There are currently no charging points in this zone.",
