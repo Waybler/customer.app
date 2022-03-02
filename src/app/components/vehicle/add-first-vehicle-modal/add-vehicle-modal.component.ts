@@ -44,15 +44,11 @@ export class AddVehicleModalComponent implements OnInit, OnDestroy {
   }
 
   onRegisterVehicle(vehicleData: VehicleServiceAPIRequestBody) {
-    console.info('manage-vehicle.component -> onRegisterVehicle'
-      , '\nevent: ', vehicleData);
     const legalEntityId = this.userService.legalEntityIdSubject.value;
     const registerVehicleParams: VehiclesServiceFunctionsParams = Object.assign({}, vehicleData, {
       legalEntityId,
     });
     this.vehicleService.registerVehicle(registerVehicleParams).subscribe((data: Vehicle) => {
-      console.info('manage-vehicle.component -> onRegisterVehicle -> registerVehicle response -> fetchVehiclesForUser: :'
-        , '\nnew vehicle: ', data);
       this.refetchVehicles();
       this.modalController.dismiss({
         vehicle: data,
@@ -62,8 +58,6 @@ export class AddVehicleModalComponent implements OnInit, OnDestroy {
 
   refetchVehicles() {
     this.vehicleService.fetchVehiclesForUser((this.userService.legalEntityIdSubject.value)).subscribe((vehicles: Vehicle[]) => {
-      console.info('manage-vehicle.component -> refetchVehicles :'
-        , '\nall vehicles: ', vehicles);
     });
 
   }

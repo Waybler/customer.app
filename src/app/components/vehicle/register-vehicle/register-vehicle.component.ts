@@ -12,11 +12,15 @@ export class RegisterVehicleComponent implements OnInit, OnDestroy {
   @Input()
   showTitle: boolean;
 
+  @Input()
+  public countryCodes: string[];
+
   @Output()
   public registerVehicle: EventEmitter<VehicleServiceAPIRequestBody> = new EventEmitter<VehicleServiceAPIRequestBody>();
 
   public t: ITranslator;
   public tGlobal: ITranslator;
+  public defaultCountryCode = 'Se';
 
   public vehicleRegistrationModel: VehicleServiceAPIRequestBody = {
     registrationNumber: null,
@@ -29,6 +33,7 @@ export class RegisterVehicleComponent implements OnInit, OnDestroy {
   ) {
     this.t = translateProviderService.create('components.vehicle');
     this.tGlobal = translateProviderService.create('global');
+    this.vehicleRegistrationModel.countryCode = this.defaultCountryCode;
   }
 
   ngOnInit() {
@@ -47,9 +52,6 @@ export class RegisterVehicleComponent implements OnInit, OnDestroy {
   }
 
   onRegisterVehicleSubmit(form) {
-    console.info('register-vehicle.component -> onRegisterVehicleSubmit:'
-      , '\nevent: ', form
-      , '\nthis.vehicleRegistrationModel: ', this.vehicleRegistrationModel);
     this.registerVehicle.emit(this.vehicleRegistrationModel);
   }
 

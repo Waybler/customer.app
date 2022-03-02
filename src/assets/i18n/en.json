@@ -3,6 +3,7 @@
     "add": "Add",
     "cancel": "Cancel",
     "no": "No",
+    "ok": "OK",
     "yes": "Yes"
   },
   "http-error-interceptor": {
@@ -43,6 +44,15 @@
       "set-as-default-vehicle": {
         "label": "Set as default vehicle",
         "description": "When selected, this vehicle is automatically set as the default vehicle and you do not need to select a vehicle when charging."
+      },
+      "country-codes": {
+        "De": "Germany",
+        "Dk": "Denmark",
+        "Fi": "Finland",
+        "Lu": "Luxembourg",
+        "No": "Norway",
+        "Se": "Sweden",
+        "Other": "Other"
       }
     }
   },

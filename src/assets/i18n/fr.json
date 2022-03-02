@@ -2,6 +2,7 @@
   "global": {
     "add": "Add",
     "cancel": "Cancel",
+    "ok": "OK",
     "no": "No",
     "yes": "Yes"
   },
@@ -43,6 +44,15 @@
       "set-as-default-vehicle": {
         "label": "Set as default vehicle",
         "description": "When selected, this vehicle is automatically set as the default vehicle and you do not need to select a vehicle when charging."
+      },
+      "country-codes": {
+        "De": "Allemagne",
+        "Dk": "Danemark",
+        "Fi": "Finlande",
+        "Lu": "Luxembourg",
+        "No": "Norvège",
+        "Se": "Suède",
+        "Other": "Autre"
       }
     }
   },

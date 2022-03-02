@@ -141,24 +141,14 @@ export class ChargePage implements OnInit, OnDestroy, AfterViewChecked {
 
     this.vehicleService.vehiclesSubject.subscribe((vehicles: Vehicle[]) => {
       this.vehicles = vehicles;
-      console.info('charge.page -> ngOnInit -> vehicleService.vehiclesSubject ->  :',
-        '\nvehicles: ', vehicles,
-      );
     });
 
     this.vehicleService.defaultVehicleSubject.subscribe((vehicle: Vehicle) => {
       this.defaultVehicle = vehicle;
-      console.info('charge.page -> ngOnInit -> vehicleService.defaultVehicleSubject ->  :',
-        '\nvehicles: ', vehicle,
-      );
     });
 
     this.vehicleService.currentlyChargingVehiclesSubject.subscribe((currentlyChargingVehicles) => {
       this.currentlyChargingVehicles = currentlyChargingVehicles;
-
-      console.info('charge.page -> ngOnInit -> userService.currentlyChargingVehiclesSubject ->  :',
-        '\ncurrentlyChargingVehicles: ', currentlyChargingVehicles,
-      );
     });
 
     this.ionViewDidEnterx();
@@ -374,16 +364,11 @@ export class ChargePage implements OnInit, OnDestroy, AfterViewChecked {
     if (selectedVehicle) {
       vehicle = selectedVehicle;
     }
-    console.info('charge.page -> startCharge:'
-      , '\notherParams: ', otherParams);
 
     if (!vehicle) {
-      console.info('charge.page -> startCharge ->RETURN because we do not have a vehicle');
-      return;
+       return;
     }
-    console.info('charge.page -> startCharge:'
-      , '\nvehicle: ', vehicle);
-    // return;
+
     const session: ChargeSession = {
       status: CHARGE_SESSION_STATE.UNKOWN,
       stationId: station.stationId,
@@ -428,8 +413,6 @@ export class ChargePage implements OnInit, OnDestroy, AfterViewChecked {
       legalEntityId,
       sessionId: this.activeSession.sessionId,
     };
-    console.info('charge.page -> stopCharge:'
-      , '\nthis.activeSession: ', this.activeSession);
 
     this.userService.stopCharge(stopChargeParams).subscribe(
       r => {

@@ -13,6 +13,9 @@ export class VehiclesListComponent implements OnInit, OnDestroy {
   public vehicles: Vehicle[];
 
   @Input()
+  public countryCodes: string[];
+
+  @Input()
   public currentlyChargingVehicles: ChargingVehiclesObject;
 
   @Output()
@@ -56,9 +59,6 @@ export class VehiclesListComponent implements OnInit, OnDestroy {
       return false;
     }
 
-    console.info('vehicles-list.component -> isCurrentlyCharging:'
-      , '\nvehicle: ', vehicle
-      , '\nthis.currentlyChargingVehicles: ', this.currentlyChargingVehicles);
     const currentlyChargingVehicleObject = this.currentlyChargingVehicles[vehicle.registrationNumber];
     return !!currentlyChargingVehicleObject;
   }

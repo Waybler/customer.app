@@ -2,6 +2,7 @@
   "global": {
     "add": "Lägg till",
     "cancel": "Avbryt",
+    "ok": "OK",
     "no": "Nej",
     "yes": "Ja"
   },
@@ -43,6 +44,15 @@
       "set-as-default-vehicle": {
         "label": "Sätt förvald bil",
         "description": "Vid val så väls denna bil automatiskt och du behöver inte ange en bil vid laddning"
+      },
+      "country-codes": {
+        "De": "Tyskland",
+        "Dk": "Danmark",
+        "Fi": "Finland",
+        "Lu": "Luxembourg",
+        "No": "Norge",
+        "Se": "Sverige",
+        "Other": "Annat"
       }
     }
   },

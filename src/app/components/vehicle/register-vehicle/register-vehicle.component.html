@@ -21,14 +21,18 @@
 
         <ion-item>
           <ion-label position="stacked">{{t('country-code')}}</ion-label>
-          <ion-input
-            [placeholder]="t('country-code')"
-            type="string"
-            name="countryCode"
-            [(ngModel)]="vehicleRegistrationModel.countryCode"
-            required
-            (ionChange)="onCountryCodeChange($event)">
-          </ion-input>
+          <ion-select [placeholder]="t('country-code')"
+                      [(ngModel)]="vehicleRegistrationModel.countryCode"
+                      [value]="vehicleRegistrationModel.countryCode"
+                      [okText]="tGlobal('ok')"
+                      [cancelText]="tGlobal('cancel')"
+                      name="countryCode"
+          >
+            <ion-select-option
+              *ngFor="let countryCode of countryCodes"
+              [value]="countryCode"
+            >{{t(('country-codes.' + countryCode))}}</ion-select-option>
+          </ion-select>
         </ion-item>
       </ion-list>
 

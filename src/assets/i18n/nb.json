@@ -2,6 +2,7 @@
   "global": {
     "add": "Tilføye",
     "cancel": "Annullere",
+    "ok": "OK",
     "no": "Nei",
     "yes": "Ja"
   },
@@ -43,6 +44,15 @@
       "set-as-default-vehicle": {
         "label": "Angi som standard kjøretøy",
         "description": "Når dette kjøretøyet er valgt, stilles det automatisk inn som standardkjøretøy, og du trenger ikke å velge et kjøretøy under lading."
+      },
+      "country-codes": {
+        "De": "Tyskland",
+        "Dk": "Danmark",
+        "Fi": "Finland",
+        "Lu": "Luxembourg",
+        "No": "Norge",
+        "Se": "Sverige",
+        "Other": "Annen"
       }
     }
   },

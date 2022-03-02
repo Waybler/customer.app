@@ -534,8 +534,6 @@ export class UserService {
   }
 
   public startCharge(params: ChargeSessionAPIStartParams): Observable<StartChargeResult> {
-    console.info('user.service -> startCharge: '
-      , '\nparams: ', params);
     if (!params || !params.legalEntityId || !params.contractUserId || !params.stationId) {
       const errorText = 'user.service -> startCharge: Lacking params.';
       console.error(errorText, '\nparams:', params);
@@ -571,8 +569,6 @@ export class UserService {
   }
 
   public stopCharge(params: ChargeSessionAPIStopParams): Observable<StopChargeResult> {
-    console.info('user.service -> stopCharge: '
-      , '\nparams: ', params);
     if (!params || !params.legalEntityId || !params.sessionId) {
       const errorText = 'user.service -> startCharge: Lacking params.';
       console.error(errorText);

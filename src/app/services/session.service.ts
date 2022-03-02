@@ -12,8 +12,6 @@ export class SessionService {
   public sessionUpdates$ = this.sessionUpdatedSubject.asObservable();
 
   sessionUpdated(data: ChargeSession) {
-    console.info('session.service -> sessionUpdated: ',
-      '\ndata:', data);
     this.sessionUpdatedSubject.next(data);
   }
 

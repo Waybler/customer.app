@@ -192,8 +192,6 @@ export class ZoneComponent implements OnInit {
   }
 
   private startSession(chargeZone: ChargeZone, station: Station, otherParams?: ChargeSessionAuxiliaryParams): void {
-    console.info('zone.component -> startSession: ',
-      '\notherParams:', otherParams);
     this.start.emit({ chargeZone, station, otherParams });
   }
 
@@ -206,11 +204,7 @@ export class ZoneComponent implements OnInit {
       const weHaveAlwaysShowCarHeatingAndHaveSelectedChargingAndNoSelectedVehicle = appSettings?.showCarHeating
         && otherParams?.overrideShowCarHeating
         && (!this.selectedVehicle && !otherParams?.vehicle);
-      // debugger;
-      console.info('zone.component -> startCharge: ',
-        '\nweHaveNoSelectedVehicleAndAreNotSetToAlwaysShowCarHeating:', weHaveNoSelectedVehicleAndAreNotSetToAlwaysShowCarHeating,
-        '\nweHaveAlwaysShowCarHeatingAndHaveSelectedChargingAndNoSelectedVehicle:', weHaveAlwaysShowCarHeatingAndHaveSelectedChargingAndNoSelectedVehicle,
-        '\notherParams:', otherParams);
+
       if (weHaveNoSelectedVehicleAndAreNotSetToAlwaysShowCarHeating
         || weHaveAlwaysShowCarHeatingAndHaveSelectedChargingAndNoSelectedVehicle) {
         if (this.vehicles?.length) {
