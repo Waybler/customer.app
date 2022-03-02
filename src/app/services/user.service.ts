@@ -3,7 +3,7 @@ import { Observable, of, from, Subject, combineLatest, BehaviorSubject } from 'r
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { map, tap, mergeMap, catchError, switchMap, first } from 'rxjs/operators';
 
-import { environment } from '../../environments/environment';
+import { environment, vendor } from '../../environments/environment';
 import { StorageService } from './storage.service';
 import { ILocale, LocaleService } from './locale.service';
 import {
@@ -539,22 +539,27 @@ export class UserService {
       console.error(errorText, '\nparams:', params);
       throw Error(errorText);
     }
+    const vehicleRegistrationIsMandatory = vendor?.forceRegistrationNumber;
 
-    if (!params.otherParams || !params.otherParams.vehicle
-      || !params.otherParams.vehicle.registrationNumber || !params.otherParams.vehicle.countryCode) {
-      const errorText = 'user.service -> startCharge: Lacking vehicle registration number.';
-      console.error(errorText, '\nparams:', params);
-      throw Error(errorText);
+    if (vehicleRegistrationIsMandatory) {
+      if (!params.otherParams || !params.otherParams.vehicle
+        || !params.otherParams.vehicle.registrationNumber || !params.otherParams.vehicle.countryCode) {
+        const errorText = 'user.service -> startCharge: Lacking vehicle registration number.';
+        console.error(errorText, '\nparams:', params);
+        throw Error(errorText);
+      }
     }
+    const vehicleRegistrationNumber = params.otherParams?.vehicle?.registrationNumber;
+    const vehicleCountryCode = params.otherParams?.vehicle?.countryCode;
     const url = `${environment.apiUrl}${params.legalEntityId}/sessions`;
     const body: APIBodyChargeSessionStart = {
       contractUserId: params.contractUserId,
       stationId: params.stationId,
-      vehicleRegistrationNumber: params.otherParams.vehicle.registrationNumber,
-      vehicleCountryCode: params.otherParams.vehicle.countryCode,
+      vehicleRegistrationNumber,
+      vehicleCountryCode,
       params: {
-        vehicleRegistrationNumber: params.otherParams.vehicle.registrationNumber,
-        vehicleCountryCode: params.otherParams.vehicle.countryCode,
+        vehicleRegistrationNumber,
+        vehicleCountryCode,
       },
     };
     return this.httpClient.put(url, body).pipe(

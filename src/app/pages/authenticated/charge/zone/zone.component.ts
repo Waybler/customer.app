@@ -10,6 +10,7 @@ import { ContractType } from '../../../../models/contract';
 import { Vehicle } from '../../../../models/vehicle';
 import { AddVehicleModalComponent } from '../../../../components/vehicle/add-first-vehicle-modal/add-vehicle-modal.component';
 import { VehicleService } from '../../../../services/vehicle.service';
+import { vendor } from '../../../../../environments/environment';
 
 interface ChargeSessionAuxiliaryParams {
   chargeZoneId?: number;
@@ -197,38 +198,42 @@ export class ZoneComponent implements OnInit {
 
   public startCharge(chargeZone: ChargeZone, station: Station, otherParams?: ChargeSessionAuxiliaryParams): void {
     this.userService.userAppSettings$.subscribe(async (appSettings: UserAppSettings) => {
-      this.setSelectedVehicleIfNotSet();
-      const weHaveNoSelectedVehicleAndAreNotSetToAlwaysShowCarHeating = !this.selectedVehicle
-        && !otherParams?.vehicle
-        && !appSettings?.showCarHeating;
-      const weHaveAlwaysShowCarHeatingAndHaveSelectedChargingAndNoSelectedVehicle = appSettings?.showCarHeating
-        && otherParams?.overrideShowCarHeating
-        && (!this.selectedVehicle && !otherParams?.vehicle);
+      const vehicleRegistrationIsMandatory = vendor?.forceRegistrationNumber;
 
-      if (weHaveNoSelectedVehicleAndAreNotSetToAlwaysShowCarHeating
-        || weHaveAlwaysShowCarHeatingAndHaveSelectedChargingAndNoSelectedVehicle) {
-        if (this.vehicles?.length) {
-          await this.alertForVehicleSelection({
-            chargeZone,
-            station,
-            otherParams,
-          });
+      if (vehicleRegistrationIsMandatory) {
+        this.setSelectedVehicleIfNotSet();
+        const weHaveNoSelectedVehicleAndAreNotSetToAlwaysShowCarHeating = !this.selectedVehicle
+          && !otherParams?.vehicle
+          && !appSettings?.showCarHeating;
+        const weHaveAlwaysShowCarHeatingAndHaveSelectedChargingAndNoSelectedVehicle = appSettings?.showCarHeating
+          && otherParams?.overrideShowCarHeating
+          && (!this.selectedVehicle && !otherParams?.vehicle);
+
+        if (weHaveNoSelectedVehicleAndAreNotSetToAlwaysShowCarHeating
+          || weHaveAlwaysShowCarHeatingAndHaveSelectedChargingAndNoSelectedVehicle) {
+          if (this.vehicles?.length) {
+            await this.alertForVehicleSelection({
+              chargeZone,
+              station,
+              otherParams,
+            });
+          } else {
+            // TODO: Add a modal for vehicle registration.
+            await this.showAddFirstVehicleModal({
+              chargeZone,
+              station,
+              otherParams,
+            });
+          }
+          return;
         } else {
-          // TODO: Add a modal for vehicle registration.
-          await this.showAddFirstVehicleModal({
-            chargeZone,
-            station,
-            otherParams,
-          });
-         }
-        return;
-      } else {
-        if (!otherParams) {
-          otherParams = {};
-        }
-        if (!otherParams?.vehicle) {
-          if (this.selectedVehicle) {
-            otherParams.vehicle = Object.assign({}, this.selectedVehicle);
+          if (!otherParams) {
+            otherParams = {};
+          }
+          if (!otherParams?.vehicle) {
+            if (this.selectedVehicle) {
+              otherParams.vehicle = Object.assign({}, this.selectedVehicle);
+            }
           }
         }
       }
@@ -265,7 +270,7 @@ export class ZoneComponent implements OnInit {
       } else {
         this.startSession(chargeZone, station, otherParams);
       }
-      this.selectedVehicle = null;
+      if (vehicleRegistrationIsMandatory) {this.selectedVehicle = null;}
 
     });
   }

@@ -358,15 +358,18 @@ export class ChargePage implements OnInit, OnDestroy, AfterViewChecked {
   }
 
   public async startCharge(chargeZone: ChargeZone, station: Station, otherParams?: ChargeSessionAPIStartParamsAuxiliary): Promise<void> {
+    const vehicleRegistrationIsMandatory = vendor?.forceRegistrationNumber;
     let vehicle: Vehicle;
     // debugger;
     const selectedVehicle = otherParams?.vehicle;
-    if (selectedVehicle) {
-      vehicle = selectedVehicle;
-    }
+    if (vehicleRegistrationIsMandatory) {
+      if (selectedVehicle) {
+        vehicle = selectedVehicle;
+      }
 
-    if (!vehicle) {
-       return;
+      if (!vehicle) {
+        return;
+      }
     }
 
     const session: ChargeSession = {
@@ -530,9 +533,10 @@ export class ChargePage implements OnInit, OnDestroy, AfterViewChecked {
     this.userService.acceptTerms().subscribe();
   }
 
-  public getMatchingRegistrationNumberForChargeStation(stationId: number): string{
+  public getMatchingRegistrationNumberForChargeStation(stationId: number): string {
     return this.vehicleService.getMatchingRegistrationNumberForChargeStation(stationId);
   }
+
   private async useChargeZoneViewSettings() {
     this.setStationsObject();
 

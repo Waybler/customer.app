@@ -2,7 +2,9 @@
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
-export const environment = {
+import { EnvironmentConfig, VendorConfig } from '../app/models/appConfig';
+
+export const environment: EnvironmentConfig = {
   production: false,
   // apiUrl: 'https://api.cacharge.com/v6/',
   // wsUrl: 'wss://api.cacharge.com/v6/',
@@ -17,10 +19,13 @@ export const environment = {
   // appUrl: 'http://10.10.0.201',
 };
 
-export const vendor = {
+export const vendor: VendorConfig = {
   vendorName: 'CaCharge',
   vendorAppId: '8F0A2CFF-4373-42E2-951B-8BFD7C25D5D7',
   vendorSupportEmail: 'support@cacharge.com',
+
+  // Config
+  forceRegistrationNumber: true,
 };
 
 /*
