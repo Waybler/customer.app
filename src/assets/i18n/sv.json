@@ -141,8 +141,9 @@
               },
               "accept": "Godkänn villkoren"
             },
-            "technical-problem": "Vi undersöker för närvarande ett tekniskt problem med de stationer som är rödmarkerade."
+            "technical-problem": "Rödmarkerade stationer har för närvarande inte uppkoppling till internet. Om problemet kvarstår kontakta oss på {{vendorSupportEmail}}."
           },
+
           "heater-options": {
             "title": "När ska bilen vara varm?",
             "select-day": {

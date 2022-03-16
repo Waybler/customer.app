@@ -89,5 +89,5 @@
 
 <ion-item *ngIf="chargeZone.status == 'ok' && !allStationsOk(chargeZone)" [attr.error]="true" technical-error>
     <ion-icon name="warning" color="light"></ion-icon>
-    {{t('technical-problem')}}
+    {{t('technical-problem', { vendorName: vendor.vendorName })}}
 </ion-item>
