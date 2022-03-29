@@ -141,7 +141,7 @@
               },
               "accept": "Approuvez les conditions d’utilisation"
             },
-            "technical-problem": "Les bornes qui sont marquées en rouge ont des problèmes techniques - nous sommes en train d’en investiguer la cause."
+            "technical-problem": "« Les stations marquées en rouge rencontrent des problèmes de connexion. Si le problème persiste, contactez-nous à l'adresse {{vendorSupportEmail}}."
           },
           "heater-options": {
             "title": "When should the car be warm?",

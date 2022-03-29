@@ -141,7 +141,7 @@
               },
               "accept": "Approve terms"
             },
-            "technical-problem": "We are currently investigating a technical issue with those stations that are red marked."
+            "technical-problem": "Stations marked red are experiencing connection problems. If the problem persists contact us at {{vendorSupportEmail}}."
           },
           "heater-options": {
             "title": "When should the car be warm?",

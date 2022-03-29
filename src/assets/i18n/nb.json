@@ -141,7 +141,7 @@
               },
               "accept": "Godkjenn vilkårene"
             },
-            "technical-problem": "Vi undersøker for øyeblikket et teknisk problem med de rødmarkerte stasjonene."
+            "technical-problem": "Rødmerkede stasjoner har for øyeblikket ikke internettilgang. Hvis problemet vedvarer, kontakter du oss på {{vendorSupportEmail}}."
           },
           "heater-options": {
             "title": "Når skal bilen være varm?",
