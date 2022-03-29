@@ -1,93 +1,101 @@
-<ion-item *ngIf="zoneErrorlevel(chargeZone) != 'ok'" [ngSwitch]="chargeZone.status" [attr.error]="zoneIsInError(chargeZone)" [attr.warning]="zoneIsInWarning(chargeZone)" [attr.info]="zoneIsInInfo(chargeZone)" technical-error>
-    <ion-icon *ngIf="chargeZone.status !== 'time-restricted'" name="warning" color="light"></ion-icon>
-    <ion-icon *ngIf="chargeZone.status === 'time-restricted'" name="clock" color="light"></ion-icon>
-    <ng-container *ngSwitchCase="'owner-payment-method-missing'">
-        {{chargeZone.isOwner ? t('errors.no-payment-method.owner') : t('errors.no-payment-method.user')}}
-    </ng-container>
-    <ng-container *ngSwitchCase="'contract-occupied'">
-        {{t('errors.max-parallel-sessions')}}
-    </ng-container>
-    <ng-container *ngSwitchCase="'not-accepted-contract-terms'">
-        {{chargeZone.isAdmin ? t('errors.new-terms.admin') : t('errors.new-terms.user')}}
-    </ng-container>
-    <ng-container *ngSwitchCase="'user-payment-method-missing'">
-        {{t('errors.no-user-payment-method')}}
-    </ng-container>
-    <ng-container *ngSwitchCase="'not-accepted-user-terms'">
-        {{t('errors.user-terms-not-accepted')}}
-    </ng-container>
-    <ng-container *ngSwitchCase="'time-restricted'">
-        {{t('errors.time-restricted')}}
-    </ng-container>
+<ion-item *ngIf="zoneErrorlevel(chargeZone) != 'ok'" [ngSwitch]="chargeZone.status" [attr.error]="zoneIsInError(chargeZone)"
+          [attr.warning]="zoneIsInWarning(chargeZone)" [attr.info]="zoneIsInInfo(chargeZone)" technical-error>
+  <ion-icon *ngIf="chargeZone.status !== 'time-restricted'" name="warning" color="light"></ion-icon>
+  <ion-icon *ngIf="chargeZone.status === 'time-restricted'" name="clock" color="light"></ion-icon>
+  <ng-container *ngSwitchCase="'owner-payment-method-missing'">
+    {{chargeZone.isOwner ? t('errors.no-payment-method.owner') : t('errors.no-payment-method.user')}}
+  </ng-container>
+  <ng-container *ngSwitchCase="'contract-occupied'">
+    {{t('errors.max-parallel-sessions')}}
+  </ng-container>
+  <ng-container *ngSwitchCase="'not-accepted-contract-terms'">
+    {{chargeZone.isAdmin ? t('errors.new-terms.admin') : t('errors.new-terms.user')}}
+  </ng-container>
+  <ng-container *ngSwitchCase="'user-payment-method-missing'">
+    {{t('errors.no-user-payment-method')}}
+  </ng-container>
+  <ng-container *ngSwitchCase="'not-accepted-user-terms'">
+    {{t('errors.user-terms-not-accepted')}}
+  </ng-container>
+  <ng-container *ngSwitchCase="'time-restricted'">
+    {{t('errors.time-restricted')}}
+  </ng-container>
 
-    <ng-container *ngSwitchDefault>{{t("errors.unknown", chargeZone)}]</ng-container>
+  <ng-container *ngSwitchDefault>{{t("errors.unknown", chargeZone)}]</ng-container>
 </ion-item>
 
-<ng-container *ngIf="(chargeZone.status == 'not-accepted-contract-terms' || chargeZone.status == 'not-accepted-user-terms') && chargeZone.newTerms" [class.terms]="true">
-    <ion-card-content>
-        <ion-text *ngIf="chargeZone.newTerms.users > 1">{{t('terms.affects-all')}}</ion-text>
-        <ion-list>
-            <ion-item *ngIf="chargeZone.newTerms.subscriptionFee" stacked>
-                <ion-label position="stacked">
-                    {{chargeZone.newTerms.users > 1 ? t('terms.subscriptions') : t('terms.subscription')}}
-                </ion-label>
-                <div>
-                    {{t('terms.subscription-fee', {amount: chargeZone.newTerms.subscriptionFeeTotal.value, currency: chargeZone.newTerms.subscriptionFee.currency })}}
-                    <br />
-                    <p *ngIf="chargeZone.newTerms.users > 1">
-                        {{t('terms.max-subscription-fee', {amount: chargeZone.newTerms.subscriptionFee.max, currency: chargeZone.newTerms.subscriptionFee.currency})}}
-                    </p>
-                </div>
-            </ion-item>
+<ng-container *ngIf="(chargeZone.status == 'not-accepted-contract-terms' || chargeZone.status == 'not-accepted-user-terms') && chargeZone.newTerms"
+              [class.terms]="true">
+  <ion-card-content>
+    <ion-text *ngIf="chargeZone.newTerms.users > 1">{{t('terms.affects-all')}}</ion-text>
+    <ion-list>
+      <ion-item *ngIf="chargeZone.newTerms.subscriptionFee" stacked>
+        <ion-label position="stacked">
+          {{chargeZone.newTerms.users > 1 ? t('terms.subscriptions') : t('terms.subscription')}}
+        </ion-label>
+        <div>
+          {{t('terms.subscription-fee', {
+          amount: chargeZone.newTerms.subscriptionFeeTotal.value,
+          currency: chargeZone.newTerms.subscriptionFee.currency
+        })}}
+          <br/>
+          <p *ngIf="chargeZone.newTerms.users > 1">
+            {{t('terms.max-subscription-fee', {
+            amount: chargeZone.newTerms.subscriptionFee.max,
+            currency: chargeZone.newTerms.subscriptionFee.currency
+          })}}
+          </p>
+        </div>
+      </ion-item>
 
-            <ion-item *ngIf="chargeZone.newTerms.consumptionFee" stacked>
-                <ion-label position="stacked">
-                    {{t('terms.consumption-fee')}}
-                </ion-label>
-                <div>
-                    {{chargeZone.newTerms.consumptionFeeTotal.value}}{{chargeZone.newTerms.consumptionFee.currency}}/kWh
-                </div>
-            </ion-item>
+      <ion-item *ngIf="chargeZone.newTerms.consumptionFee" stacked>
+        <ion-label position="stacked">
+          {{t('terms.consumption-fee')}}
+        </ion-label>
+        <div>
+          {{chargeZone.newTerms.consumptionFeeTotal.value}}{{chargeZone.newTerms.consumptionFee.currency}}/kWh
+        </div>
+      </ion-item>
 
-            <ion-item *ngIf="chargeZone.newTerms.cancellation" stacked>
-                <ion-label position="stacked">
-                    {{t('terms.cancellation')}}
-                </ion-label>
-                <div>
-                    {{t('terms.cancellation-time', {time: chargeZone.newTerms.cancellation})}}
-                </div>
-            </ion-item>
+      <ion-item *ngIf="chargeZone.newTerms.cancellation" stacked>
+        <ion-label position="stacked">
+          {{t('terms.cancellation')}}
+        </ion-label>
+        <div>
+          {{t('terms.cancellation-time', {time: chargeZone.newTerms.cancellation})}}
+        </div>
+      </ion-item>
 
-            <ion-item *ngIf="chargeZone.newTerms.maxParallelSessions" stacked>
-                <ion-label position="stacked">
-                    {{t('terms.max-sessions')}}
-                </ion-label>
-                <div>
-                    {{chargeZone.newTerms.maxParallelSessions}}
-                </div>
-            </ion-item>
+      <ion-item *ngIf="chargeZone.newTerms.maxParallelSessions" stacked>
+        <ion-label position="stacked">
+          {{t('terms.max-sessions')}}
+        </ion-label>
+        <div>
+          {{chargeZone.newTerms.maxParallelSessions}}
+        </div>
+      </ion-item>
 
-            <ion-item *ngIf="chargeZone.newTerms.autostart" stacked>
-                <ion-label position="stacked">
-                    {{t('terms.autostart.title')}}
-                </ion-label>
-                <div>
-                    {{t('terms.autostart.enabled')}}
-                </div>
-            </ion-item>
+      <ion-item *ngIf="chargeZone.newTerms.autostart" stacked>
+        <ion-label position="stacked">
+          {{t('terms.autostart.title')}}
+        </ion-label>
+        <div>
+          {{t('terms.autostart.enabled')}}
+        </div>
+      </ion-item>
 
-            <ion-item *ngIf="chargeZone.newTerms.autostart" stacked>
-                <ion-text>
-                    {{t('terms.autostart.description')}}
-                </ion-text>
-            </ion-item>
-        </ion-list>
-    </ion-card-content>
+      <ion-item *ngIf="chargeZone.newTerms.autostart" stacked>
+        <ion-text>
+          {{t('terms.autostart.description')}}
+        </ion-text>
+      </ion-item>
+    </ion-list>
+  </ion-card-content>
 
-    <ion-button expand="full" (click)="acceptChargeZoneTerms(chargeZone)">{{t('terms.accept')}}</ion-button>
+  <ion-button expand="full" (click)="acceptChargeZoneTerms(chargeZone)">{{t('terms.accept')}}</ion-button>
 </ng-container>
 
 <ion-item *ngIf="chargeZone.status == 'ok' && !allStationsOk(chargeZone)" [attr.error]="true" technical-error>
-    <ion-icon name="warning" color="light"></ion-icon>
-    {{t('technical-problem', { vendorName: vendor.vendorName })}}
+  <ion-icon name="warning" color="light"></ion-icon>
+  {{t('technical-problem', {vendorName: vendor.vendorName, vendorSupportEmail: vendor.vendorSupportEmail})}}
 </ion-item>
