@@ -13,7 +13,7 @@ import {
   USER_APP_SETTINGS_PROPERTY,
 } from '../models/user';
 import { IWebSocketTypeOfUserUpdated } from '../models/webSocket';
-import { ChargeZone, StationsAvailableObject } from '../models/chargeZone';
+import { ChargeZone, GetChargeZoneInfoAPIResponse, StationsAvailableObject } from '../models/chargeZone';
 import { API, HTTP_STATUS_CODE } from '../models/api';
 import { TermsAndConditions } from '../models/contract';
 import { HistoryChartDatum, HistoryForMonthGUIModel, HistoryForMonthAPIResponse } from '../models/history';
@@ -93,7 +93,7 @@ export enum ZoneInfoStatus {
 
 export class ZoneInfo {
   public Status: ZoneInfoStatus;
-  public Data: any;
+  public Data: GetChargeZoneInfoAPIResponse;
 }
 
 export enum STORAGE_SERVICE_KEY {
@@ -535,7 +535,7 @@ export class UserService {
     const url = `${environment.apiUrl}${params.legalEntityId}/sessions`;
 
     const body: APIBodyChargeSessionStart = {
-       contractUserId: params.contractUserId,
+      contractUserId: params.contractUserId,
       stationId: params.stationId,
       params: params.otherParams,
     };
@@ -703,9 +703,10 @@ export class UserService {
   }
 
   public getZoneInfo(zoneCode: string): Observable<ZoneInfo> {
+
     return this.httpClient.get(`${environment.apiUrl}app/zones/info/${zoneCode}`).pipe(
-      map((r: any) => {
-        return { Status: ZoneInfoStatus.Valid, Data: r };
+      map((response: GetChargeZoneInfoAPIResponse) => {
+        return { Status: ZoneInfoStatus.Valid, Data: response };
       }),
       catchError((err: HttpErrorResponse, r: any) => {
         if (err.status === HTTP_STATUS_CODE.BadRequest) {

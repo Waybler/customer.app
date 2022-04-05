@@ -1,5 +1,7 @@
 import { ContractType, ContractUser, FutureTerms, IContractStatus, Terms } from './contract';
 import * as Moment from 'moment';
+import { API_RESULT } from './api';
+import { Payment } from './payment';
 
 export enum STATION_STATE {
   BUSY = 'busy',
@@ -50,14 +52,21 @@ export interface Cluster {
   stations: Station[];
 }
 
-export interface ChargeZone {
+export interface ChargeZonePublicInfo {
   zoneId: number;
   autostart: boolean;
-  cancellationDate: Date;
   code: number;
+  contractType: ContractType;
+  isTimeRestricted: false;
+  name: string;
+  terms: Terms;
+}
+
+export interface ChargeZone extends ChargeZonePublicInfo {
+  autostart: boolean;
+  cancellationDate: Date;
   contractId: number;
   contractUserId: number;
-  contractType: ContractType;
   futureTerms: FutureTerms;
   isAdmin: boolean;
   isOneTimeFeeZone: boolean;
@@ -65,14 +74,22 @@ export interface ChargeZone {
   isTimeRestricted: false;
   contracteeId: number;
   maxSessions: number;
-  name: string;
   newTerms: any;
   ownerId: number;
   stationGroups: StationGroup[];
   status: IContractStatus;
-  terms: Terms;
 }
 
 export interface ShouldUseCompactviewObject {
   shouldUseCompactView: boolean;
+}
+
+export interface GetChargeZoneInfoAPIResponse {
+  paymentMethods: Payment[];
+  result: API_RESULT;
+  zoneCode: API_RESULT;
+  zone: ChargeZonePublicInfo;
+  user: {
+    needToAddPaymentMethod: boolean;
+  };
 }
