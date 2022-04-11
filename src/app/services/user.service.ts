@@ -527,8 +527,8 @@ export class UserService {
 
   public startCharge(params: ChargeSessionStartParams): Observable<StartChargeResult> {
     if (!params || !params.legalEntityId || !params.contractUserId || !params.stationId) {
-      const errorText = 'user.service -> startCharge: Lacking params.';
-      console.error(errorText);
+      const errorText = 'user.service -> startCharge: Lacking required params.';
+      console.error(errorText, '\nparams: ', params);
       throw Error(errorText);
     }
 
@@ -537,8 +537,9 @@ export class UserService {
     const body: APIBodyChargeSessionStart = {
       contractUserId: params.contractUserId,
       stationId: params.stationId,
-      params: params.otherParams,
+      HeatingSessionParams: params.otherParams,
     };
+
     return this.httpClient.put(url, body).pipe(
       map((d: any) => {
         return d.result === API.GENERIC_RESULT.OK ? StartChargeResult.Success : StartChargeResult.Failed;
@@ -549,8 +550,8 @@ export class UserService {
 
   public stopCharge(params: ChargeSessionStopParams): Observable<StopChargeResult> {
     if (!params || !params.legalEntityId || !params.sessionId) {
-      const errorText = 'user.service -> startCharge: Lacking params.';
-      console.error(errorText);
+      const errorText = 'user.service -> stopCharge: Lacking params.';
+      console.error(errorText, '\nparams: ', params);
       throw Error(errorText);
     }
 
