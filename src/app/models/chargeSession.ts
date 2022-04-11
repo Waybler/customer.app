@@ -13,17 +13,23 @@ export interface ChargeSession {
   zoneId: number;
 }
 
+export interface HeaterSessionParams {
+  date: Date;
+  offset: number;
+  time: string;
+}
+
 export interface ChargeSessionStartParams {
   legalEntityId: number;
   contractUserId: number;
   stationId: number;
-  otherParams?: any;
+  otherParams?: HeaterSessionParams;
 }
 
 export interface APIBodyChargeSessionStart {
   contractUserId: number;
   stationId: number;
-  params?: any;
+   heatingParams?: HeaterSessionParams;
 }
 
 export interface ChargeSessionStopParams {
