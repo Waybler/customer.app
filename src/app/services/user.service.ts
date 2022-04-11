@@ -537,7 +537,7 @@ export class UserService {
     const body: APIBodyChargeSessionStart = {
       contractUserId: params.contractUserId,
       stationId: params.stationId,
-      heatingParams: params.otherParams,
+      HeatingSessionParams: params.otherParams,
     };
 
     return this.httpClient.put(url, body).pipe(
