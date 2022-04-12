@@ -33,7 +33,7 @@
     {{t('errors.time-restricted')}}
   </ng-container>
 
-  <ng-container *ngSwitchDefault>{{t("errors.unknown-error", chargeZone)}]</ng-container>
+    <ng-container *ngSwitchDefault>{{t("errors.unknown", chargeZone)}]</ng-container>
 </ion-item>
 
  <ion-item
@@ -134,5 +134,5 @@
 <ion-item *ngIf="chargeZone.status == CONTRACT_STATUS.OK && !allStationsOk(chargeZone)"
           [attr.error]="true" technical-error>
   <ion-icon name="warning" color="light"></ion-icon>
-  {{t('technical-problem')}}
+    {{t('technical-problem')}}
 </ion-item>

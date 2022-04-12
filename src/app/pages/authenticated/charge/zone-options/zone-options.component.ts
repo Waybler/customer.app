@@ -26,8 +26,10 @@ export class ZoneOptionsComponent implements OnInit {
   @Input()
   public chargeZone: ChargeZone;
 
-  @Output()
-  public cancelled = new EventEmitter();
+    @Output()
+    public cancelled = new EventEmitter();
+    @Output()
+    public accepted = new EventEmitter();
 
   public t: ITranslator;
 
@@ -93,7 +95,37 @@ export class ZoneOptionsComponent implements OnInit {
     if (termsFee) {
       termsFee.value = formatTo2DecimalPlaces({value: termsFee.value, decimalPipe: this.decimalPipe});
     }
-
   }
+    public async acceptFutureTerms(chargeZone: any): Promise<void> {
+        const alert = await this.alertController.create({
+            header: this.t('accept.title'),
+            message: this.t('accept.message'),
+            backdropDismiss: false,
+            buttons: [
+                {
+                    text: this.t('accept.cancel'),
+                    handler: () => {
+                    }
+                }, {
+                    text: this.t('accept.confirm'),
+                    handler: () => {
+                        this.internalAcceptChanges(chargeZone);
+                    }
+                }
+            ]
+        });
+        alert.present();
+    }
 
+    private async internalAcceptChanges(chargeZone: any): Promise<void> {
+        const loading = await this.loadingController.create({ message: this.t('accept.accepting') });
+        await loading.present();
+
+        this.userService.acceptChargeZoneTerms(chargeZone, chargeZone.futureTerms).pipe(
+            tap(async _ => {
+                this.accepted.emit();
+                await loading.dismiss();
+            })
+        ).subscribe();
+    }
 }

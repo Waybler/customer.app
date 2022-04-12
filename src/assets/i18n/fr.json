@@ -144,7 +144,7 @@
               },
               "accept": "Approuvez les conditions d’utilisation"
             },
-            "technical-problem": "Les bornes qui sont marquées en rouge ont des problèmes techniques - nous sommes en train d’en investiguer la cause."
+            "technical-problem": "« Les stations marquées en rouge rencontrent des problèmes de connexion. Si le problème persiste, contactez-nous à l'adresse {{vendorSupportEmail}}."
           },
           "heater-options": {
             "title": "When should the car be warm?",
@@ -207,6 +207,15 @@
             }
           },
           "zone-options": {
+	        "current": {
+	            "title": "Conditions actuelles"
+	        },
+	        "future": {
+	            "title": "Conditions à venir"
+	        },
+	        "valid-from": {
+	            "label": "Date de changement"
+	        },
             "subscription-fee": {
               "label": "Abonnement",
               "value": "{{value}} {{currency}}/mois"
@@ -216,9 +225,17 @@
               "value": "{{value}} {{currency}}/kWh"
             },
             "cancellation": {
-              "label": "Période d’annulation",
+
+             "label": "Période d’annulation",
               "value": "{{value}} mois"
             },
+            "max-sessions": {
+                "label": "Max. charges simultanées",
+                "value": "{{value}}"
+            },
+                        "accepted": {
+                            "label": "Termes acceptés"
+                        },
             "cancel": {
               "button": "Annuler l’abonnement",
               "title": "Etes-vous sûr(e)?",
@@ -226,6 +243,14 @@
               "cancel": "Non, annuler",
               "confirm": "Oui, annuler l’abonnement",
               "cancelling": "Annulation de l'abonnement en cours..."
+            },
+            "accept": {
+                "button": "Accepter les conditions futures",
+              "title": "Etes-vous sûr(e)?",
+                "message": "Godkänner du de kommande villkoren för detta område?",
+              "cancel": "Non, annuler",
+                "confirm": "Oui, acceptez les conditions",
+                "accepting": "Accepter les conditions..."
             }
           },
           "zone": {
@@ -301,13 +326,14 @@
           "total": "Total",
           "empty": "Frais accumulés.",
           "group": {
-            "0": "Abonnement",
-            "1": "Remboursement l’abonnement",
-            "2": "Consommation",
-            "3": "Repayment förbrukning",
-            "4": "Subscription",
-            "5": "Repayment subscription",
-            "6": "Maintenance fee"
+            "UserSubscription": "Abonnement",
+            "UserSubscriptionRepayment": "Remboursement l’abonnement",
+            "Consumption": "Consommation",
+            "ConsumptionRepayment": "Remboursement de la consommation",
+            "Maintenance": "Abonnement",
+            "MaintenanceRepayment": "Remboursement l’abonnement",
+            "StationFee": "Abonnement",
+            "StationFeeRepayment": "Remboursement l’abonnement"
           }
         },
         "invoices": {

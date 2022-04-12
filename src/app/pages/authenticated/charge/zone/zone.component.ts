@@ -6,7 +6,7 @@ import { HeaterOptionsComponent } from '../heater-options/heater-options.compone
 import { UserAppSettings } from '../../../../models/user';
 import { ChargeZone, ShouldUseCompactviewObject, STATION_STATE } from '../../../../models/chargeZone';
 import { ChargeSession } from '../../../../models/chargeSession';
-import { CONTRACT_STATUS, ContractType } from '../../../../models/contract';
+import { CONTRACT_STATUS, ContractType , Terms} from '../../../../models/contract';
 
 @Component({
   selector: 'app-zone',
@@ -33,6 +33,7 @@ export class ZoneComponent implements OnInit {
   public selected = new EventEmitter<any>();
 
   public showOptions = false;
+  public showFutureTerms = false;
   public t: ITranslator;
   public ContractType = ContractType;
 
@@ -52,6 +53,10 @@ export class ZoneComponent implements OnInit {
       this.shouldUseCompactviewObject = { shouldUseCompactView: shouldUseCompactview };
       this.cdr.detectChanges();
     });
+  }
+
+  public getFutureColor(terms: any): string {
+    return terms.accepted ? 'medium' : 'warning';
   }
 
   public showStationGroupName(): boolean {

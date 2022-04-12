@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, combineLatest, from, Observable, of, Subject } from 'rxjs';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { catchError, first, map, mergeMap, switchMap, tap } from 'rxjs/operators';
+import * as Moment from 'moment';
 
 import { environment } from '../../environments/environment';
 import { StorageService } from './storage.service';
@@ -13,7 +14,7 @@ import {
   UserAuthenticateVerifyAPIResponse,
 } from '../models/user';
 import { IWebSocketTypeOfUserUpdated } from '../models/webSocket';
-import { ChargeZone, StationsAvailableObject } from '../models/chargeZone';
+import { ChargeZone, GetChargeZoneInfoAPIResponse, StationsAvailableObject } from '../models/chargeZone';
 import { API, HTTP_STATUS_CODE } from '../models/api';
 import { CONTRACT_STATUS, TermsAndConditions } from '../models/contract';
 import { HistoryChartDatum, HistoryForMonthAPIResponse, HistoryForMonthGUIModel } from '../models/history';
@@ -100,7 +101,7 @@ export enum ZoneInfoStatus {
 
 export class ZoneInfo {
   public Status: ZoneInfoStatus;
-  public Data: any;
+  public Data: GetChargeZoneInfoAPIResponse;
 }
 
 export enum STORAGE_SERVICE_KEY {
@@ -580,18 +581,24 @@ export class UserService {
 
   public startCharge(params: ChargeSessionStartParams): Observable<StartChargeResult> {
     if (!params || !params.legalEntityId || !params.contractUserId || !params.stationId) {
-      const errorText = 'user.service -> startCharge: Lacking params.';
-      console.error(errorText);
+      const errorText = 'user.service -> startCharge: Lacking required params.';
+      console.error(errorText, '\nparams: ', params);
       throw Error(errorText);
     }
 
     const url = `${environment.apiUrl}${params.legalEntityId}/sessions`;
 
+    const heatingSessionParams = params.otherParams;
+    const departureTime = (heatingSessionParams?.time && heatingSessionParams?.date) ? Moment(`${heatingSessionParams.date} ${heatingSessionParams.time}`).format() : null;
+    // console.info('user.service -> startCharge:',
+    //   '\ndepartureTime:', departureTime);
+
     const body: APIBodyChargeSessionStart = {
       contractUserId: params.contractUserId,
       stationId: params.stationId,
-      params: params.otherParams,
+      departureTime,
     };
+
     return this.httpClient.put(url, body).pipe(
       map((d: any) => {
         return d.result === API.GENERIC_RESULT.OK ? StartChargeResult.Success : StartChargeResult.Failed;
@@ -602,8 +609,8 @@ export class UserService {
 
   public stopCharge(params: ChargeSessionStopParams): Observable<StopChargeResult> {
     if (!params || !params.legalEntityId || !params.sessionId) {
-      const errorText = 'user.service -> startCharge: Lacking params.';
-      console.error(errorText);
+      const errorText = 'user.service -> stopCharge: Lacking params.';
+      console.error(errorText, '\nparams: ', params);
       throw Error(errorText);
     }
 
@@ -756,9 +763,10 @@ export class UserService {
   }
 
   public getZoneInfo(zoneCode: string): Observable<ZoneInfo> {
+
     return this.httpClient.get(`${environment.apiUrl}app/zones/info/${zoneCode}`).pipe(
-      map((r: any) => {
-        return { Status: ZoneInfoStatus.Valid, Data: r };
+      map((response: GetChargeZoneInfoAPIResponse) => {
+        return { Status: ZoneInfoStatus.Valid, Data: response };
       }),
       catchError((err: HttpErrorResponse, r: any) => {
         if (err.status === HTTP_STATUS_CODE.BadRequest) {
@@ -827,7 +835,8 @@ export class UserService {
   public acceptTerms(): Observable<boolean> {
     return combineLatest(this.legalEntityId$, this.currentUserTerms$).pipe(
       mergeMap(([leid, terms]) => {
-        return this.httpClient.post(`${environment.apiUrl}${leid}/terms/accept`, { termsId: terms.termsId }).pipe(
+        return this.httpClient.put(
+          `${environment.apiUrl}${leid}/terms/accept`, { termsId: terms.termsId }).pipe(
           map((r: any) => {
             return r.success;
           }),
@@ -836,14 +845,12 @@ export class UserService {
     );
   }
 
-  public acceptChargeZoneTerms(chargeZone: ChargeZone): Observable<boolean> {
-    if (chargeZone.newTerms.contractTermsId) {
-      const url = `${environment.apiUrl}${chargeZone.contracteeId}/contracts/${chargeZone.contractId}/accept`;
-
+  public acceptChargeZoneTerms(chargeZone: ChargeZone, termsToAccept): Observable<boolean> {
+    if (termsToAccept.contractTermsId) {
       return this.httpClient
         .post(
-          url,
-          { contractTermsId: chargeZone.newTerms.contractTermsId },
+          `${environment.apiUrl}${chargeZone.contracteeId}/contracts/${chargeZone.contractId}/accept`,
+          { contractTermsId: termsToAccept.contractTermsId },
         )
         .pipe(
           map((r: any) => {
@@ -851,12 +858,10 @@ export class UserService {
           }),
         );
     } else {
-      const url = `${environment.apiUrl}${chargeZone.contracteeId}/contracts/${chargeZone.contractId}/users/${chargeZone.newTerms.contractUserId}/accept`;
-
       return this.httpClient
         .post(
-          url,
-          { contractUserTermsId: chargeZone.newTerms.contractUserTermsId },
+          `${environment.apiUrl}${chargeZone.contracteeId}/contracts/${chargeZone.contractId}/users/${chargeZone.newTerms.contractUserId}/accept`,
+          { contractUserTermsId: termsToAccept.contractUserTermsId },
         )
         .pipe(
           map((r: any) => {

@@ -144,8 +144,9 @@
               },
               "accept": "Godkänn villkoren"
             },
-            "technical-problem": "Vi undersöker för närvarande ett tekniskt problem med de stationer som är rödmarkerade."
+            "technical-problem": "Rödmarkerade stationer har för närvarande inte uppkoppling till internet. Om problemet kvarstår kontakta oss på {{vendorSupportEmail}}."
           },
+
           "heater-options": {
             "title": "När ska bilen vara varm?",
             "select-day": {
@@ -175,6 +176,10 @@
               "subscription-fee": {
                 "label": "Abonnemangsavgift",
                 "value": "{{value}} {{currency}}/månad"
+              },
+              "one-time-fee": {
+                "label": "Engångsavgift",
+                "value": "{{value}} {{currency}}"
               },
               "consumption-fee": {
                 "label": "Förbrukningskostnad",
@@ -207,9 +212,22 @@
             }
           },
           "zone-options": {
+            "current": {
+              "title": "Användarvillkor"
+            },
+            "future": {
+                "title": "Kommande villkor"
+            },
+            "valid-from": {
+                "label": "Datum för ändring"
+            },
             "subscription-fee": {
               "label": "Abonnemangsavgift",
               "value": "{{value}} {{currency}}/månad"
+            },
+            "one-time-fee": {
+              "label": "Engångsavgift",
+              "value": "{{value}} {{currency}}"
             },
             "consumption-fee": {
               "label": "Förbrukningskostnad",
@@ -219,6 +237,13 @@
               "label": "Uppsägningstid",
               "value": "{{value}} månader"
             },
+            "max-sessions": {
+              "label": "Max. samtidiga laddningar",
+              "value": "{{value}}"
+            },
+            "accepted": {
+                "label": "Villkor accepterade"
+            },
             "cancel": {
               "button": "Avsluta avtalet",
               "title": "Är du säkert?",
@@ -226,6 +251,14 @@
               "cancel": "Nej, avbryt",
               "confirm": "Ja, säg upp avtalet",
               "cancelling": "Säger upp avtalet..."
+            },
+            "accept": {
+              "button": "Godkänn kommande villkor",
+              "title": "Är du säker?",
+              "message": "Godkänner du de kommande villkoren för detta område?",
+              "cancel": "Nej, avbryt",
+              "confirm": "Ja, godkänn villkoren",
+              "accepting": "Godkänner villkor..."
             }
           },
           "zone": {
@@ -301,13 +334,14 @@
           "total": "Totalt",
           "empty": "Inga upplupna kostnader",
           "group": {
-            "0": "Abonnemang",
-            "1": "Återbetalning abonnemangsavgift",
-            "2": "Förbrukning",
-            "3": "Återbetalning förbrukning",
-            "4": "Abonnemang",
-            "5": "Återbetalning abonnemangsavgift",
-            "6": "Systemavgift"
+            "UserSubscription": "Abonnemang",
+            "UserSubscriptionRepayment": "Återbetalning abonnemangsavgift",
+            "Consumption": "Förbrukning",
+            "ConsumptionRepayment": "Återbetalning förbrukning",
+            "Maintenance": "Abonnemang",
+            "MaintenanceRepayment": "Återbetalning abonnemang",
+            "StationFee": "Systemavgift",
+            "StationFeeRepayment": "Återbetalning systemavgift"
           }
         },
         "invoices": {
@@ -342,6 +376,77 @@
             "expiration-date": {
               "label": "Utgångsdatum",
               "placeholder": "MM / YYYY"
+            },
+            "settings": {
+                "account": {
+                    "title": "Inloggning",
+                    "username": "Inloggad som",
+                    "logout": "Logga ut"
+                },
+                "settings": {
+                    "title": "Appinställningar",
+                    "compact-view": {
+                        "label": "Kompaktvy",
+                        "description": "När kompaktvy är aktiverat så visas bara de platser där en kabel är ansluten, men laddning inte är aktiverad."
+                    },
+                    "compact-view-limit": {
+                        "label": "Kompaktvygräns",
+                        "description": "Max antal laddplatser innan kompaktvyn aktiveras."
+                    },
+                    "charge-options-view": {
+                        "label": "Visa alltid motorvärmarinställningar",
+                        "description": "När detta val är påslaget så får du möjlighet att starta boxen som motorvärmare även om du har ett billaddningsavtal."
+                    }
+                },
+                "advanced": {
+                    "title": "Avancerat",
+                    "enabled": "Du har nu aktiverat avancerade inställningar",
+                    "clicks": "Du är nu {{left}} click ifrån att visa avancerade inställlningar.",
+                    "beta": {
+                        "label": "Beta",
+                        "description": "Genom att aktivera beta-läget så kommer du få testversioner av appen innan den släpps publikt."
+                    }
+                },
+                "password": {
+                    "title": "Byt lösenord",
+                    "current-password": {
+                        "label": "Ditt nuvarande lösenord",
+                        "placeholder": "Fyll i ditt nuvarande lösenord"
+                    },
+                    "new-password": {
+                        "label": "Ditt nya lösenord",
+                        "placeholder": "Fyll i ditt nya lösenord"
+                    },
+                    "set-password": "Ändra lösenordet",
+                    "setting": "Ändrar ditt lösenord...",
+                    "setted": "Ditt lösenord är ändrat",
+                    "invalid": {
+                        "header": "Lösenordet för enkelt",
+                        "message": "Ditt nya lösenord måste vara minst 6 tecken."
+                    },
+                    "not-matching": {
+                        "header": "Lösenordet stämmer inte",
+                        "message": "Ditt nuvarande lösenord stämmer inte med det som du angav."
+                    },
+                    "unknown-error": {
+                        "header": "Ett oväntat fel inträffade",
+                        "message": "Prova igen, eller kontakta support."
+                    },
+                    "ok": "OK"
+                },
+                "version": {
+                    "title": "Version",
+                    "app-version": "Binärversion",
+                    "code-push-version": "Uppdateringsversion",
+                    "beta": {
+                        "label": "Beta-version",
+                        "yes": "Ja",
+                        "no": "Nej"
+                    }
+                },
+                "terms": {
+                    "title": "Användarvillkor"
+                }
             },
             "postal-code": {
               "label": "Postnummer",

@@ -1,8 +1,4 @@
 {
-  "global": {
-    "no": "No",
-    "yes": "Yes"
-  },
   "http-error-interceptor": {
     "communication-error": "Could not reach {{vendorName}} servers.",
     "server-error": "An error occurred on {{vendorName}} servers.",
@@ -148,7 +144,7 @@
               },
               "accept": "Approve terms"
             },
-            "technical-problem": "We are currently investigating a technical issue with those stations that are red marked."
+            "technical-problem": "Stations marked red are experiencing connection problems. If the problem persists contact us at {{vendorSupportEmail}}."
           },
           "heater-options": {
             "title": "When should the car be warm?",
@@ -180,6 +176,10 @@
                 "label": "Subscription",
                 "value": "{{value}} {{currency}}/month"
               },
+	            "one-time-fee": {
+                "label": "One time fee",
+                "value": "{{value}} {{currency}}"
+              },
               "consumption-fee": {
                 "label": "Consumption",
                 "value": "{{value}} {{currency}}/kWh"
@@ -206,14 +206,27 @@
             "add": "Add",
             "error": {
               "1": "You already have an agreement for this zone.",
-              "2": "Vi could not find any zone with this zone code.",
+              "2": "We could not find any zone with this zone code.",
               "3": "This zone is private and is administrated by your facility owner."
             }
           },
           "zone-options": {
+            "current": {
+              "title": "Current Terms"
+            },
+            "future": {
+              "title": "Upcoming New Terms"
+            },
+            "valid-from": {
+              "label": "Date for change"
+            },
             "subscription-fee": {
               "label": "Subscription",
               "value": "{{value}} {{currency}}/month"
+            },
+	          "one-time-fee": {
+              "label": "One time fee",
+              "value": "{{value}} {{currency}}"
             },
             "consumption-fee": {
               "label": "Consumption",
@@ -223,6 +236,13 @@
               "label": "Cancellation period",
               "value": "{{value}} months"
             },
+            "max-sessions": {
+              "label": "Max. samtidiga laddningar",
+              "value": "{{value}}"
+            },
+            "accepted": {
+              "label": "Terms accepted"
+            },
             "cancel": {
               "button": "Cancel agreement",
               "title": "Are you sure?",
@@ -230,16 +250,24 @@
               "cancel": "No, cancel",
               "confirm": "Yes, cancel agreement",
               "cancelling": "Cancelling agreement..."
+            },
+            "accept": {
+              "button": "Accept upcoming terms",
+              "title": "Are you sure?",
+              "message": "Do you want to accept the upcoming changes for this zone?",
+              "cancel": "No, cancel",
+              "confirm": "Yes, accept changes",
+              "accepting": "Accepting changes..."
             }
           },
           "zone": {
             "zone-code": "Zone code: {{code}}",
             "cancellation-date": "The agreement expires",
             "all-filtered": {
-                          "help": "You have turned on compact view and therefore only the charging points where a cable is connected but charging is not started are displayed.",
+              "help": "You have turned on compact view and therefore only the charging points where a cable is connected but charging is not started are displayed.",
               "overview": {
                 "one": "Right now there is 1 available charging point.",
-                                "many": "Right now there are {{count}} available charging points."
+                "many": "Right now there are {{count}} available charging points."
               }
             },
             "empty": "There are currently no charging points in this zone.",
@@ -305,13 +333,14 @@
           "total": "Total",
           "empty": "No accrued costs.",
           "group": {
-            "0": "Subscription",
-            "1": "Repayment subscription",
-            "2": "Consumption",
-            "3": "Repayment förbrukning",
-            "4": "Subscription",
-            "5": "Repayment subscription",
-            "6": "Maintenance fee"
+            "UserSubscription": "Subscription",
+            "UserSubscriptionRepayment": "Subscription repayment",
+            "Consumption": "Consumption",
+            "ConsumptionRepayment": "Consumption repayment",
+            "Maintenance": "Subscription",
+            "MaintenanceRepayment": "Subscription repayment",
+            "StationFee": "System fee",
+            "StationFeeRepayment": "System fee repayment"
           }
         },
         "invoices": {

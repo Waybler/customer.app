@@ -1,4 +1,4 @@
-import { CONTRACT_STATUS, IFee } from './contract';
+import { CONTRACT_STATUS, Fee } from './contract';
 import { API_RESULT } from './api';
 
 export interface InvoiceAmount {
@@ -14,7 +14,7 @@ export interface Invoice {
   dueAt: string;
   invoiceId: number;
   label: string;
-  outstanding: IFee;
+  outstanding: Fee;
   paid: boolean;
 }
 

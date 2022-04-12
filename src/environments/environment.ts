@@ -19,7 +19,7 @@ export const environment = {
 
 export const vendor = {
   vendorName: 'CaCharge',
-  vendorAppId: 'x-01',
+  vendorAppId: '8D0A2CFA-4373-43E2-951A-8BFF7C25D4D7',
   vendorSupportEmail: 'support@cacharge.com',
 };
 

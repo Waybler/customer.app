@@ -144,7 +144,7 @@
               },
               "accept": "Godkjenn vilkårene"
             },
-            "technical-problem": "Vi undersøker for øyeblikket et teknisk problem med de rødmarkerte stasjonene."
+            "technical-problem": "Rødmerkede stasjoner har for øyeblikket ikke internettilgang. Hvis problemet vedvarer, kontakter du oss på {{vendorSupportEmail}}."
           },
           "heater-options": {
             "title": "Når skal bilen være varm?",
@@ -171,6 +171,10 @@
                 "Mixed": "ladeområde",
                 "Charging": "ladeområde",
                 "Heating": "Motorvärmarområde"
+              },
+              "one-time-fee": {
+                "label": "Engangs avgift",
+                "value": "{{value}} {{currency}}"
               },
               "subscription-fee": {
                 "label": "Abonnementsavgift",
@@ -207,9 +211,22 @@
             }
           },
           "zone-options": {
+            "current": {
+              "title": "Vilkår for bruk"
+            },
+            "future": {
+                "title": "Kommende forhold"
+            },
+            "valid-from": {
+                "label": "Dato for endring"
+            },
             "subscription-fee": {
               "label": "Abonnementsavgift",
               "value": "{{value}} {{currency}}/måned"
+            },
+            "one-time-fee": {
+              "label": "Engangs avgift",
+              "value": "{{value}} {{currency}}"
             },
             "consumption-fee": {
               "label": "Forbrukskostnad",
@@ -226,6 +243,14 @@
               "cancel": "Nei, avbryt",
               "confirm": "Ja, si opp avtalen",
               "cancelling": "Sier opp avtalen..."
+            },
+            "accept": {
+              "button": "Godta fremtidige vilkår",
+              "title": "Er du sikker?",
+              "message": "Godtar du de kommende vilkårene for dette området?",
+              "cancel": "Nej, avbryt",
+              "confirm": "Ja, godta vilkårene",
+              "accepting": "Godtar vilkår..."
             }
           },
           "zone": {
@@ -301,13 +326,14 @@
           "total": "Totalt",
           "empty": "Ingen oppsamlede kostnader",
           "group": {
-            "0": "Abonnement",
-            "1": "Tilbakebetaling av abonnementsavgift",
-            "2": "Forbruk",
-            "3": "Tilbakebetaling forbruk",
-            "4": "Abonnement",
-            "5": "Tilbakebetaling av abonnementsavgift",
-            "6": "Systemavgift"
+            "UserSubscription": "Abonnement",
+            "UserSubscriptionRepayment": "Tilbakebetaling av abonnementsavgift",
+            "Consumption": "Forbruk",
+            "ConsumptionRepayment": "Tilbakebetaling forbruk",
+            "Maintenance": "Abonnement",
+            "MaintenanceRepayment": "Tilbakebetaling av abonnementsavgift",
+            "StationFee": "Tilbakebetaling av abonnementsavgift",
+            "StationFeeRepayment": "Tilbakebetaling av systemavgift"
           }
         },
         "invoices": {

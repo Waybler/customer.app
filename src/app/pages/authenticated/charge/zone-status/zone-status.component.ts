@@ -4,6 +4,7 @@ import { ITranslator, TranslatorFactoryService } from 'src/app/services/translat
 import { UserService } from 'src/app/services/user.service';
 import { CONTRACT_STATUS } from '../../../../models/contract';
 import { PAYMENT_METHOD_STATUS } from '../../../../models/payment';
+import { vendor } from 'src/environments/environment';
 
 @Component({
   selector: 'app-zone-status',
@@ -13,8 +14,8 @@ import { PAYMENT_METHOD_STATUS } from '../../../../models/payment';
 export class ZoneStatusComponent implements OnInit {
   @Input()
   public chargeZone: any;
-
   public t: ITranslator;
+  public vendor = vendor;
 
   public CONTRACT_STATUS = CONTRACT_STATUS;
   public PAYMENT_METHOD_STATUS = PAYMENT_METHOD_STATUS;
@@ -85,11 +86,11 @@ export class ZoneStatusComponent implements OnInit {
     }
 
     const limit = noStations * 0.2;
-    const limitOk = noStationsNok < limit;
+    const limitOk = noStationsNok < limit || limit === 0;
     return limitOk;
   }
 
   public acceptChargeZoneTerms(chargeZone: ChargeZone): void {
-    this.userService.acceptChargeZoneTerms(chargeZone).subscribe();
+    this.userService.acceptChargeZoneTerms(chargeZone, chargeZone.newTerms).subscribe();
   }
 }

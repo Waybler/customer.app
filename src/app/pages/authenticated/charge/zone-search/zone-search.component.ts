@@ -3,7 +3,6 @@ import { LoadingController, ModalController, ToastController } from '@ionic/angu
 import { ZoneAddComponent } from '../zone-add/zone-add.component';
 import { NgForm } from '@angular/forms';
 
-
 import { ITranslator, TranslatorFactoryService } from 'src/app/services/translator-factory.service';
 import { UserService, ZoneInfoStatus } from 'src/app/services/user.service';
 import { DeviceService } from 'src/app/services/device.service';
@@ -29,6 +28,7 @@ export class ZoneSearchComponent {
   public showClose = false;
 
   public vendor = vendor;
+
   constructor(
     translatorFactoryService: TranslatorFactoryService,
     private userService: UserService,
@@ -48,26 +48,26 @@ export class ZoneSearchComponent {
       switch (result.Status) {
         case ZoneInfoStatus.Valid:
           if (await this.deviceService.isRunningOnDevice() && !this.deviceService.isSSL()) {
-            var loading = await this.loadingController.create();
+            const loading = await this.loadingController.create();
             await loading.present();
 
             combineLatest([this.localeService.locale$, this.userService.token$]).pipe(
               first(),
               tap(([locale, token]) => {
-                const language = locale?.language ?? "en";
+                const language = locale?.language ?? 'en';
                 const uri = `${environment.appUrl}/authenticated/charge/zone-add/${form.value.zoneCode}?token=${token}&locale=${language}`;
-                const browser = this.inAppBrowser.create(uri, "_blank", {
-                  hidenavigationbuttons: "yes",
-                  hidden: "yes",
-                  location: "no",
+                const browser = this.inAppBrowser.create(uri, '_blank', {
+                  hidenavigationbuttons: 'yes',
+                  hidden: 'yes',
+                  location: 'no',
                 });
-                browser.on("loadstop").subscribe(async () => {
+                browser.on('loadstop').subscribe(async () => {
                   browser.show();
                 });
-                browser.on("message").pipe(first()).subscribe(() => {
+                browser.on('message').pipe(first()).subscribe(() => {
                   browser.close();
                 });
-                browser.on("exit").pipe(first()).subscribe(async () => {
+                browser.on('exit').pipe(first()).subscribe(async () => {
                   this.cdr.detectChanges();
                   await loading.dismiss();
                 });
