@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of, from, Subject, combineLatest, BehaviorSubject } from 'rxjs';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { map, tap, mergeMap, catchError, switchMap, first } from 'rxjs/operators';
+import * as Moment from 'moment';
 
 import { environment } from '../../environments/environment';
 import { StorageService } from './storage.service';
@@ -534,10 +535,15 @@ export class UserService {
 
     const url = `${environment.apiUrl}${params.legalEntityId}/sessions`;
 
+    const heatingSessionParams = params.otherParams;
+    const departureTime = (heatingSessionParams?.time && heatingSessionParams?.date) ? Moment(`${heatingSessionParams.date} ${heatingSessionParams.time}`).format() : null;
+    // console.info('user.service -> startCharge:',
+    //   '\ndepartureTime:', departureTime);
+
     const body: APIBodyChargeSessionStart = {
       contractUserId: params.contractUserId,
       stationId: params.stationId,
-      HeatingSessionParams: params.otherParams,
+      departureTime,
     };
 
     return this.httpClient.put(url, body).pipe(

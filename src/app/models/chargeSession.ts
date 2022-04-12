@@ -29,7 +29,7 @@ export interface ChargeSessionStartParams {
 export interface APIBodyChargeSessionStart {
   contractUserId: number;
   stationId: number;
-  HeatingSessionParams?: HeatingSessionParams;
+  departureTime?: string;
 }
 
 export interface ChargeSessionStopParams {
