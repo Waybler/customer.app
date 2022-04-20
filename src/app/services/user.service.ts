@@ -135,7 +135,7 @@ function getPaymentMethodStatus(paymentMethod: PaymentMethodCreditCard): PAYMENT
   let expirationWasLastMonth = false;
 
   if (expirationDateIsInTheFuture) {
-    // Do nothing as we want to use the default status
+    // Do nothing as we want to use the default status, but return so we do not waste resources
     return expirationStatus;
   } else if (expirationDateIsThisMonth) {
     expirationStatus = PAYMENT_METHOD_STATUS.PAYMENT_METHOD_ABOUT_TO_EXPIRE;
@@ -145,11 +145,6 @@ function getPaymentMethodStatus(paymentMethod: PaymentMethodCreditCard): PAYMENT
 
     const monthOfExpiration = expirationDate.month() + 1;
     const thisMonth = beginningOfThisMonth.month() + 1;
-    console.info('user.service -> getPaymentMethodStatus -> else: ',
-      '\nthisYear', thisYear,
-      '\nyearOfExpiration', yearOfExpiration,
-      '\nmonthOfExpiration', monthOfExpiration,
-      '\nthisMonth', thisMonth);
 
     if ((thisYear > yearOfExpiration) && (monthOfExpiration !== 12)) {
       expirationStatus = PAYMENT_METHOD_STATUS.PAYMENT_METHOD_EXPIRED_MORE_THAN_ONE_MONTH_AGO;
@@ -172,15 +167,6 @@ function getPaymentMethodStatus(paymentMethod: PaymentMethodCreditCard): PAYMENT
     }
 
   }
-  console.info('user.service -> getPaymentMethodStatus: ',
-    '\ncurrentTimeObject', currentTimeObject,
-    '\nexpirationDate', expirationDate,
-    '\nbeginningOfThisMonth', beginningOfThisMonth,
-    '\nbeginningOfExpirationDateMonth', beginningOfExpirationDateMonth,
-    '\nexpirationDateIsThisMonth', expirationDateIsThisMonth,
-    '\nexpirationDateIsInTheFuture', expirationDateIsInTheFuture,
-    '\nexpirationWasLastMonth', expirationWasLastMonth,
-    '\nexpirationStatus', expirationStatus);
 
   return expirationStatus;
 }
@@ -365,11 +351,6 @@ export class UserService {
             let hasPaymentMethodAboutExpiredLastMonth;
             let hasPaymentMethodAboutExpiredMoreThanOneMonthAgo;
 
-            console.info('user.service -> constructor -> paymentMethods$: ',
-              '\ncurrentTimeObject', currentTimeObject,
-              '\npaymentMethods', paymentMethods,
-              '\nresponse', response);
-
             if (!paymentMethodIsMissing) {
               paymentMethods.forEach((paymentMethod) => {
                 const paymentMethodStatusCalculated: PAYMENT_METHOD_STATUS = getPaymentMethodStatus(paymentMethod as PaymentMethodCreditCard);
@@ -408,8 +389,7 @@ export class UserService {
                 this.paymentMethodsStatus.next(PAYMENT_METHOD_STATUS.PAYMENT_METHOD_EXPIRED_MORE_THAN_ONE_MONTH_AGO);
               }
             }
-            console.info('user.service -> constructor -> paymentMethods$: ',
-              '\nthis.paymentMethodsStatus', this.paymentMethodsStatus.value);
+
           }),
           map((response: PaymentMethodsAPIResponse) => {
             return response.paymentMethods;
@@ -661,8 +641,6 @@ export class UserService {
 
     const heatingSessionParams = params.otherParams;
     const departureTime = (heatingSessionParams?.time && heatingSessionParams?.date) ? Moment(`${heatingSessionParams.date} ${heatingSessionParams.time}`).format() : null;
-    // console.info('user.service -> startCharge:',
-    //   '\ndepartureTime:', departureTime);
 
     const body: APIBodyChargeSessionStart = {
       contractUserId: params.contractUserId,

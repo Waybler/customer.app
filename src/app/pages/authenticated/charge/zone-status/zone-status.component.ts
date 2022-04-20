@@ -32,9 +32,6 @@ export class ZoneStatusComponent implements OnInit {
     });
 
     this.userService.paymentMethodsStatus.subscribe((paymentMethodStatus) => {
-      console.info('zone-status.component -> ngOnInit ->   this.userService.paymentMethodsStatus.subscribe:'
-        , '\npaymentMethodStatus:', paymentMethodStatus,
-      );
       this.paymentMethodStatus = paymentMethodStatus;
       this.cdr.detectChanges();
     });
