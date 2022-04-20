@@ -1,7 +1,7 @@
 import { ContractType, ContractUser, FutureTerms, CONTRACT_STATUS, Terms } from './contract';
 import * as Moment from 'moment';
 import { API_RESULT } from './api';
-import { Payment } from './payment';
+import { PaymentMethod } from './payment';
 
 export enum STATION_STATE {
   BUSY = 'busy',
@@ -17,7 +17,7 @@ export enum ZONE_ERROR_LEVEL {
   OK = 'ok',
   UNKNOWN = 'unknown',
   WARNING = 'warning',
- }
+}
 
 export interface Station {
   stationId: number;
@@ -95,7 +95,7 @@ export interface ShouldUseCompactviewObject {
 }
 
 export interface GetChargeZoneInfoAPIResponse {
-  paymentMethods: Payment[];
+  paymentMethods: PaymentMethod[];
   result: API_RESULT;
   zoneCode: API_RESULT;
   zone: ChargeZonePublicInfo;

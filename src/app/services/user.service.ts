@@ -7,25 +7,13 @@ import * as Moment from 'moment';
 import { environment } from '../../environments/environment';
 import { StorageService } from './storage.service';
 import { ILocale, LocaleService } from './locale.service';
-import {
-  USER_APP_SETTINGS_PROPERTY,
-  UserAppSettings,
-  UserAppSettingsAPIResponse,
-  UserAuthenticateVerifyAPIResponse,
-} from '../models/user';
+import { USER_APP_SETTINGS_PROPERTY, UserAppSettings, UserAppSettingsAPIResponse, UserAuthenticateVerifyAPIResponse } from '../models/user';
 import { IWebSocketTypeOfUserUpdated } from '../models/webSocket';
 import { ChargeZone, GetChargeZoneInfoAPIResponse, StationsAvailableObject } from '../models/chargeZone';
 import { API, HTTP_STATUS_CODE } from '../models/api';
-import { CONTRACT_STATUS, TermsAndConditions } from '../models/contract';
+import { TermsAndConditions } from '../models/contract';
 import { HistoryChartDatum, HistoryForMonthAPIResponse, HistoryForMonthGUIModel } from '../models/history';
-import {
-  BillingInvoicesAPIResponse,
-  Invoice,
-  PAYMENT_METHOD_STATUS,
-  PaymentMethod,
-  PaymentMethodsAPIResponse,
-  UninvoicedAPIResponse,
-} from '../models/payment';
+import { BillingInvoicesAPIResponse, Invoice, PAYMENT_METHOD_STATUS, PaymentMethod, PaymentMethodCreditCard, PaymentMethodsAPIResponse, UninvoicedAPIResponse } from '../models/payment';
 import { APIBodyChargeSessionStart, ChargeSessionStartParams, ChargeSessionStopParams } from '../models/chargeSession';
 
 // import { LocaleService } from './locale.service';
@@ -123,6 +111,79 @@ export const USER_APP_SETTINGS_DEFAULT_VALUE = {
 const cache: UserServiceCache = {
   stationsObject: null,
 };
+
+const now = Moment();
+const currentTimeObject = {
+  now,
+  beginningOfMonth: now.startOf('month'),
+};
+
+function getPaymentMethodStatus(paymentMethod: PaymentMethodCreditCard): PAYMENT_METHOD_STATUS {
+  const expirationDateString = paymentMethod?.expirationDate;
+  if (!paymentMethod || !expirationDateString) {
+    return PAYMENT_METHOD_STATUS.PAYMENT_METHOD_IS_MISSING;
+  }
+  const expirationDate = Moment(expirationDateString);
+  const beginningOfThisMonth = currentTimeObject.beginningOfMonth;
+  const beginningOfExpirationDateMonth = Moment(expirationDate).startOf('month');
+
+  const expirationDateIsThisMonth = beginningOfExpirationDateMonth.isSame(beginningOfThisMonth);
+  const expirationDateIsInTheFuture = beginningOfExpirationDateMonth.isAfter(beginningOfThisMonth) ;
+  const expirationDateIsInThePast = beginningOfExpirationDateMonth < beginningOfThisMonth;
+
+  let expirationStatus = PAYMENT_METHOD_STATUS.OK;
+  let expirationWasLastMonth = false;
+
+  if (expirationDateIsInTheFuture) {
+    // Do nothing as we want to use the default status
+    return expirationStatus;
+  } else if (expirationDateIsThisMonth) {
+    expirationStatus = PAYMENT_METHOD_STATUS.PAYMENT_METHOD_ABOUT_TO_EXPIRE;
+  } else {
+    const yearOfExpiration = expirationDate.year();
+    const thisYear = beginningOfThisMonth.year();
+
+    const monthOfExpiration = expirationDate.month() + 1;
+    const thisMonth = beginningOfThisMonth.month() + 1;
+    console.info('user.service -> getPaymentMethodStatus -> else: ',
+      '\nthisYear', thisYear,
+      '\nyearOfExpiration', yearOfExpiration,
+      '\nmonthOfExpiration', monthOfExpiration,
+      '\nthisMonth', thisMonth);
+
+    if ((thisYear > yearOfExpiration) && (monthOfExpiration !== 12)) {
+      expirationStatus = PAYMENT_METHOD_STATUS.PAYMENT_METHOD_EXPIRED_MORE_THAN_ONE_MONTH_AGO;
+    } else {
+      const expirationYearWasLastYear = (thisYear - yearOfExpiration) === 1;
+
+      if (expirationYearWasLastYear) {
+        if (thisMonth === 1 && monthOfExpiration === 12) {
+          expirationWasLastMonth = true;
+        }
+      } else {
+        if ((thisMonth - monthOfExpiration) === 1) {
+          expirationWasLastMonth = true;
+        }
+      }
+
+      expirationStatus = expirationWasLastMonth
+        ? PAYMENT_METHOD_STATUS.PAYMENT_METHOD_EXPIRED_LAST_MONTH
+        : PAYMENT_METHOD_STATUS.PAYMENT_METHOD_EXPIRED_MORE_THAN_ONE_MONTH_AGO;
+    }
+
+  }
+  console.info('user.service -> getPaymentMethodStatus: ',
+    '\ncurrentTimeObject', currentTimeObject,
+    '\nexpirationDate', expirationDate,
+    '\nbeginningOfThisMonth', beginningOfThisMonth,
+    '\nbeginningOfExpirationDateMonth', beginningOfExpirationDateMonth,
+    '\nexpirationDateIsThisMonth', expirationDateIsThisMonth,
+    '\nexpirationDateIsInTheFuture', expirationDateIsInTheFuture,
+    '\nexpirationWasLastMonth', expirationWasLastMonth,
+    '\nexpirationStatus', expirationStatus);
+
+  return expirationStatus;
+}
 
 async function migrateDisparateSettingsToAppSettings(appSettings: UserAppSettings, storageService: StorageService) {
   const chargeOptions = await storageService.get(STORAGE_SERVICE_KEY.CHARGE_OPTIONS);
@@ -304,9 +365,15 @@ export class UserService {
             let hasPaymentMethodAboutExpiredLastMonth;
             let hasPaymentMethodAboutExpiredMoreThanOneMonthAgo;
 
+            console.info('user.service -> constructor -> paymentMethods$: ',
+              '\ncurrentTimeObject', currentTimeObject,
+              '\npaymentMethods', paymentMethods,
+              '\nresponse', response);
+
             if (!paymentMethodIsMissing) {
               paymentMethods.forEach((paymentMethod) => {
-                switch (paymentMethod.status) {
+                const paymentMethodStatusCalculated: PAYMENT_METHOD_STATUS = getPaymentMethodStatus(paymentMethod as PaymentMethodCreditCard);
+                switch (paymentMethodStatusCalculated) {
                   case   PAYMENT_METHOD_STATUS.OK: {
                     hasOKPaymentMethod = true;
                     break;
@@ -327,18 +394,22 @@ export class UserService {
               });
             }
 
-            if (paymentMethodIsMissing) {
-              this.paymentMethodsStatus.next(PAYMENT_METHOD_STATUS.PAYMENT_METHOD_IS_MISSING);
-            } else if (hasOKPaymentMethod) {
-              this.paymentMethodsStatus.next(PAYMENT_METHOD_STATUS.OK);
-            } else if (hasPaymentMethodAboutToExpire) {
-              this.paymentMethodsStatus.next(PAYMENT_METHOD_STATUS.PAYMENT_METHOD_ABOUT_TO_EXPIRE);
-            } else if (hasPaymentMethodAboutExpiredLastMonth) {
-              this.paymentMethodsStatus.next(PAYMENT_METHOD_STATUS.PAYMENT_METHOD_EXPIRED_LAST_MONTH);
-            } else if (hasPaymentMethodAboutExpiredMoreThanOneMonthAgo) {
-              this.paymentMethodsStatus.next(PAYMENT_METHOD_STATUS.PAYMENT_METHOD_EXPIRED_MORE_THAN_ONE_MONTH_AGO);
+            {
+              // As we may have multiple payment methods we want to cycle through the statuses in a more measured way in some sort of priority loop
+              if (paymentMethodIsMissing) {
+                this.paymentMethodsStatus.next(PAYMENT_METHOD_STATUS.PAYMENT_METHOD_IS_MISSING);
+              } else if (hasOKPaymentMethod) {
+                this.paymentMethodsStatus.next(PAYMENT_METHOD_STATUS.OK);
+              } else if (hasPaymentMethodAboutToExpire) {
+                this.paymentMethodsStatus.next(PAYMENT_METHOD_STATUS.PAYMENT_METHOD_ABOUT_TO_EXPIRE);
+              } else if (hasPaymentMethodAboutExpiredLastMonth) {
+                this.paymentMethodsStatus.next(PAYMENT_METHOD_STATUS.PAYMENT_METHOD_EXPIRED_LAST_MONTH);
+              } else if (hasPaymentMethodAboutExpiredMoreThanOneMonthAgo) {
+                this.paymentMethodsStatus.next(PAYMENT_METHOD_STATUS.PAYMENT_METHOD_EXPIRED_MORE_THAN_ONE_MONTH_AGO);
+              }
             }
-
+            console.info('user.service -> constructor -> paymentMethods$: ',
+              '\nthis.paymentMethodsStatus', this.paymentMethodsStatus.value);
           }),
           map((response: PaymentMethodsAPIResponse) => {
             return response.paymentMethods;

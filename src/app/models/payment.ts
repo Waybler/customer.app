@@ -60,6 +60,7 @@ export enum GiroPaymentMethodType {
 
 export interface PaymentMethod {
   paymentMethodId: number;
+  expirationDate: string;
   index: number;
   type: PaymentMethodType;
   status: PAYMENT_METHOD_STATUS;

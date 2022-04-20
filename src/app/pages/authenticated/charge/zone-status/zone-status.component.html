@@ -134,5 +134,5 @@
 <ion-item *ngIf="chargeZone.status == CONTRACT_STATUS.OK && !allStationsOk(chargeZone)"
           [attr.error]="true" technical-error>
   <ion-icon name="warning" color="light"></ion-icon>
-    {{t('technical-problem')}}
+    {{t('technical-problem', {vendorSupportEmail: vendor.vendorSupportEmail})}}
 </ion-item>
