@@ -120,6 +120,9 @@
                 "user": "Votre administrateur doit approuver les nouvelles conditions d’utilisation."
               },
               "no-user-payment-method": "Vous devez ajouter un moyen de paiement à votre compte.",
+              "user-payment-method-about-to-expire": "Votre mode de paiement est sur le point d'expirer.",
+              "user-payment-method-expired-last-month": "Votre mode de paiement a expiré le mois dernier.",
+              "user-payment-method-expired-more-than-one-month-ago": "Votre mode de paiement a expiré il y a plus d'un mois.",
               "user-terms-not-accepted": "Vous devez approuver les nouvelles conditions d’utilisation.",
               "time-restricted": "Votre abonnement n’est pas valable en ce créneau horaire.",
               "unknown-error": "Une erreur est survenue, veuillez contacter le support technique [{{status}}]."

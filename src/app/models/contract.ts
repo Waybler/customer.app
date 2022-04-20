@@ -1,6 +1,6 @@
 import { ChargeZone, ContractUserReservedStation } from './chargeZone';
 
-export enum IContractStatus {
+export enum CONTRACT_STATUS {
   CONTRACT_OCCUPIED = 'contract-occupied',
   OK = 'ok',
   NOT_ACCEPTED_CONTRACT_TERMS = 'not-accepted-contract-terms',
@@ -9,7 +9,7 @@ export enum IContractStatus {
   OWNER_PAYMENT_METHOD_MISSING = 'owner-payment-method-missing',
   USER_PAYMENT_METHOD_MISSING = 'user-payment-method-missing',
   USER_PAYMENT_METHOD_ABOUT_TO_EXPIRE = 'user-payment-method-about-to-expire',
-  USER_PAYMENT_METHOD_HAS_EXPIRED = 'user-payment-method-has-expired',
+  USER_PAYMENT_METHOD_EXPIRED_LAST_MONTH = 'user-payment-method-expired-last-month',
   USER_PAYMENT_METHOD_EXPIRED_MORE_THAN_ONE_MONTH_AGO = 'user-payment-method-expired-more-than-one-month-ago',
 }
 

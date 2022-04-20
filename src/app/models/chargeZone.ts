@@ -1,7 +1,7 @@
-import { ContractType, ContractUser, FutureTerms, IContractStatus, Terms } from './contract';
+import { ContractType, ContractUser, FutureTerms, CONTRACT_STATUS, Terms } from './contract';
 import * as Moment from 'moment';
 import { API_RESULT } from './api';
-import { Payment } from './payment';
+import { PaymentMethod } from './payment';
 
 export enum STATION_STATE {
   BUSY = 'busy',
@@ -9,6 +9,14 @@ export enum STATION_STATE {
   FAILURE = 'failure',
   FREE = 'free',
   READY = 'ready'
+}
+
+export enum ZONE_ERROR_LEVEL {
+  ERROR = 'error',
+  INFO = 'info',
+  OK = 'ok',
+  UNKNOWN = 'unknown',
+  WARNING = 'warning',
 }
 
 export interface Station {
@@ -74,10 +82,12 @@ export interface ChargeZone extends ChargeZonePublicInfo {
   isTimeRestricted: false;
   contracteeId: number;
   maxSessions: number;
+  name: string;
   newTerms: any;
   ownerId: number;
   stationGroups: StationGroup[];
-  status: IContractStatus;
+  status: CONTRACT_STATUS;
+  terms: Terms;
 }
 
 export interface ShouldUseCompactviewObject {
@@ -85,7 +95,7 @@ export interface ShouldUseCompactviewObject {
 }
 
 export interface GetChargeZoneInfoAPIResponse {
-  paymentMethods: Payment[];
+  paymentMethods: PaymentMethod[];
   result: API_RESULT;
   zoneCode: API_RESULT;
   zone: ChargeZonePublicInfo;

@@ -120,6 +120,9 @@
                 "user": "Din administrator må godkjenne vilkårsendringer."
               },
               "no-user-payment-method": "Du må koble en betalingsmåte til kontoen din.",
+              "user-payment-method-about-to-expire": "Betalingsmåten er i ferd med å utløpe.",
+              "user-payment-method-expired-last-month": "Betalingsmåten din utløp forrige måned.",
+              "user-payment-method-expired-more-than-one-month-ago": "Betalingsmåten din utløp for mer enn én måned siden.",
               "user-terms-not-accepted": "Du må godkjenne en vilkårsendring.",
               "time-restricted": "Din avtale gjelder ikke for denne tiden.",
               "unknown-error": "Allmenn feil, vennligst kontakt kundetjenesten [{{status}}]"

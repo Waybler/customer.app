@@ -120,6 +120,9 @@
                 "user": "Din administratör måste godkänna villkorsförändringar."
               },
               "no-user-payment-method": "Du måste koppla ett betalsätt till ditt konto.",
+              "user-payment-method-about-to-expire": "Ditt betalsätt håller på att gå ut.",
+              "user-payment-method-expired-last-month": "Ditt betalsätt gick ut förra månad.",
+              "user-payment-method-expired-more-than-one-month-ago": "Ditt betalsätt gick ut mer än en månad sedan.",
               "user-terms-not-accepted": "Du måste godkänna en villkorförändring.",
               "time-restricted": "Ditt avtal gäller inte denna tid.",
               "unknown-error": "Allmänt fel, var god kontakta kundtjänst [{{status}}]"

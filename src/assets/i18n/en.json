@@ -120,6 +120,9 @@
                 "user": "Your administrator has to approve new terms."
               },
               "no-user-payment-method": "You have to add a payment method to your account.",
+              "user-payment-method-about-to-expire": "Your payment method is about to expire.",
+              "user-payment-method-expired-last-month": "Your payment method expired last month.",
+              "user-payment-method-expired-more-than-one-month-ago": "Your payment method expired more than one month ago.",
               "user-terms-not-accepted": "You have to approve new terms.",
               "time-restricted": "Your agreement does not apply to this time.",
               "unknown-error": "General error, please contact customer service [{{status}}]."
