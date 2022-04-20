@@ -3,7 +3,7 @@ This application is built by CaCharge on the Ionic framework. The current framew
 
 # Vendors
 This application can easily be modified by other vendors to customise it to their own look and feel, with a few slight modifications. 
-Instructions on how to do this can be found under  **[resources/vendor](./resources/vendor/README.md)**.
+Instructions on how to do this can be found under  **[resources/vendor](./resources/vendor/README_vendor.md)**.
 
 #Ionic documentation
 https://ionicframework.com/docs/angular/overview
