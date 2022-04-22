@@ -13,7 +13,7 @@ import { vendor } from 'src/environments/environment';
 })
 export class ZoneStatusComponent implements OnInit {
   @Input()
-  public chargeZone: any;
+  public chargeZone: ChargeZone;
   public t: ITranslator;
   public vendor = vendor;
 
