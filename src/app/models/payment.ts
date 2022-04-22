@@ -90,7 +90,7 @@ export enum PAYMENT_METHOD_STATUS {
 }
 
 export interface PaymentMethodsAPIResponse {
-  paymentMethods: PaymentMethod[];
+  paymentMethods: PaymentMethodCreditCard[];
   result: API_RESULT;
 }
 

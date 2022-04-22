@@ -43,7 +43,7 @@
   [attr.warning]="PAYMENT_METHOD_STATUS.PAYMENT_METHOD_EXPIRED_LAST_MONTH"
   [attr.info]="PAYMENT_METHOD_STATUS.PAYMENT_METHOD_ABOUT_TO_EXPIRE" technical-error
 >
-  <ion-icon *ngIf="paymentMethodStatus !== PAYMENT_METHOD_STATUS.OK" name="warning" color="light"></ion-icon>
+  <ion-icon  name="warning" color="light"></ion-icon>
   <ng-container *ngSwitchCase="PAYMENT_METHOD_STATUS.PAYMENT_METHOD_ABOUT_TO_EXPIRE">
     {{t('errors.user-payment-method-about-to-expire')}}
   </ng-container>

@@ -13,7 +13,15 @@ import { ChargeZone, GetChargeZoneInfoAPIResponse, StationsAvailableObject } fro
 import { API, HTTP_STATUS_CODE } from '../models/api';
 import { TermsAndConditions } from '../models/contract';
 import { HistoryChartDatum, HistoryForMonthAPIResponse, HistoryForMonthGUIModel } from '../models/history';
-import { BillingInvoicesAPIResponse, Invoice, PAYMENT_METHOD_STATUS, PaymentMethod, PaymentMethodCreditCard, PaymentMethodsAPIResponse, UninvoicedAPIResponse } from '../models/payment';
+import {
+  BillingInvoicesAPIResponse,
+  Invoice,
+  PAYMENT_METHOD_STATUS,
+  PaymentMethod,
+  PaymentMethodCreditCard,
+  PaymentMethodsAPIResponse,
+  UninvoicedAPIResponse,
+} from '../models/payment';
 import { APIBodyChargeSessionStart, ChargeSessionStartParams, ChargeSessionStopParams } from '../models/chargeSession';
 
 // import { LocaleService } from './locale.service';
@@ -128,7 +136,7 @@ function getPaymentMethodStatus(paymentMethod: PaymentMethodCreditCard): PAYMENT
   const beginningOfExpirationDateMonth = Moment(expirationDate).startOf('month');
 
   const expirationDateIsThisMonth = beginningOfExpirationDateMonth.isSame(beginningOfThisMonth);
-  const expirationDateIsInTheFuture = beginningOfExpirationDateMonth.isAfter(beginningOfThisMonth) ;
+  const expirationDateIsInTheFuture = beginningOfExpirationDateMonth.isAfter(beginningOfThisMonth);
   const expirationDateIsInThePast = beginningOfExpirationDateMonth < beginningOfThisMonth;
 
   let expirationStatus = PAYMENT_METHOD_STATUS.OK;
@@ -226,7 +234,7 @@ export class UserService {
   public betaChanged$ = this.betaChangedSubject.asObservable();
   public beta$: Observable<boolean>;
 
-  public paymentMethods$: Observable<PaymentMethod[]>;
+  public paymentMethods$: Observable<PaymentMethodCreditCard[]>;
   public paymentMethodsStatus: BehaviorSubject<PAYMENT_METHOD_STATUS | null> = new BehaviorSubject(null);
   public uninvoiced$: Observable<UninvoicedAPIResponse>;
   public invoices$: Observable<Invoice[]>;
