@@ -246,7 +246,6 @@ export class ChargePage implements OnInit, OnDestroy, AfterViewChecked {
             this.showBack = (this.chargeZones != null && this.chargeZones.length > 1)
               || (this.chargeZones != null && this.chargeZones.length === 1 && this.chargeZones[0].maxSessions > 1);
             this.userService.sessionCount = this.sessions.length;
-
           }),
         );
       }),

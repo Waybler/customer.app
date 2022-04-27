@@ -175,7 +175,6 @@ function getPaymentMethodStatus(paymentMethod: PaymentMethodCreditCard): PAYMENT
     }
 
   }
-
   return expirationStatus;
 }
 

@@ -85,6 +85,7 @@ export interface ChargeZone extends ChargeZonePublicInfo {
   name: string;
   newTerms: any;
   ownerId: number;
+  userPaysConsumption: boolean;
   stationGroups: StationGroup[];
   status: CONTRACT_STATUS;
   terms: Terms;

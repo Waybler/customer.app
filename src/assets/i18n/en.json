@@ -111,8 +111,8 @@
           "zone-status": {
             "errors": {
               "no-payment-method": {
-                "owner": "You have to add a payment method to your account.",
-                "user": "Your administrator have to add a payment method to your account."
+                "owner": "You have to add a valid payment method to your account.",
+                "user": "Your administrator has to add a payment method to your account."
               },
               "max-parallel-sessions": "The maximum parallel charges for your contract is reached.",
               "new-terms": {
