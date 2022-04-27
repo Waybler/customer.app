@@ -1,5 +1,4 @@
 import { ContractType, ContractUser, FutureTerms, CONTRACT_STATUS, Terms } from './contract';
-import * as Moment from 'moment';
 import { API_RESULT } from './api';
 import { PaymentMethod } from './payment';
 
