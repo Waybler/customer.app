@@ -1,5 +1,4 @@
 import { ContractType, ContractUser, FutureTerms, CONTRACT_STATUS, Terms } from './contract';
-import * as Moment from 'moment';
 import { API_RESULT } from './api';
 import { PaymentMethod } from './payment';
 
@@ -85,6 +84,7 @@ export interface ChargeZone extends ChargeZonePublicInfo {
   name: string;
   newTerms: any;
   ownerId: number;
+  userPaysConsumption: boolean;
   stationGroups: StationGroup[];
   status: CONTRACT_STATUS;
   terms: Terms;
