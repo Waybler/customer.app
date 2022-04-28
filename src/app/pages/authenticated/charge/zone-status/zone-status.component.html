@@ -16,17 +16,17 @@
   <ng-container *ngSwitchCase="CONTRACT_STATUS.NOT_ACCEPTED_USER_TERMS">
     {{chargeZone.isAdmin ? t('errors.new-terms.admin') : t('errors.new-terms.user')}}
   </ng-container>
+  <ng-container *ngSwitchCase="CONTRACT_STATUS.NOT_ACCEPTED_CONTRACT_TERMS">
+    {{t('errors.user-terms-not-accepted')}}
+  </ng-container>
   <ng-container *ngSwitchCase="CONTRACT_STATUS.USER_PAYMENT_METHOD_MISSING">
     {{t('errors.no-user-payment-method')}}
-  </ng-container>
-  <ng-container *ngSwitchCase="CONTRACT_STATUS.NOT_ACCEPTED_USER_TERMS">
-    {{t('errors.user-terms-not-accepted')}}
   </ng-container>
   <ng-container *ngSwitchCase="CONTRACT_STATUS.TIME_RESTRICTED">
     {{t('errors.time-restricted')}}
   </ng-container>
 
-  <ng-container *ngSwitchDefault>{{t("errors.unknown", chargeZone)}}</ng-container>
+  <ng-container *ngSwitchDefault>{{t("errors.unknown-error", chargeZone)}}</ng-container>
 </ion-item>
 
 <ion-item
