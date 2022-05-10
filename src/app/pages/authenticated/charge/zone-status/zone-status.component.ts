@@ -35,6 +35,9 @@ export class ZoneStatusComponent implements OnInit {
       this.paymentMethodStatus = paymentMethodStatus;
       this.cdr.detectChanges();
     });
+    console.info('zone-status.component -> ngOnInit:',
+      '\nchargeZone: ', this.chargeZone,
+    );
   }
 
   zoneIsInError(chargeZone: ChargeZone): boolean {

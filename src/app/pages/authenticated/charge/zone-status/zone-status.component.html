@@ -17,7 +17,9 @@
     {{chargeZone.isAdmin ? t('errors.new-terms.admin') : t('errors.new-terms.user')}}
   </ng-container>
   <ng-container *ngSwitchCase="CONTRACT_STATUS.NOT_ACCEPTED_CONTRACT_TERMS">
-    {{t('errors.user-terms-not-accepted')}}
+    <ng-container *ngIf="chargeZone.isOwner || chargeZone.isAdmin">{{t('errors.new-terms.admin')}}</ng-container>
+    <ng-container *ngIf="!chargeZone.isOwner && !chargeZone.isAdmin">{{t('errors.new-terms.user')}}</ng-container>
+<!--    {{t('errors.not-accepted-contract-terms')}}-->
   </ng-container>
   <ng-container *ngSwitchCase="CONTRACT_STATUS.USER_PAYMENT_METHOD_MISSING">
     {{t('errors.no-user-payment-method')}}
