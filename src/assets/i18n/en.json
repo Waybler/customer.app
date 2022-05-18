@@ -207,7 +207,7 @@
             "error": {
               "1": "You already have an agreement for this zone.",
               "2": "We could not find any zone with this zone code.",
-              "3": "This zone is private and is administrated by your facility owner."
+              "3": "This zone is private and is administrated by the facility owner."
             }
           },
           "zone-options": {

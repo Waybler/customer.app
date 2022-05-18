@@ -822,6 +822,9 @@ export class UserService {
 
     return this.httpClient.get(`${environment.apiUrl}app/zones/info/${zoneCode}`).pipe(
       map((response: GetChargeZoneInfoAPIResponse) => {
+
+        console.info('user.service -> getZoneInfo: ',
+          '\nresponse: ', response);
         return { Status: ZoneInfoStatus.Valid, Data: response };
       }),
       catchError((err: HttpErrorResponse, r: any) => {
