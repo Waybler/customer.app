@@ -45,8 +45,6 @@ export class ZoneSearchComponent {
 
   public async search(form: NgForm): Promise<void> {
     this.userService.getZoneInfo(form.value.zoneCode).subscribe(async result => {
-      console.info('zone-search.component -> search -> ',
-        '\nresult: ', result);
       switch (result.Status) {
         case ZoneInfoStatus.Valid:
           if (await this.deviceService.isRunningOnDevice() && !this.deviceService.isSSL()) {
@@ -76,8 +74,6 @@ export class ZoneSearchComponent {
               }),
             ).subscribe();
           } else {
-            console.log('zone-search.component -> search -> ',
-              '\nresult.Data: ', result.Data);
             if (result.Data) {
               const modal = await this.modalController.create({
                 component: ZoneAddComponent,
@@ -94,8 +90,6 @@ export class ZoneSearchComponent {
         case ZoneInfoStatus.Unauthorized:
         case ZoneInfoStatus.Existing:
         case ZoneInfoStatus.NotFound: {
-          console.info('zone-search.component -> search -> not valid zone',
-            '\nresult: ', result);
           const toast = await this.toastController.create({
             message: this.t('error.' + result.Status),
             // showCloseButton: false,
@@ -103,12 +97,8 @@ export class ZoneSearchComponent {
             cssClass: 'danger',
             duration: 2000,
           }).then((t) => {
-            console.info('zone-search.component -> search -> not valid zone -> then:',
-              '\ntoast: ', t);
+            t.present();
           });
-          console.info('zone-search.component -> search -> not valid zone:',
-            '\ntoast: ', toast);
-          // await toast.present();
         }
       }
     });
