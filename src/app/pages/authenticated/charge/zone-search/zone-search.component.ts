@@ -74,27 +74,32 @@ export class ZoneSearchComponent {
               }),
             ).subscribe();
           } else {
-            console.log(result.Data);
-            const modal = await this.modalController.create({
-              component: ZoneAddComponent,
-              componentProps: { data: result.Data, inModal: true },
-            });
-            await modal.present();
-            this.closed.emit();
+            if (result.Data) {
+              const modal = await this.modalController.create({
+                component: ZoneAddComponent,
+                componentProps: { data: result.Data, inModal: true },
+              });
+              await modal.present();
+              this.closed.emit();
+            }else{
+              console.error('zone-search.component -> search -> We have no data to show');
+            }
           }
           break;
 
         case ZoneInfoStatus.Unauthorized:
         case ZoneInfoStatus.Existing:
-        case ZoneInfoStatus.NotFound:
+        case ZoneInfoStatus.NotFound: {
           const toast = await this.toastController.create({
             message: this.t('error.' + result.Status),
             // showCloseButton: false,
             position: 'top',
             cssClass: 'danger',
             duration: 2000,
+          }).then((t) => {
+            t.present();
           });
-          await toast.present();
+        }
       }
     });
   }

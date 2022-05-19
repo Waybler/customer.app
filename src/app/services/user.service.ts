@@ -819,9 +819,12 @@ export class UserService {
   }
 
   public getZoneInfo(zoneCode: string): Observable<ZoneInfo> {
-
-    return this.httpClient.get(`${environment.apiUrl}app/zones/info/${zoneCode}`).pipe(
+    const body = { zoneCode };
+    return this.httpClient.post(`${environment.apiUrl}app/zones/info`, body).pipe(
       map((response: GetChargeZoneInfoAPIResponse) => {
+
+        console.info('user.service -> getZoneInfo: ',
+          '\nresponse: ', response);
         return { Status: ZoneInfoStatus.Valid, Data: response };
       }),
       catchError((err: HttpErrorResponse, r: any) => {
