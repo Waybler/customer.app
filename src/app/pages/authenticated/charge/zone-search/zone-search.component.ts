@@ -86,7 +86,7 @@ export class ZoneSearchComponent {
               await modal.present();
               this.closed.emit();
             }else{
-
+              console.error('zone-search.component -> search -> We have no data to show');
             }
           }
           break;
