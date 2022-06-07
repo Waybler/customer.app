@@ -4,13 +4,13 @@
 
 export const environment = {
   production: false,
-  // apiUrl: 'https://api.cacharge.com/v6/',
-  // wsUrl: 'wss://api.cacharge.com/v6/',
-  // appUrl: 'https://app.cacharge.com'
+  apiUrl: 'https://api.cacharge.com/v6/',
+  wsUrl: 'wss://api.cacharge.com/v6/',
+  appUrl: 'https://app.cacharge.com'
 
-  apiUrl: 'http://localhost/v6/',
-  wsUrl: 'ws://localhost/v6/',
-  appUrl: 'http://localhost',
+  // apiUrl: 'http://localhost/v6/',
+  // wsUrl: 'ws://localhost/v6/',
+  // appUrl: 'http://localhost',
 
   // apiUrl: 'http://10.10.0.201/v6/',
   // wsUrl: 'ws://10.10.0.201/v6/',
