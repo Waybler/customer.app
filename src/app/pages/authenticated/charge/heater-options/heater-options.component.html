@@ -40,7 +40,7 @@
 
         <ion-item *ngIf="dateOffset != -2">
             <ion-label>{{t('time.label')}}</ion-label>
-            <ion-datetime #time [placeholder]="t('time.placeholder')" [cancelText]="t('cancel')" [doneText]="t('done')"
+            <ion-datetime #time placeholder="t('time.placeholder')" [cancelText]="t('cancel')" [doneText]="t('done')"
                 display-format="HH:mm" picker-format="HH:mm" minuteValues="0,15,30,45" (ionChange)="timeSelected()">
             </ion-datetime>
         </ion-item>
