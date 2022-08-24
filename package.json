@@ -96,14 +96,14 @@
       "cordova-plugin-app-version": {},
       "cordova-plugin-file-transfer": {},
       "cordova-plugin-file-opener2": {
-        "ANDROID_SUPPORT_V4_VERSION": "30.+"
+        "ANDROID_SUPPORT_V4_VERSION": "31.+"
       },
       "cordova-plugin-file": {},
       "cordova-plugin-statusbar": {},
       "cordova-plugin-splashscreen": {},
       "cordova-plugin-device": {},
       "cordova-plugin-ionic-webview": {
-        "ANDROID_SUPPORT_ANNOTATIONS_VERSION": "30.+"
+        "ANDROID_SUPPORT_ANNOTATIONS_VERSION": "31.+"
       },
       "cordova-plugin-ionic-keyboard": {},
       "cordova-plugin-inappbrowser": {},
