@@ -59,7 +59,7 @@
     "@types/node": "^12.11.1",
     "code-push": "^3.0.1",
     "codelyzer": "^6.0.0",
-    "cordova-android": "^10.1.2",
+    "cordova-android": "^11.0.0",
     "cordova-plugin-advanced-http": "^3.1.0",
     "cordova-plugin-androidx": "^3.0.0",
     "cordova-plugin-androidx-adapter": "^1.1.3",
